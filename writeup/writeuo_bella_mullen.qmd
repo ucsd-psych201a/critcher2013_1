@@ -10,11 +10,9 @@ format:
 
 <!-- Replication reports should all use this template to standardize reporting across projects.  These reports will be public supplementary materials that accompany the summary report(s) of the aggregate results. -->
 
-## Introduction TOMORROW
+## Introduction
 
-Introductions can be just 1-2 paragraphs clarifying the main idea of the original study, the target finding for replication, and any other essential information. It will NOT have a literature review -- that is in the original publication. You can write both the introduction and the methods in past tense.
-
-The original study examined how the speed of decision-making affects evaluations of an individual’s moral character. Researchers hypothesized that observers interpret quick moral or immoral decisions as a signal of the actor’s certainty, which suggests a clearer alignment with either morally good or bad dispositions. Two experiments tested this by presenting participants with scenarios where actors either quickly or slowly decided to keep or return a found wallet. Results showed that actors who made quick decisions to act morally were evaluated more positively, whereas quick decisions to act immorally led to more negative evaluations. This polarized effect was mediated by perceived decision certainty, as quick decisions were assumed to reflect strong moral or immoral convictions. The study’s findings underscore the role of decision speed as a social cue in moral judgment, suggesting that the speed of moral decision-making can influence how others perceive underlying moral character.
+In the article How Quick Decisions Illuminate Moral Character, authors Clayton R. Critcher, Yoel Inbar and David A. Pizarro examined how decision speed affects judgment of moral character. The hypothesis was that onlookers interpret quick decision speed as a signal of certainty that then aligns with a moral or immoral category. Participants in the study were asked to interpret a scenario where actors found a wallet and decided whether to return it or not. The actors decided either quickly or slowly and whether the actor acted morally or immorally was randomly assigned to the participant. Results showed that actors who made quick decisions to act morally were evaluated more positively, whereas quick decisions to act immorally led to more negative evaluations. Overall, the study found that the speed of moral decision-making can influence how others perceive moral character. After reading the passage participants ranked quickness, moral character evaluation, certainty, and emotional impulsivity on a scale from 1-7. A two-way ANOVA was used to analyze the results and reach a conclusion.
 
 ## Methods
 
@@ -36,7 +34,7 @@ Quickness. As a manipulation check, participants indicated how quickly (vs. slow
 
 Moral character evaluation. The three moral evaluation items had participants assess the agents’ underlying moral principles and standards by asking whether the agent: ‘‘has entirely good (vs. entirely bad) moral principles,’’ ‘‘has good (vs. bad) moral standards,’’ and ‘‘deep down has the moral principles and knowledge to do the right thing.’’
 
-Certainty. We included 4 items to assess each actor’s perceived decision certainty. Participants indicated ‘‘how con- flicted \[each\] felt when making his decision’’ (reverse-scored), ‘‘how many reservations \[each\] had’’ (reverse-scored), whether the target ‘‘was quite certain in his decision’’ (vs. had consid- erable reservations), and ‘‘how far \[each\] was from choosing the alternate course of action.’’
+Certainty. We included 4 items to assess each actor’s perceived decision certainty. Participants indicated ‘‘how conflicted \[each\] felt when making his decision’’ (reverse-scored), ‘‘how many reservations \[each\] had’’ (reverse-scored), whether the target ‘‘was quite certain in his decision’’ (vs. had considerable reservations), and ‘‘how far \[each\] was from choosing the alternate course of action.’’
 
 Emotional impulsivity. In order to ensure that decision speed was not simply taken as a proxy for emotional impulsivity (a feature previously shown to affect moral judgments; Pizarro, Uhlmann, & Salovey, 2003), we assessed perceptions of the emotionally impulsive nature of the decision with 2 items. Participants indicated to what extent the person remained ‘‘calm and emotionally contained’’ (reverse-scored) and ‘‘became upset and acted without thinking.’’"
 
@@ -54,15 +52,15 @@ The replication project will be replicating experiment 1. The following passages
 
 The key analysis of interest is how the speed of decision-making influences moral character evaluations. The analysis plan will follow the steps outlined in the original article. The analysis plan will cover a manipulation check, moral character evaluation, and perceived emotional impulsivity. The statistical test performed will be a two-way ANOVA, simple effects analysis, and mediation analysis. Data will be collected for the following variables: subject ID, immoral or moral condition, and a 1-7 ranking of quickness, moral character evaluation, certainty, and emotional impulsivity.
 
-There will also be the exclusion of data that is incomplete or by participants who do not pass the attention check.
+Data that is incomplete or from participants who do not pass the attention check will be excluded.
 
 ### Differences from Original Study
 
-The three main differences between replication and the original study will be that the sample population will be random, there will be an attention check built in, and demographic information will be collected. The original article surveyed 119 undergraduate students the University of California, Berkeley, or members of the surrounding community. The replication trials will have a random sample population because the trials will be conduced online and open to the public. The difference in data collection should not have an effect on the findings but may allow generalization to a wider population.
+The three main differences between replication and the original study will be that the sample population will be random, an attention check will be built-in, and demographic information will be collected. The original article surveyed 119 undergraduate students at the University of California, Berkeley, or members of the surrounding community. The replication trials will have a random sample population because the trials will be conducted online and open to the public. The difference in data collection should not affect the findings but may allow generalization to a wider population.
 
 An attention check will be added to the end of the study where participants will be asked to type the name of either of the characters from the scenarios they were presented. The addition of the attention check will help eliminate misleading or incomplete data that could come from participants who did not truly engage with the material.
 
-The last difference is that two demographic questions will be added to the study about age and gender. This may allow for greater generalizability from the findings.
+The last difference is that two demographic questions will be added to the study about age and gender. This may allow for greater generalizability of the findings.
 
 ### Methods Addendum (Post Data Collection)
 
