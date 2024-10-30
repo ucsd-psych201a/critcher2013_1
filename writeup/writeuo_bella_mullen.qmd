@@ -1,6 +1,6 @@
 ---
-title: "Replication of Study X by Sample & Sample (20xx, Psychological Science)"
-author: "Replication Author[s] (contact information)"
+title: "Replication of How Quick Decisions Illuminate Moral Character by Clayton R. Critcher, Yoel Inbar, & David A. Pizarro (2013, Social Psychological and Personality Science)"
+author: Replicated by: Isabella Mullen (imullen@ucsd.edu)"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 format:
   html:
@@ -10,16 +10,17 @@ format:
 
 <!-- Replication reports should all use this template to standardize reporting across projects.  These reports will be public supplementary materials that accompany the summary report(s) of the aggregate results. -->
 
-## Introduction
+## Introduction TOMORROW
 
-[No abstract is needed.]  Each replication project will have a straightforward, no frills report of the study and results.  These reports will be publicly available as supplementary material for the aggregate report(s) of the project as a whole.  Also, to maximize project integrity, the intro and methods will be written and critiqued in advance of data collection.  Introductions can be just 1-2 paragraphs clarifying the main idea of the original study, the target finding for replication, and any other essential information.  It will NOT have a literature review -- that is in the original publication. You can write both the introduction and the methods in past tense.  
+Introductions can be just 1-2 paragraphs clarifying the main idea of the original study, the target finding for replication, and any other essential information. It will NOT have a literature review -- that is in the original publication. You can write both the introduction and the methods in past tense.
 
+The original study examined how the speed of decision-making affects evaluations of an individual’s moral character. Researchers hypothesized that observers interpret quick moral or immoral decisions as a signal of the actor’s certainty, which suggests a clearer alignment with either morally good or bad dispositions. Two experiments tested this by presenting participants with scenarios where actors either quickly or slowly decided to keep or return a found wallet. Results showed that actors who made quick decisions to act morally were evaluated more positively, whereas quick decisions to act immorally led to more negative evaluations. This polarized effect was mediated by perceived decision certainty, as quick decisions were assumed to reflect strong moral or immoral convictions. The study’s findings underscore the role of decision speed as a social cue in moral judgment, suggesting that the speed of moral decision-making can influence how others perceive underlying moral character.
 
 ## Methods
 
 ### Power Analysis
 
-Original effect size, power analysis for samples to achieve 80%, 90%, 95% power to detect that effect size.  Considerations of feasibility for selecting planned sample size.
+Original effect size, power analysis for samples to achieve 80%, 90%, 95% power to detect that effect size. Considerations of feasibility for selecting planned sample size.
 
 ### Planned Sample
 
@@ -27,40 +28,60 @@ Planned sample size and/or termination rule, sampling frame, known demographics 
 
 ### Materials
 
-All materials - can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article.
+To collect data jsPsych will be used to create a publicly accessible online experiment. Below is the scenario and questions the participants will be asked. This follows the original article exactly.
 
-### Procedure	
+"Participants read about both Justin and Nate, two men who each independently came upon two separate cash-filled wallets in the parking lot of a local grocery store. Justin ‘‘was able to decide quickly’’ what to do. Nate ‘‘was only able to decide after long and careful deliberation.’’ Participants assigned to the moral condition learned both men ‘‘did not steal the money but instead left the wallet with customer service.’’ Those in the immoral condition learned instead that both men ‘‘pocketed the money and drove off.’'
 
-Can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article.
+Quickness. As a manipulation check, participants indicated how quickly (vs. slowly) the decision was made.
+
+Moral character evaluation. The three moral evaluation items had participants assess the agents’ underlying moral principles and standards by asking whether the agent: ‘‘has entirely good (vs. entirely bad) moral principles,’’ ‘‘has good (vs. bad) moral standards,’’ and ‘‘deep down has the moral principles and knowledge to do the right thing.’’
+
+Certainty. We included 4 items to assess each actor’s perceived decision certainty. Participants indicated ‘‘how con- flicted \[each\] felt when making his decision’’ (reverse-scored), ‘‘how many reservations \[each\] had’’ (reverse-scored), whether the target ‘‘was quite certain in his decision’’ (vs. had consid- erable reservations), and ‘‘how far \[each\] was from choosing the alternate course of action.’’
+
+Emotional impulsivity. In order to ensure that decision speed was not simply taken as a proxy for emotional impulsivity (a feature previously shown to affect moral judgments; Pizarro, Uhlmann, & Salovey, 2003), we assessed perceptions of the emotionally impulsive nature of the decision with 2 items. Participants indicated to what extent the person remained ‘‘calm and emotionally contained’’ (reverse-scored) and ‘‘became upset and acted without thinking.’’"
+
+### Procedure
+
+The replication project will be replicating experiment 1. The following passages are quoted directly from the original article:
+
+\- "Participants read about both Justin and Nate, two men who each independently came upon two separate cash-filled wallets in the parking lot of a local grocery store."
+
+\- "Participants assigned to the moral condition learned both men ‘did not steal the money but instead left the wallet with customer service.’ Those in the immoral condition learned instead that both men 'pocketed the money and drove off.'"
+
+\- "Immediately following the description of Justin and Nate’s actions, we asked participants the following sets of items (all on 1–7 scales): quickness, moral character evaluation, certainty, and emotional impulsivity."
 
 ### Analysis Plan
 
-Can also quote directly, though it is less often spelled out effectively for an analysis strategy section.  The key is to report an analysis strategy that is as close to the original - data cleaning rules, data exclusion rules, covariates, etc. - as possible.  
+The key analysis of interest is how the speed of decision-making influences moral character evaluations. The analysis plan will follow the steps outlined in the original article. The analysis plan will cover a manipulation check, moral character evaluation, and perceived emotional impulsivity. The statistical test performed will be a two-way ANOVA, simple effects analysis, and mediation analysis. Data will be collected for the following variables: subject ID, immoral or moral condition, and a 1-7 ranking of quickness, moral character evaluation, certainty, and emotional impulsivity.
 
-**Clarify key analysis of interest here**  You can also pre-specify additional analyses you plan to do.
+There will also be the exclusion of data that is incomplete or by participants who do not pass the attention check.
 
 ### Differences from Original Study
 
-Explicitly describe known differences in sample, setting, procedure, and analysis plan from original study.  The goal, of course, is to minimize those differences, but differences will inevitably occur.  Also, note whether such differences are anticipated to make a difference based on claims in the original article or subsequent published research on the conditions for obtaining the effect.
+The three main differences between replication and the original study will be that the sample population will be random, there will be an attention check built in, and demographic information will be collected. The original article surveyed 119 undergraduate students the University of California, Berkeley, or members of the surrounding community. The replication trials will have a random sample population because the trials will be conduced online and open to the public. The difference in data collection should not have an effect on the findings but may allow generalization to a wider population.
+
+An attention check will be added to the end of the study where participants will be asked to type the name of either of the characters from the scenarios they were presented. The addition of the attention check will help eliminate misleading or incomplete data that could come from participants who did not truly engage with the material.
+
+The last difference is that two demographic questions will be added to the study about age and gender. This may allow for greater generalizability from the findings.
 
 ### Methods Addendum (Post Data Collection)
 
 You can comment this section out prior to final report with data collection.
 
 #### Actual Sample
-  Sample size, demographics, data exclusions based on rules spelled out in analysis plan
+
+Sample size, demographics, data exclusions based on rules spelled out in analysis plan
 
 #### Differences from pre-data collection methods plan
-  Any differences from what was described as the original plan, or “none”.
 
+Any differences from what was described as the original plan, or “none”.
 
 ## Results
 
-
 ### Data preparation
 
-Data preparation following the analysis plan.
-	
+Data preparation following the analysis plan. Data preparation will include cleaning and exploring outliers. Responses that fall into the exclusion criteria (incomplete or attention test failed) will be removed.
+
 ```{r include=F}
 ### Data Preparation
 
@@ -75,20 +96,18 @@ Data preparation following the analysis plan.
 
 ### Confirmatory analysis
 
-The analyses as specified in the analysis plan.  
-
-*Side-by-side graph with original graph is ideal here*
+The confirmatory analysis will be the Two-way Analysis of Variance. This text will examine whether perceived certainty influenced moral judgments by using the decision speed data. From the original article, "it will be a two-way 2 (decision) x 2 (speed) ANOVA on the relative motive composite returned a main effect of decision as well as the predicted Decision Speed interaction."
 
 ### Exploratory analyses
 
-Any follow-up analyses desired (not required).  
+Any follow-up analyses desired (not required).
 
 ## Discussion
 
 ### Summary of Replication Attempt
 
-Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.  
+Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.
 
 ### Commentary
 
-Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt.  None of these need to be long.
+Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt. None of these need to be long.
