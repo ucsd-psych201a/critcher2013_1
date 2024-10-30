@@ -1,7 +1,79 @@
 ---
-title: "CSS 204 - Project Report Draft"
+title: "Replication of ___How Quick Decisions Illuminate Moral Character___ by Critcher et al (2013, Social Psychological and Personality Science)"
+subtitle: "Original Authors: Clayton R. Critcher, Yoel Inbar, & David A. Pizarro"
 author: "Harley Clifton"
-format: html
-editor: visual
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+format:
+  html:
+    toc: true
+    toc_depth: 3
 ---
 
+<!-- Replication reports should all use this template to standardize reporting across projects.  These reports will be public supplementary materials that accompany the summary report(s) of the aggregate results. -->
+
+## Introduction
+
+Within social psychology, studying relationships and snap judgements can give us insight into how people may justify the negative treatment of others. Performing a replication study of Experiment 1 from **How Quick Decisions Illuminate Moral Character** will provide a foundation for measuring and quantifying snap character judgements. To conduct this experiment, we will introduce two characters to the participants in writing. In the scenario, they both independently come across two separate cash-filled wallets in a grocery store parking lot. One is "able to decide quickly" what to do, and the other is "only able to decide after long and careful consideration." Then, participants who were randomly assigned to the *moral* condition will be presented with the outcome where both characters "did not steal the money and left the wallet with customer service instead." Participants in the *immoral* condition will be presented with the alternate ending where both men decide to "pocket the money and drive off." Immediately following the reading of their passage, participants will be asked to indicate the following on a scale from 1-7: (1) how quickly each character made their decision, (2) assess the character's underlying moral principals and standards, (3) report the perceived decision certainty, and (4) indicate the perceived emotionally impulsive nature of the decisions. Running a two-way 2x2 ANOVA should allow us to analyze these results appropriately.
+
+I anticipate a few potential challenges with replicating this study. It is possible that emotional impulsivity or certainty may be confounding variables and could, therefore, introduce high multicollinearity with decision speed. This may make it difficult to tell if the moral judgements are actually due to speed, or underlying variables associated with decision speed. I think it is important that we also explore the potential for any two-way interactions between variables in this setting, since it is possible that the effect of speed on moral judgement may change based on whether the decision made was moral or immoral.
+
+$~$
+
+## Methods
+
+### Materials
+
+JSPsych will be used to create an online experiment that will be publicly accessible for interested participants. Since the experiment relies on written scenarios and survey responses from participants, and online format is an ideal distribution method to attract participants from various backgrounds.
+
+To conduct this experiment, there are three separate passages that will be presented to participants. The first is an introduction that describes two men, Justin and Nate, who found cash-filled wallets. Justin made a quick decision about what to do, while Nate took longer to deliberate.
+
+Then, there will be two scenarios for the morality conditions that participants will be individually randomly assigned to. One passage describes both men acting morally (returning the wallet), and the other depicts them acting immorally (keeping the money).
+
+### Procedure
+
+Experiment 1:
+
+-   "Participants read about both Justin and Nate, two men who each independently came upon two separate cash-filled wallets in the parking lot of a local grocery store. Justin *was able to decide quickly* what to do. Nate *was only able to decide after long and careful deliberation.*"
+-   "Participants assigned to the moral condition learned both men 'did not steal the money but instead left the wallet with customer service.' Those in the immoral condition learned instead that both men 'pocketed the money and drove off.'"
+-   "Participants were asked to rate the quickness, moral character evaluation, decision certainty, and emotional impulsivity of the agents on 1-7 scales."
+
+### Analysis Plan
+
+The key analysis of interest is to assess the impact of decision morality and speed on moral character judgement. To do this effectively, data will be collected on subject id and randomized decision category (immoral or moral condition). Participants will also indicate the following for each of the characters, Justin and Nate: quickness (perceived decision speed), moral character evaluation, perceived decision certainty, and perceived emotional impulsivity. It would also be useful to have general demographic information about participants, like age and gender, for generalizability purposes.
+
+There has also been some data exclusion criteria established. If there are submissions with any non-answers, they will be excluded from our data analysis. In addition, participants that fail the attention check built into the experiment will be removed from the dataset to prevent against bots.
+
+### Differences from Original Study
+
+In this replication experiment, there are a few anticipated differences from the original experiment. First, these replication trials are conducted via online format. The original modality of presenting the stimuli is unclear, so there is no confirmation whether it was done electronically or with paper. While not explicitly mentioned in the original study's paper, it can be assumed that their presentation of stimuli was also conducted in a constant lab setting. In the replication, the setting will vary for each participant. These elements should have very minimal to no impact on study results.
+
+One advantage of the online experiment format is that the sample of participants has a greater chance to contain people from a variety of ages, races, regions, etc. This will ideally increase the generalizability of results to more than just undergraduate students at UC Berkeley and community members.
+
+An intentional difference that was included is the addition of an attention check at the end of the experiment. For in-person settings, it is easier to monitor whether a subject is paying appropriate attention to the presented stimuli. However, online formats introduce the potential for bots to participate and potentially skew results. Additionally, with no experimenter monitoring each participant, they may be more likely to arbitrarily select answers without reading to get the experiment over with. To avoid this, an attention check was added at the end of the experiment. The attention check asks the participant to name one of the characters in the scenarios they were presented. This is believed to alleviate the possibility of misleading data by allowing researchers to identify and exclude data from potential bots or participants who were not paying appropriate attention.
+
+$~$
+
+## Results
+
+### Data preparation
+
+In advance of running the analysis, it is anticipated to need some data cleaning and wrangling. This will involve removing any observations that fit the previously described exclusion criteria. The data is expected to need pivoting to a long format to streamline data visualization and statistical testing. Outliers will also be investigated to determine if any are suspicious or problematic.
+
+```{r include=F}
+### Data Preparation
+
+#### Load Relevant Libraries and Functions
+library(tidyverse)
+
+#### Import data
+
+#### Data exclusion / filtering
+
+#### Prepare data for analysis - create columns etc.
+```
+
+### Confirmatory analysis
+
+To perform our primary analysis, a two-way 2 (decision) x 2 (speed) Analysis of Variance (ANOVA) on moral evaluations will be conducted. It is also critical to explore the interaction between decision speed (fast vs. slow) and decision type (moral vs. immoral).
+
+Secondary analyses included (a) a manipulation check to confirm that perceived decision speed matched what the researchers intended, (b) exploring associations between decision speed and emotional impulsivity, and (c) investigating the relationship between decision speed and perceived certainty.
