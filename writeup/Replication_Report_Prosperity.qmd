@@ -16,6 +16,40 @@ The original study examined how the speed of decision-making influences percepti
 
 Replicating Experiment 1 from “How Quick Decisions Illuminate Moral Character” offers an opportunity to explore how decision speed affects character judgments. In this experiment, participants will read a scenario about two characters who find separate cash-filled wallets in a grocery store parking lot. One character decides quickly, while the other takes longer. Participants will be randomly assigned to either a moral or immoral condition. Those in the moral condition will learn that both characters returned the wallets, while those in the immoral condition will read that both characters kept the money. Participants will then rate each character based on perceived decision speed, moral principles, decision certainty, and impulsiveness. A two-way ANOVA will then be used to analyze whether decision speed consistently affects moral judgments. 
 
+## Design Overview
+
+### Manipulated Variables
+
+-   Decision speed (quick or slow) and moral conditions (immoral or moral act) were the two manipulated variables.
+
+### Measurements
+
+-   Four primary measures were taken in Experiment 1
+
+    -   Moral character evaluation
+
+    -   Quickness
+
+    -   Certainty
+
+    -   Emotional impulsivity
+
+### Study Design
+
+-   The experiment is a between participants design because each participant was only exposed to one condition as they were randomly assigned to either the moral or immoral scenario.
+
+### Repetition in Measures
+
+-   Although the same set of measures were used to evaluate Justin and Nate, it does not count as repetition because the scenarios were not identical (decision speed was different).
+
+### Consequences of Design Alterations
+
+-   If the study was modified to a within participant design, where participants were exposed to both moral and immoral scenarios, it may introduce bias as participants might become more aware of the study's purpose. This awareness could potentially influence the way they respond to survey questions.
+
+### Reducing Demand characteristics
+
+-   Randomly assigning conditions and using a within participant design helps reduce demand characteristics.
+
 ## Methods
 
 ### Power Analysis
