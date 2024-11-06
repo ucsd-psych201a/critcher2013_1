@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-   <title>Psychology Experiment with Back Button</title>
+   <title>Psychology Experiment</title>
    <!-- Load jsPsych and plugins -->
    <script src="https://unpkg.com/jspsych@8.0.0"></script>
    <script src="https://unpkg.com/@jspsych/plugin-html-button-response@2.0.0"></script>
@@ -19,45 +19,26 @@
   });
 
   // Create timeline array
-  let timeline = [];
-
-  // Track the current index to handle back and continue navigation
-  let currentIndex = 0;
-
-  // Utility function to add "Back" and "Continue" buttons to each trial
-  function createTrialWithBackButton(trialConfig) {
-    return {
-      ...trialConfig,
-      choices: ['Back', 'Continue'],
-      button_html: '<button class="jspsych-btn">%choice%</button>', // Defines button HTML layout
-      on_finish: function(data) {
-        if (data.response === 0) {  // If "Back" is clicked (button index 0)
-          currentIndex = Math.max(0, currentIndex - 1); // Go to previous trial, not below 0
-          jsPsych.resumeExperiment(currentIndex);
-        } else {  // If "Continue" is clicked (button index 1)
-          currentIndex++;
-        }
-      }
-    };
-  }
+  const timeline = [];
 
   // Introduction prompt
-  const intro = createTrialWithBackButton({
+  const intro = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `
       <p>Justin and Nate were walking to separate cars in the parking lot of Andronico&apos;s, a local grocery store, 
       when they each spotted a different lost wallet next to their cars. Upon picking up the wallet and looking inside, 
       each found several hundred dollars in cash. Each man considered whether he should return the wallet and money to the 
       Customer Service desk at Andronico&apos;s, or pocket the money and drive away.</p>
-    `
-  });
+    `,
+    choices: ['Continue']
+  };
   timeline.push(intro);
 
   // Random assignment to moral or immoral condition
   const condition = Math.random() > 0.5 ? 'moral' : 'immoral';
 
   // Story prompts for each condition
-  const moralPrompt = createTrialWithBackButton({
+  const moralPrompt = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `
       <p>Justin saw his decision as an easy one and <i>was able to decide quickly. He did not steal the money</i> and instead 
@@ -65,17 +46,19 @@
       <p>In contrast, Nate saw his decision as difficult and <i>was only able to decide after long and careful deliberation</i>. 
       After several minutes of thinking in his car, <i>he too decided not to steal the money</i> and instead left the wallet 
       with Customer Service.</p>
-    `
-  });
+    `,
+    choices: ['Continue']
+  };
 
-  const immoralPrompt = createTrialWithBackButton({
+  const immoralPrompt = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `
       <p>Justin saw his decision as an easy one and <i>was able to decide quickly. He pocketed the money</i> and drove off.</p>
       <p>In contrast, Nate saw his decision as difficult and <i>was only able to decide after long and careful deliberation</i>. 
       After several minutes of thinking in his car, <i>he too decided to pocket the money</i> and drove off.</p>
-    `
-  });
+    `,
+    choices: ['Continue']
+  };
 
   timeline.push(condition === 'moral' ? moralPrompt : immoralPrompt);
 
@@ -89,48 +72,87 @@
       prompt: "Regardless of Justin&apos;s decision, does it sound like Justin has underlying moral principles that are good, bad, or somewhere in between?",
       labels: ['1 - Completely bad', '2', '3', '4 - Mixed', '5', '6', '7 - Completely good']
     },
-    // Add additional questions as required
+    {
+      prompt: "Regardless of Justin&apos;s decision, do you think Justin has moral standards that are good, bad, or somewhere in between?",
+      labels: ['1 - Completely bad', '2', '3', '4 - Mixed', '5', '6', '7 - Completely good']
+    },
+    {
+      prompt: "Regardless of Justin&apos;s decision, do you think Justin possesses the moral knowledge and principles necessary to do ‘the right thing’?",
+      labels: ['1 - Not at all', '2', '3', '4 - Somewhat', '5', '6', '7 - Completely']
+    },
+    {
+      prompt: "Would you say Justin was quite certain in his decision, or did he have hesitations?",
+      labels: ['1 - Completely certain', '2', '3', '4', '5', '6', '7 - Considerable hesitations']
+    },
+    {
+      prompt: "How close do you think Justin was to choosing the alternate course of action?",
+      labels: ['1 - Very close to', '2', '3', '4', '5', '6', '7 - Not close at all']
+    },
+    {
+      prompt: "How conflicted do you think Justin felt in making the decision?",
+      labels: ['1 - Very conflicted', '2', '3', '4', '5', '6', '7 - Not at all conflicted']
+    },
+    {
+      prompt: "Based on the information provided, do you think Justin had many reservations about the decision?",
+      labels: ['1 - None at all', '2', '3', '4', '5', '6', '7 - A whole lot']
+    },
+    {
+      prompt: "Do you think Justin was calm and emotionally contained while making the decision?",
+      labels: ['1 - Not at all', '2', '3', '4', '5', '6', '7 - Entirely so']
+    },
+    {
+      prompt: "To what extent do you think Justin became upset and acted without thinking?",
+      labels: ['1 - Not at all', '2', '3', '4', '5', '6', '7 - Entirely so']
+    }
   ];
 
   justinQuestions.forEach(question => {
-    const trial = createTrialWithBackButton({
+    timeline.push({
       type: jsPsychSurveyLikert,
       preamble: condition === 'moral' ? 
         "Justin saw his decision as an easy one and was able to decide quickly. He did not steal the money and instead left the wallet with Customer Service." : 
         "Justin saw his decision as an easy one and was able to decide quickly. He pocketed the money and drove off.",
       questions: [{ prompt: question.prompt, labels: question.labels, required: true }]
     });
-    timeline.push(trial);
   });
 
   // Nate-related questions
   const nateQuestions = [
+    // Similar to Justin's questions, with "Nate" substituted
     { prompt: 'Did Nate make his decision quickly or slowly?', labels: justinQuestions[0].labels },
     { prompt: "Regardless of Nate&apos;s decision, does it sound like Nate has underlying moral principles that are good, bad, or somewhere in between?", labels: justinQuestions[1].labels },
-    // Add additional questions as required
+    { prompt: "Regardless of Nate&apos;s decision, do you think Nate has moral standards that are good, bad, or somewhere in between?", labels: justinQuestions[2].labels },
+    { prompt: "Regardless of Nate&apos;s decision, do you think Nate possesses the moral knowledge and principles necessary to do ‘the right thing’?", labels: justinQuestions[3].labels },
+    { prompt: "Would you say Nate was quite certain in his decision, or did he have hesitations?", labels: justinQuestions[4].labels },
+    { prompt: "How close do you think Nate was to choosing the alternate course of action?", labels: justinQuestions[5].labels },
+    { prompt: "How conflicted do you think Nate felt in making the decision?", labels: justinQuestions[6].labels },
+    { prompt: "Based on the information provided, do you think Nate had many reservations about the decision?", labels: justinQuestions[7].labels },
+    { prompt: "Do you think Nate was calm and emotionally contained while making the decision?", labels: justinQuestions[8].labels },
+    { prompt: "To what extent do you think Nate became upset and acted without thinking?", labels: justinQuestions[9].labels }
   ];
 
   nateQuestions.forEach(question => {
-    const trial = createTrialWithBackButton({
+    timeline.push({
       type: jsPsychSurveyLikert,
       preamble: condition === 'moral' ? 
         "Nate saw his decision as difficult and was only able to decide after long and careful deliberation. After several minutes of thinking in his car, he too decided not to steal the money and instead left the wallet with Customer Service." : 
         "Nate saw his decision as difficult and was only able to decide after long and careful deliberation. After several minutes of thinking in his car, he too decided to pocket the money and drove off.",
       questions: [{ prompt: question.prompt, labels: question.labels, required: true }]
     });
-    timeline.push(trial);
   });
 
   // Attention check question
-  const attentionCheck = createTrialWithBackButton({
+  const attentionCheck = {
     type: jsPsychSurveyText,
-    questions: [{ prompt: "Please enter the name of either character mentioned in the prompts.", required: true }]
-  });
+    questions: [{ prompt: "Please enter the name of either character mentioned in the prompts.", required: true }],
+    validation: function(response) {
+      const answer = response.toLowerCase();
+      return ['justin', 'nate'].includes(answer);
+    }
+  };
   timeline.push(attentionCheck);
 
-  // Run the experiment
+  // Start the experiment
   jsPsych.run(timeline);
 </script>
 </html>
-
-
