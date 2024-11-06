@@ -14,7 +14,7 @@
   // Initialize jsPsych
   const jsPsych = initJsPsych({
     on_finish: function () {
-      jsPsych.data.displayData();  // Display data at end
+      jsPsych.run([thankYouMessage]);  // Display thank-you message at the end
     }
   });
 
@@ -118,7 +118,6 @@
 
   // Nate-related questions
   const nateQuestions = [
-    // Similar to Justin's questions, with "Nate" substituted
     { prompt: 'Did Nate make his decision quickly or slowly?', labels: justinQuestions[0].labels },
     { prompt: "Regardless of Nate&apos;s decision, does it sound like Nate has underlying moral principles that are good, bad, or somewhere in between?", labels: justinQuestions[1].labels },
     { prompt: "Regardless of Nate&apos;s decision, do you think Nate has moral standards that are good, bad, or somewhere in between?", labels: justinQuestions[2].labels },
@@ -144,15 +143,19 @@
   // Attention check question
   const attentionCheck = {
     type: jsPsychSurveyText,
-    questions: [{ prompt: "Please enter the name of either character mentioned in the prompts.", required: true }],
-    validation: function(response) {
-      const answer = response.toLowerCase();
-      return ['justin', 'nate'].includes(answer);
-    }
+    questions: [{ prompt: "Please enter the name of either character mentioned in the prompts.", required: true }]
   };
   timeline.push(attentionCheck);
 
-  // Start the experiment
+  // Thank-you message at the end of the experiment
+  const thankYouMessage = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: '<p>Thank you for participating in this experiment!</p>',
+    choices: []  // No choices/buttons, just the message
+  };
+
+  // Run the experiment
   jsPsych.run(timeline);
 </script>
 </html>
+
