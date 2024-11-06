@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-   <title>Psychology Experiment</title>
+   <title>Psychology Experiment with Back Button</title>
    <!-- Load jsPsych and plugins -->
    <script src="https://unpkg.com/jspsych@8.0.0"></script>
    <script src="https://unpkg.com/@jspsych/plugin-html-button-response@2.0.0"></script>
@@ -19,7 +19,24 @@
   });
 
   // Create timeline array
-  const timeline = [];
+  let timeline = [];
+  let currentIndex = 0;
+
+  // Function to add back button
+  function addBackButton() {
+    const backButton = document.createElement("button");
+    backButton.innerText = "Back";
+    backButton.style.position = "absolute";
+    backButton.style.top = "10px";
+    backButton.style.left = "10px";
+    backButton.onclick = function () {
+      if (currentIndex > 0) {
+        currentIndex--;
+        jsPsych.resumeExperiment(currentIndex); // Move to the previous question
+      }
+    };
+    document.body.appendChild(backButton);
+  }
 
   // Introduction prompt
   const intro = {
@@ -30,7 +47,8 @@
       each found several hundred dollars in cash. Each man considered whether he should return the wallet and money to the 
       Customer Service desk at Andronico&apos;s, or pocket the money and drive away.</p>
     `,
-    choices: ['Continue']
+    choices: ['Continue'],
+    on_load: addBackButton
   };
   timeline.push(intro);
 
@@ -47,7 +65,8 @@
       After several minutes of thinking in his car, <i>he too decided not to steal the money</i> and instead left the wallet 
       with Customer Service.</p>
     `,
-    choices: ['Continue']
+    choices: ['Continue'],
+    on_load: addBackButton
   };
 
   const immoralPrompt = {
@@ -57,7 +76,8 @@
       <p>In contrast, Nate saw his decision as difficult and <i>was only able to decide after long and careful deliberation</i>. 
       After several minutes of thinking in his car, <i>he too decided to pocket the money</i> and drove off.</p>
     `,
-    choices: ['Continue']
+    choices: ['Continue'],
+    on_load: addBackButton
   };
 
   timeline.push(condition === 'moral' ? moralPrompt : immoralPrompt);
@@ -112,13 +132,13 @@
       preamble: condition === 'moral' ? 
         "Justin saw his decision as an easy one and was able to decide quickly. He did not steal the money and instead left the wallet with Customer Service." : 
         "Justin saw his decision as an easy one and was able to decide quickly. He pocketed the money and drove off.",
-      questions: [{ prompt: question.prompt, labels: question.labels, required: true }]
+      questions: [{ prompt: question.prompt, labels: question.labels, required: true }],
+      on_load: addBackButton
     });
   });
 
   // Nate-related questions
   const nateQuestions = [
-    // Similar to Justin's questions, with "Nate" substituted
     { prompt: 'Did Nate make his decision quickly or slowly?', labels: justinQuestions[0].labels },
     { prompt: "Regardless of Nate&apos;s decision, does it sound like Nate has underlying moral principles that are good, bad, or somewhere in between?", labels: justinQuestions[1].labels },
     { prompt: "Regardless of Nate&apos;s decision, do you think Nate has moral standards that are good, bad, or somewhere in between?", labels: justinQuestions[2].labels },
@@ -136,24 +156,5 @@
       type: jsPsychSurveyLikert,
       preamble: condition === 'moral' ? 
         "Nate saw his decision as difficult and was only able to decide after long and careful deliberation. After several minutes of thinking in his car, he too decided not to steal the money and instead left the wallet with Customer Service." : 
-        "Nate saw his decision as difficult and was only able to decide after long and careful deliberation. After several minutes of thinking in his car, he too decided to pocket the money and drove off.",
-      questions: [{ prompt: question.prompt, labels: question.labels, required: true }]
-    });
-  });
-
-  // Attention check question
-  const attentionCheck = {
-    type: jsPsychSurveyText,
-    questions: [{ prompt: "Please enter the name of either character mentioned in the prompts.", required: true }],
-    validation: function(response) {
-      const answer = response.toLowerCase();
-      return ['justin', 'nate'].includes(answer);
-    }
-  };
-  timeline.push(attentionCheck);
-
-  // Start the experiment
-  jsPsych.run(timeline);
-</script>
-</html>
+        "Nate saw his decision as difficult and was only able to decide after long and careful deliberation
 
