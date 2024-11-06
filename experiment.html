@@ -21,16 +21,18 @@
   // Create timeline array
   let timeline = [];
 
-  // Utility function to add a "Back" button next to "Continue" for each trial
+  // Track the current index to handle back and continue navigation
+  let currentIndex = 0;
+
+  // Utility function to add "Back" and "Continue" buttons to each trial
   function createTrialWithBackButton(trialConfig) {
     return {
       ...trialConfig,
       choices: ['Back', 'Continue'],
-      button_html: '<button class="jspsych-btn">%choice%</button>',
+      button_html: '<button class="jspsych-btn">%choice%</button>', // Defines button HTML layout
       on_finish: function(data) {
         if (data.response === 0) {  // If "Back" is clicked (button index 0)
-          jsPsych.endCurrentTimeline();
-          currentIndex--; // Move to previous trial
+          currentIndex = Math.max(0, currentIndex - 1); // Go to previous trial, not below 0
           jsPsych.resumeExperiment(currentIndex);
         } else {  // If "Continue" is clicked (button index 1)
           currentIndex++;
@@ -38,9 +40,6 @@
       }
     };
   }
-
-  // Track the current index to handle back and continue navigation
-  let currentIndex = 0;
 
   // Introduction prompt
   const intro = createTrialWithBackButton({
@@ -90,7 +89,7 @@
       prompt: "Regardless of Justin&apos;s decision, does it sound like Justin has underlying moral principles that are good, bad, or somewhere in between?",
       labels: ['1 - Completely bad', '2', '3', '4 - Mixed', '5', '6', '7 - Completely good']
     },
-    // Add remaining questions in a similar way
+    // Add additional questions as required
   ];
 
   justinQuestions.forEach(question => {
@@ -108,7 +107,7 @@
   const nateQuestions = [
     { prompt: 'Did Nate make his decision quickly or slowly?', labels: justinQuestions[0].labels },
     { prompt: "Regardless of Nate&apos;s decision, does it sound like Nate has underlying moral principles that are good, bad, or somewhere in between?", labels: justinQuestions[1].labels },
-    // Add remaining questions in a similar way
+    // Add additional questions as required
   ];
 
   nateQuestions.forEach(question => {
