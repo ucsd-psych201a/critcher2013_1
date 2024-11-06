@@ -2,7 +2,7 @@
 <html>
  <head>
    <title>Psychology Experiment</title>
-   <!-- Load jsPsych and plugin -->
+   <!-- Load jsPsych and plugins -->
    <script src="https://unpkg.com/jspsych@8.0.0"></script>
    <script src="https://unpkg.com/@jspsych/plugin-html-button-response@2.0.0"></script>
    <script src="https://unpkg.com/@jspsych/plugin-survey-likert@2.0.0"></script>
@@ -11,26 +11,26 @@
 <body></body>
 <script>
   // Initialize jsPsych
-  var jsPsych = initJsPsych({
+  const jsPsych = initJsPsych({
     on_finish: function () {
       jsPsych.data.displayData();
     }
   });
 
   // Create timeline array to store the sequence of trials
-  var timeline = [];
+  const timeline = [];
 
   // Define Moral and Immoral story conditions
-  var storyMoral = {
-    type: 'html-button-response',
+  const storyMoral = {
+    type: jsPsychHtmlButtonResponse,  // Updated plugin structure for jsPsych 8
     stimulus: `
       <p>Justin and Nate each found a wallet with cash. Justin quickly decided to return the wallet, while Nate took some time but also returned it.</p>
     `,
     choices: ['Continue']
   };
 
-  var storyImmoral = {
-    type: 'html-button-response',
+  const storyImmoral = {
+    type: jsPsychHtmlButtonResponse,
     stimulus: `
       <p>Justin and Nate each found a wallet with cash. Justin quickly decided to take the cash, while Nate took some time but also took it.</p>
     `,
@@ -38,15 +38,15 @@
   };
 
   // Define Likert scale questions for Justin
-  var questionsJustin = [
+  const questionsJustin = [
     {
-      type: 'survey-likert',
+      type: jsPsychSurveyLikert,
       questions: [
         { prompt: 'Did Justin make his decision quickly or slowly?', labels: ['Particularly slowly', '', '', '', '', '', 'Particularly quickly'], required: true }
       ]
     },
     {
-      type: 'survey-likert',
+      type: jsPsychSurveyLikert,
       questions: [
         { prompt: 'Does it sound like Justin has underlying moral principles that are good, bad, or somewhere in between?', labels: ['Completely bad', '', '', 'Mixed', '', '', 'Completely good'], required: true },
         { prompt: 'Does Justin have the moral knowledge to do “the right thing”?', labels: ['Not at all', '', '', 'Somewhat', '', '', 'Completely'], required: true }
@@ -55,15 +55,15 @@
   ];
 
   // Define Likert scale questions for Nate
-  var questionsNate = [
+  const questionsNate = [
     {
-      type: 'survey-likert',
+      type: jsPsychSurveyLikert,
       questions: [
         { prompt: 'Did Nate make his decision quickly or slowly?', labels: ['Particularly slowly', '', '', '', '', '', 'Particularly quickly'], required: true }
       ]
     },
     {
-      type: 'survey-likert',
+      type: jsPsychSurveyLikert,
       questions: [
         { prompt: 'Does it sound like Nate has underlying moral principles that are good, bad, or somewhere in between?', labels: ['Completely bad', '', '', 'Mixed', '', '', 'Completely good'], required: true },
         { prompt: 'Does Nate have the moral knowledge to do “the right thing”?', labels: ['Not at all', '', '', 'Somewhat', '', '', 'Completely'], required: true }
@@ -72,7 +72,7 @@
   ];
 
   // Randomize between Moral and Immoral conditions
-  var condition = Math.random() > 0.5 ? 'moral' : 'immoral';
+  const condition = Math.random() > 0.5 ? 'moral' : 'immoral';
 
   if (condition === 'moral') {
     timeline.push(storyMoral, ...questionsJustin, ...questionsNate);
@@ -84,3 +84,4 @@
   jsPsych.run(timeline);
 </script>
 </html>
+
