@@ -22,20 +22,21 @@
   let timeline = [];
   let currentIndex = 0;
 
-  // Function to add back button
-  function addBackButton() {
-    const backButton = document.createElement("button");
-    backButton.innerText = "Back";
-    backButton.style.position = "absolute";
-    backButton.style.top = "10px";
-    backButton.style.left = "10px";
-    backButton.onclick = function () {
-      if (currentIndex > 0) {
-        currentIndex--;
-        jsPsych.resumeExperiment(currentIndex); // Move to the previous question
-      }
-    };
-    document.body.appendChild(backButton);
+  // Function to add a "Back" button next to "Continue"
+  function addBackButton(trial) {
+    trial.choices = ['Back', 'Continue'];
+    trial.button_html = [
+      '<button class="jspsych-btn" onclick="goBack()">Back</button>',
+      '<button class="jspsych-btn">%choice%</button>'
+    ];
+  }
+
+  // Function to go back to the previous trial
+  function goBack() {
+    if (currentIndex > 0) {
+      currentIndex--; // Move back in the timeline
+      jsPsych.resumeExperiment(currentIndex); // Resume experiment from previous trial
+    }
   }
 
   // Introduction prompt
@@ -48,7 +49,9 @@
       Customer Service desk at Andronico&apos;s, or pocket the money and drive away.</p>
     `,
     choices: ['Continue'],
-    on_load: addBackButton
+    on_load: function() {
+      addBackButton(this);
+    }
   };
   timeline.push(intro);
 
@@ -66,7 +69,9 @@
       with Customer Service.</p>
     `,
     choices: ['Continue'],
-    on_load: addBackButton
+    on_load: function() {
+      addBackButton(this);
+    }
   };
 
   const immoralPrompt = {
@@ -77,7 +82,9 @@
       After several minutes of thinking in his car, <i>he too decided to pocket the money</i> and drove off.</p>
     `,
     choices: ['Continue'],
-    on_load: addBackButton
+    on_load: function() {
+      addBackButton(this);
+    }
   };
 
   timeline.push(condition === 'moral' ? moralPrompt : immoralPrompt);
@@ -127,14 +134,17 @@
   ];
 
   justinQuestions.forEach(question => {
-    timeline.push({
+    const trial = {
       type: jsPsychSurveyLikert,
       preamble: condition === 'moral' ? 
         "Justin saw his decision as an easy one and was able to decide quickly. He did not steal the money and instead left the wallet with Customer Service." : 
         "Justin saw his decision as an easy one and was able to decide quickly. He pocketed the money and drove off.",
       questions: [{ prompt: question.prompt, labels: question.labels, required: true }],
-      on_load: addBackButton
-    });
+      on_load: function() {
+        addBackButton(this);
+      }
+    };
+    timeline.push(trial);
   });
 
   // Nate-related questions
@@ -152,21 +162,26 @@
   ];
 
   nateQuestions.forEach(question => {
-    timeline.push({
+    const trial = {
       type: jsPsychSurveyLikert,
       preamble: condition === 'moral' ? 
         "Nate saw his decision as difficult and was only able to decide after long and careful deliberation. After several minutes of thinking in his car, he too decided not to steal the money and instead left the wallet with Customer Service." : 
         "Nate saw his decision as difficult and was only able to decide after long and careful deliberation. After several minutes of thinking in his car, he too decided to pocket the money and drove off.",
       questions: [{ prompt: question.prompt, labels: question.labels, required: true }],
-      on_load: addBackButton
-    });
+      on_load: function() {
+        addBackButton(this);
+      }
+    };
+    timeline.push(trial);
   });
 
   // Attention check question
   const attentionCheck = {
     type: jsPsychSurveyText,
     questions: [{ prompt: "Please enter the name of either character mentioned in the prompts.", required: true }],
-    on_load: addBackButton
+    on_load: function() {
+      addBackButton(this);
+    }
   };
   timeline.push(attentionCheck);
 
