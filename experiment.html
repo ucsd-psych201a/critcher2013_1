@@ -156,5 +156,22 @@
       type: jsPsychSurveyLikert,
       preamble: condition === 'moral' ? 
         "Nate saw his decision as difficult and was only able to decide after long and careful deliberation. After several minutes of thinking in his car, he too decided not to steal the money and instead left the wallet with Customer Service." : 
-        "Nate saw his decision as difficult and was only able to decide after long and careful deliberation
+        "Nate saw his decision as difficult and was only able to decide after long and careful deliberation. After several minutes of thinking in his car, he too decided to pocket the money and drove off.",
+      questions: [{ prompt: question.prompt, labels: question.labels, required: true }],
+      on_load: addBackButton
+    });
+  });
+
+  // Attention check question
+  const attentionCheck = {
+    type: jsPsychSurveyText,
+    questions: [{ prompt: "Please enter the name of either character mentioned in the prompts.", required: true }],
+    on_load: addBackButton
+  };
+  timeline.push(attentionCheck);
+
+  // Run the experiment
+  jsPsych.run(timeline);
+</script>
+</html>
 
