@@ -25,10 +25,10 @@
   const intro = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `
-      <p>Justin and Nate were walking to separate cars in the parking lot of Andronico’s, a local grocery store, 
+      <p>Justin and Nate were walking to separate cars in the parking lot of Andronico&apos;s, a local grocery store, 
       when they each spotted a different lost wallet next to their cars. Upon picking up the wallet and looking inside, 
       each found several hundred dollars in cash. Each man considered whether he should return the wallet and money to the 
-      Customer Service desk at Andronico’s, or pocket the money and drive away.</p>
+      Customer Service desk at Andronico&apos;s, or pocket the money and drive away.</p>
     `,
     choices: ['Continue']
   };
@@ -41,10 +41,10 @@
   const moralPrompt = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `
-      <p>Justin saw his decision as an easy one and was able to decide quickly. He did not steal the money and instead 
+      <p>Justin saw his decision as an easy one and <i>was able to decide quickly. He did not steal the money</i> and instead 
       left the wallet with Customer Service.</p>
-      <p>In contrast, Nate saw his decision as difficult and was only able to decide after long and careful deliberation. 
-      After several minutes of thinking in his car, he too decided not to steal the money and instead left the wallet 
+      <p>In contrast, Nate saw his decision as difficult and <i>was only able to decide after long and careful deliberation</i>. 
+      After several minutes of thinking in his car, <i>he too decided not to steal the money</i> and instead left the wallet 
       with Customer Service.</p>
     `,
     choices: ['Continue']
@@ -53,9 +53,9 @@
   const immoralPrompt = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `
-      <p>Justin saw his decision as an easy one and was able to decide quickly. He pocketed the money and drove off.</p>
-      <p>In contrast, Nate saw his decision as difficult and was only able to decide after long and careful deliberation. 
-      After several minutes of thinking in his car, he too decided to pocket the money and drove off.</p>
+      <p>Justin saw his decision as an easy one and <i>was able to decide quickly. He pocketed the money</i> and drove off.</p>
+      <p>In contrast, Nate saw his decision as difficult and <i>was only able to decide after long and careful deliberation</i>. 
+      After several minutes of thinking in his car, <i>he too decided to pocket the money</i> and drove off.</p>
     `,
     choices: ['Continue']
   };
@@ -69,15 +69,15 @@
       labels: ['1 - Particularly slowly', '2', '3', '4', '5', '6', '7 - Particularly quickly']
     },
     {
-      prompt: "Regardless of Justin's decision, does it sound like Justin has underlying moral principles that are good, bad, or somewhere in between?",
+      prompt: "Regardless of Justin&apos;s decision, does it sound like Justin has underlying moral principles that are good, bad, or somewhere in between?",
       labels: ['1 - Completely bad', '2', '3', '4 - Mixed', '5', '6', '7 - Completely good']
     },
     {
-      prompt: "Regardless of Justin's decision, do you think Justin has moral standards that are good, bad, or somewhere in between?",
+      prompt: "Regardless of Justin&apos;s decision, do you think Justin has moral standards that are good, bad, or somewhere in between?",
       labels: ['1 - Completely bad', '2', '3', '4 - Mixed', '5', '6', '7 - Completely good']
     },
     {
-      prompt: "Regardless of Justin's decision, do you think Justin possesses the moral knowledge and principles necessary to do ‘the right thing’?",
+      prompt: "Regardless of Justin&apos;s decision, do you think Justin possesses the moral knowledge and principles necessary to do ‘the right thing’?",
       labels: ['1 - Not at all', '2', '3', '4 - Somewhat', '5', '6', '7 - Completely']
     },
     {
@@ -120,9 +120,9 @@
   const nateQuestions = [
     // Similar to Justin's questions, with "Nate" substituted
     { prompt: 'Did Nate make his decision quickly or slowly?', labels: justinQuestions[0].labels },
-    { prompt: "Regardless of Nate’s decision, does it sound like Nate has underlying moral principles that are good, bad, or somewhere in between?", labels: justinQuestions[1].labels },
-    { prompt: "Regardless of Nate’s decision, do you think Nate has moral standards that are good, bad, or somewhere in between?", labels: justinQuestions[2].labels },
-    { prompt: "Regardless of Nate’s decision, do you think Nate possesses the moral knowledge and principles necessary to do ‘the right thing’?", labels: justinQuestions[3].labels },
+    { prompt: "Regardless of Nate&apos;s decision, does it sound like Nate has underlying moral principles that are good, bad, or somewhere in between?", labels: justinQuestions[1].labels },
+    { prompt: "Regardless of Nate&apos;s decision, do you think Nate has moral standards that are good, bad, or somewhere in between?", labels: justinQuestions[2].labels },
+    { prompt: "Regardless of Nate&apos;s decision, do you think Nate possesses the moral knowledge and principles necessary to do ‘the right thing’?", labels: justinQuestions[3].labels },
     { prompt: "Would you say Nate was quite certain in his decision, or did he have hesitations?", labels: justinQuestions[4].labels },
     { prompt: "How close do you think Nate was to choosing the alternate course of action?", labels: justinQuestions[5].labels },
     { prompt: "How conflicted do you think Nate felt in making the decision?", labels: justinQuestions[6].labels },
