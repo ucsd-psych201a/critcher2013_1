@@ -147,12 +147,14 @@
   };
   timeline.push(attentionCheck);
 
-  // Feedback question
-  const feedbackQuestion = {
-    type: jsPsychSurveyText,
-    questions: [
-      {
-        prompt: "Do you have any feedback? Did you experience any issues? Please be descriptive. Thank you!",
-        placeholder: "Enter your feedback here...",
-        rows: 4,
-        required: false
+  // Thank-you message at the end of the experiment
+  const thankYouMessage = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: '<p>Thank you for participating in this experiment!</p>',
+    choices: []  // No choices/buttons, just the message
+  };
+
+  // Run the experiment
+  jsPsych.run(timeline);
+</script>
+</html>
