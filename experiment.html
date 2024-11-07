@@ -147,6 +147,20 @@
   };
   timeline.push(attentionCheck);
 
+// Feedback question
+const feedbackQuestion = {
+  type: jsPsychSurveyText,
+  questions: [
+    {
+      prompt: "Do you have any feedback? Did you experience any issues? Please be descriptive. Thank you!",
+      placeholder: "Enter your feedback here...",
+      rows: 4,
+      required: false
+    }
+  ]
+};
+timeline.push(feedbackQuestion);
+  
   // Thank-you message at the end of the experiment
   const thankYouMessage = {
     type: jsPsychHtmlButtonResponse,
