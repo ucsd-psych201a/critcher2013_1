@@ -20,7 +20,8 @@ Replicating Experiment 1 from â€œHow Quick Decisions Illuminate Moral Characterâ
 
 ### Manipulated Variables
 
--   Decision speed (quick or slow) and moral conditions (immoral or moral act) were the two manipulated variables.
+1.  Decision speed (quick or slow): The researchers manipulated the speed by informing participants whether Justin or Nate made their decisions quickly or after "long and careful deliberation".
+2.  Moral conditions (immoral or moral act): The moral decision was assigned between subjects, meaning participants were only exposed to one moral condition. Although this assignment was random, it counts as a manipulation because the researchers intentionally varied the condition to study differences in participant perception.
 
 ### Measurements
 
@@ -36,41 +37,33 @@ Replicating Experiment 1 from â€œHow Quick Decisions Illuminate Moral Characterâ
 
 ### Study Design
 
--   The experiment is a between participants design because each participant was only exposed to one condition as they were randomly assigned to either the moral or immoral scenario.
+Experiment 1 is a between-participant design because the key condition was assigned between participants. Each participant was exposed to only one type of moral outcome, either the characters acted morally or immorally.
 
 ### Repetition in Measures
 
--   Although the same set of measures were used to evaluate Justin and Nate, it does not count as repetition because the scenarios were not identical (decision speed was different).
+In experiment 1, four measures were repeated for quick and slow decision speeds. Each participant provided responses to the same set of questions (e.g., moral character evaluation, certainty, emotional impulsivity) for each condition.
 
 ### Consequences of Design Alterations
 
--   If the study was modified to a within participant design, where participants were exposed to both moral and immoral scenarios, it may introduce bias as participants might become more aware of the study's purpose. This awareness could potentially influence the way they respond to survey questions.
+Modifying the study to a within-participant design, where participants experience both moral and immoral conditions, may elicit biased responses. A within-participant design may negatively influence participant judgments by making it harder to evaluate behaviors in each condition independently. It may also create demand characteristics, where participants guess the study's purpose and modify their responses as a result.
 
 ### Reducing Demand characteristics
 
--   Randomly assigning conditions and using a within participant design helps reduce demand characteristics.
+Preserving the between-participant design and randomly assigning conditions minimizes demand characteristics. This approach reduces the influence of prior knowledge on evaluations and prevents participants from making direct comparisons between conditions. Random assignment also minimizes bias and percents participants from recognizing patterns that could reveal the study's intent.
 
 ## Methods
 
 ### Power Analysis
 
-Original effect size, power analysis for samples to achieve 80%, 90%, 95% power to detect that effect size. Considerations of feasibility for selecting planned sample size.
+The original study did not provide sufficient statistical information to conduct a power analysis. Specifically, it did not report the mean difference between decision speeds or the corresponding standard error, nor did it provide the means and standard errors for the interaction between decision and speed. Additionally, the figure for Experiment 1 lacked error bars, making it impossible to visually estimate variability or calculate effect sizes. Without these metrics it is difficult to perform a reliable power analysis to determine the required sample size for replication. Therefore, we are using an alternative approach by applying the standard procedure of multiplying the original sample size (n = 119) by 2.5, resulting in a desired sample size of N = 289 participants.
 
 ### Planned Sample
 
-Planned sample size and/or termination rule, sampling frame, known demographics if any, pre-selection rules if any.
+Our planned sample size is 289 participants.
 
 ### Materials
 
-To replicate this experiment, we will use JSPsych to create an online study involving written scenarios and participant surveys. Participants will read scenarios involving Justin and Nate, and then rate them on quickness, moral character, decision certainty, and impulsivity.
-
-From the article:
-
--   "Participants read about both Justin and Nate"
-
--   "Participants read about Pamela"
-
--   "Participants were asked to rate the quickness, moral character evaluation, decision certainty, and emotional Impulsivity of the agents"
+To replicate this experiment, we will use JSPsych to create an online study involving written scenarios and participant surveys. Participants will read scenarios involving Justin and Nate, and then rate them on quickness, moral character, decision certainty, and impulsivity. The original author of the study has kindly provided us with a detailed document outlining the script and protocol used for Experiment 1, which we will use to ensure that our replication remains as close as possible to the original study.
 
 ### Procedure
 
@@ -96,11 +89,70 @@ Experiment 1:
 
 Our primary focus in this study is to evaluate moral character based on decision morality and decision speed. To minimize error and confounding, we plan to include several covariates, including randomization decision category (moral or immoral condition), decision speed (quickness), moral character evaluation, decision certainty, and emotional impulsivity. Once our data is collected, we will exclude responses with non-answers and participants who fail our attention check at the end of the survey, which we will implement to assess attentiveness during the experiment. With these measures, we hope to ensure that the data is good quality and ready for analysis. We also intent to increase the generalizability of our findings by collecting demographic data, such as participants' age and gender.
 
+For the statistical analysis, our main question of interest involves testing the effect of two factors (speed and decision) and their interaction on the response variable (moral character judgement); thus a type III, two-way analysis of variance (ANOVA) test is appropriate. A type III ANOVA tests each main effect and interaction, adjusting for all other factors and interactions in the model.
+
+Below is pseudo-code for the planned analysis:
+
+\
+
+```{r, eval = F}
+
+# Fit a model with the interaction of interest
+
+intmod <- aov(Judg ~ speed * decision + uncertainty + impluse, data = dat)
+
+# Use a Type III, 2x2 Two-way ANOVA test
+
+# the results will tell us if the interaction term in needed in the model
+
+Anova(intmod, type = "III")
+
+```
+
+The results of the type III two-way ANOVA will tell us whether a model with the interaction term is better than just a model with all the predictors additively. After the best model is found, the ANOVA assumptions and model diagnostics, such as normality, homogeneity of variances, and independence will be assessed.
+
+```{r, eval = F}
+
+# Assessing Independence of Observations is a thought exercise
+
+## No participants responses should impact another participants responses,
+## therefore there is no reason to suspect violations of this assumption.
+
+# Next, generate the standard suite of diagnostic plots 
+
+par(mfrow=c(2,2))
+
+plot(intmod)
+
+# Assess Homogeneity of Variance with a Residuals vs Fitted plot
+# Assess Normality of Residuals with a Normal Q-Q Plot
+
+## Extra residual plots
+
+eij = residuals(intmod)
+
+hist(eij,main = "Histogram of residuals")
+
+plot(density(eij),
+     main = "Density plot of residuals",
+     ylab = "Density",
+     xlab = "Residuals")
+
+```
+
+```{r, eval = F}
+# Determine whether we had a balanced design with the tally function
+
+## This will give us the sample size of each randomized condition group
+
+library(mosaic)
+tally(~ decision, data = dat)
+
+```
+
 ### Differences from Original Study
 
-Explicitly describe known differences in sample, setting, procedure, and analysis plan from original study. The goal, of course, is to minimize those differences, but differences will inevitably occur. Also, note whether such differences are anticipated to make a difference based on claims in the original article or subsequent published research on the conditions for obtaining the effect.
-
-In our replication project, we will introduce several features that will differ from the original experiment. One difference is the addition of an attention check at the end of the experiment, where we will ask participants to name one of the characters from the scenarios. This attention check is designed to ensure participants are engaged throughout the study and will be used to assist in the data cleaning process. Another difference is that our participants will not be limited to undergraduate students since we are conducting an online study. While our goal is to replicate the original findings, we anticipate slight variance due to the diverse backgrounds of our participants.
+In our replication project, we will introduce several features that will differ from the original experiment. One difference is the addition of an attention check at the end of the experiment where we will ask participants to name one of the characters from the scenarios. This attention check is designed to ensure participants are engaged throughout the study and will be used to assist in the data cleaning process. Another difference is that our participants will not be limited to undergraduate students since we are conducting an online study. Additionally, our sample size will differ from the original study because we could not conduct a power analysis based on the information provided in the article. Instead, we opted for a rule-of-thumb multiplier to determine our required sample size. These differences may affect the replication by introducing variability not present in the original study.
 
 ### Methods Addendum (Post Data Collection)
 
