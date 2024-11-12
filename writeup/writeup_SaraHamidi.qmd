@@ -62,6 +62,16 @@ How would you critique the design?
 
 ## Methods
 
+### Power Analysis
+
+The original study lacked sufficient statistical details for conducting a power analysis. In specific, the study does not report the mean difference in decision speeds or the corresponding standard error. Furthermore, it also lacked statistical details for addressing the interaction between decision and speed. Moreover, a figure for Experiment 1 lacks error bars, making it difficult to estimate variability or calculate effect sizes visually. Without these, a reliable power analysis is more challenging. As a result, we have opted to use an alternative method in which we multiply the original sample size (n = 119) by 2.5, which gives us a sample size of N = 289 participants. 
+
+### Planned Sample
+
+Our planned sample size is 289 participants.
+
+Link to experimental paradigm: https://ucsd-psych201a.github.io/critcher2013_1/
+
 ### Materials
 
 We will be using JSPsych to develop the majority of this online experiment. We believe that due to the nature of this experiment and its reliance on written scenarios and survey responses, the online format through an interactive interface is ideal.
@@ -78,9 +88,68 @@ Experiment 1:
 
 ### Analysis Plan
 
-Our main analysis will be to understand the impact of decision morality and speed on moral character judgement. In efforts to achieve this goal, we will be collecting subject IDs and the randomized decision category of the participants. Each participant will then be surveyed on the following for each character (Justin and Nate): quickness (decision speed), moral character evaluation, decision certainty, and emotional impulsivity. We may also be helpful to collect demographics such as age and gender to make more informed generalizability decisions post-experiment.
+Our main analysis will be to understand the impact of decision morality and speed on moral character judgement. In efforts to achieve this goal, we will be collecting subject IDs and the randomized decision category of the participants. Each participant will then be surveyed on the following for each character (Justin and Nate): quickness (decision speed), moral character evaluation, decision certainty, and emotional impulsivity. We may also be helpful to collect demographics such as age and gender to make more informed generalizability decisions post-experiment. Furthermore, we plan on excluding any surveys that contain non-answers from our data analysis. In addition, we will be utilizing an attention check and any participants who fail will be removed as well.
 
-Furthermore, we plan on excluding any surveys that contain non-answers from our data analysis. In addition, we will be utilizing an attention check and any participants who fail will be removed as well.
+As for our statistical analysis, the main questions of interest involve testing the effect of speed and decision and the interaction on the response variable: moral character judgement. As a result, a type III, two-way analysis of variance (ANOVA) test is appropriate. We will test each main effect and interaction, adjusting for all other factors and interactions. 
+
+Below is pseudo-code for the planned analysis:
+
+\
+
+```{r, eval = F}
+
+# Fit a model with the interaction of interest
+
+intmod <- aov(Judg ~ speed * decision + uncertainty + impluse, data = dat)
+
+# Use a Type III, 2x2 Two-way ANOVA test
+
+# the results will tell us if the interaction term in needed in the model
+
+Anova(intmod, type = "III")
+
+```
+
+These results will determine whether a model with the interaction term is better than a model with predictors additively. After we have found the better model, the ANOVA assumptions and model diagnostics, will be assessed. 
+
+```{r, eval = F}
+
+# Assessing Independence of Observations is a thought exercise
+
+## No participants responses should impact another participants responses,
+## therefore there is no reason to suspect violations of this assumption.
+
+# Next, generate the standard suite of diagnostic plots 
+
+par(mfrow=c(2,2))
+
+plot(intmod)
+
+# Assess Homogeneity of Variance with a Residuals vs Fitted plot
+# Assess Normality of Residuals with a Normal Q-Q Plot
+
+## Extra residual plots
+
+eij = residuals(intmod)
+
+hist(eij,main = "Histogram of residuals")
+
+plot(density(eij),
+     main = "Density plot of residuals",
+     ylab = "Density",
+     xlab = "Residuals")
+
+```
+
+```{r, eval = F}
+# Determine whether we had a balanced design with the tally function
+
+## This will give us the sample size of each randomized condition group
+
+library(mosaic)
+tally(~ decision, data = dat)
+
+```
 
 ### Differences from Original Study
 
