@@ -65,6 +65,8 @@ Our planned sample size is 289 participants.
 
 To replicate this experiment, we will use JSPsych to create an online study involving written scenarios and participant surveys. Participants will read scenarios involving Justin and Nate, and then rate them on quickness, moral character, decision certainty, and impulsivity. The original author of the study has kindly provided us with a detailed document outlining the script and protocol used for Experiment 1, which we will use to ensure that our replication remains as close as possible to the original study.
 
+Link to experimental paradigm: https://ucsd-psych201a.github.io/critcher2013_1/
+
 ### Procedure
 
 We plan to follow the procedure outlined by the authors.
