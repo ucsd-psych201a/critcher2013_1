@@ -54,11 +54,13 @@ In the article How Quick Decisions Illuminate Moral Character, authors Clayton R
 
 ### Power Analysis
 
-Original effect size, power analysis for samples to achieve 80%, 90%, 95% power to detect that effect size. Considerations of feasibility for selecting planned sample size.
+The original study did not report the mean difference between decision speeds and its corresponding standard error. They also did not report the relevant mean and standard error for the interaction between decision and speed. Additionally, no error bars were present in their figure for visualizing experiment 1, so that information was not available to calculate required sample size that way either. Therefore, we are calculating our required sample size by doing the standard procedure of multiplying the original sample size (n = 119) by 2.5, to results in a desired sample size of N = 289 participants.
+
+The information we needed to calculate was not available so we are doing the standard 2.5 times the original sample size.
 
 ### Planned Sample
 
-Planned sample size and/or termination rule, sampling frame, known demographics if any, preselection rules if any.
+Planned sample size is 289 participants.
 
 ### Materials
 
@@ -73,6 +75,8 @@ Moral character evaluation. The three moral evaluation items had participants as
 Certainty. We included 4 items to assess each actor’s perceived decision certainty. Participants indicated ‘‘how conflicted \[each\] felt when making his decision’’ (reverse-scored), ‘‘how many reservations \[each\] had’’ (reverse-scored), whether the target ‘‘was quite certain in his decision’’ (vs. had considerable reservations), and ‘‘how far \[each\] was from choosing the alternate course of action.’’
 
 Emotional impulsivity. In order to ensure that decision speed was not simply taken as a proxy for emotional impulsivity (a feature previously shown to affect moral judgments; Pizarro, Uhlmann, & Salovey, 2003), we assessed perceptions of the emotionally impulsive nature of the decision with 2 items. Participants indicated to what extent the person remained ‘‘calm and emotionally contained’’ (reverse-scored) and ‘‘became upset and acted without thinking.’’"
+
+Link to experimental paradigm [here](https://ucsd-psych201a.github.io/critcher2013_1/).
 
 ### Procedure
 
@@ -114,19 +118,39 @@ Any differences from what was described as the original plan, or “none”.
 
 ### Data preparation
 
-Data preparation following the analysis plan. Data preparation will include cleaning and exploring outliers. Responses that fall into the exclusion criteria (incomplete or attention test failed) will be removed.
+For the statistical analysis, our main question of interest involves testing the effect of two factors (speed and decision) and their interaction on the response variable (moral character judgement); thus a type III, two-way analysis of variance (ANOVA) test is appropriate. A type III ANOVA tests each main effect and interaction, adjusting for all other factors and interactions in the model.
 
-```{r include=F}
-### Data Preparation
+#### Below is pseudo-code for the planned analysis:
 
-#### Load Relevant Libraries and Functions
+{r} \# Fit a model with the interaction of interest intmod \<- aov(Judg \~ speed \* decision + uncertainty + impluse, data = dat)
 
-#### Import data
+Use a Type III, 2x2 Two-way ANOVA test the results will tell us if the interaction term in needed in the model
 
-#### Data exclusion / filtering
+Anova(intmod, type = "III")
 
-#### Prepare data for analysis - create columns etc.
-```
+The results of the type III two-way ANOVA will tell us whether a model with the interaction term is better than just a model with all the predictors additively. After the best model is found, the ANOVA assumptions and model diagnostics, such as normality, homogeneity of variances, and independence will be assessed.
+
+Assessing Independence of Observations is a thought exercise
+
+No participants responses should impact another participants responses, therefore there is no reason to suspect violations of this assumption.
+
+Next, generate the standard suite of diagnostic plots
+
+par(mfrow=c(2,2)) plot(intmod)
+
+Assess Homogeneity of Variance with a Residuals vs Fitted plot
+
+Assess Normality of Residuals with a Normal Q-Q Plot
+
+Extra residual plots
+
+eij = residuals(intmod) hist(eij,main = "Histogram of residuals") plot(density(eij), main = "Density plot of residuals", ylab = "Density", xlab = "Residuals")
+
+Determine whether we had a balanced design with the tally function
+
+This will give us the sample size of each randomized condition group
+
+library(mosaic) tally(\~ decision, data = dat)
 
 ### Confirmatory analysis
 
