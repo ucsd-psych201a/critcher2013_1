@@ -4,6 +4,7 @@
    <title>Psychology Experiment</title>
    <!-- Load jsPsych and plugins -->
    <script src="https://unpkg.com/jspsych@8.0.0"></script>
+   <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@2.0.0"></script>
    <script src="https://unpkg.com/@jspsych/plugin-html-button-response@2.0.0"></script>
    <script src="https://unpkg.com/@jspsych/plugin-survey-likert@2.0.0"></script>
    <script src="https://unpkg.com/@jspsych/plugin-survey-text@2.0.0"></script>
@@ -22,9 +23,24 @@
   // Create timeline array
   const timeline = [];
 
-              const subject_id = jsPsych.randomization.randomID(10);
-              const filename = `${subject_id}.csv`;
-            
+  // Subject ID and filename for data
+  const subject_id = jsPsych.randomization.randomID(10);
+  const filename = `${subject_id}.csv`;
+
+  // Study instructions page
+  const studyInstructions = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: `
+      <h2>Study Instructions</h2>
+      <p>In this study, you will read scenarios and answer questions about moral decisions. You’ll be presented with a story involving two people, Justin and Nate, who each come across a wallet containing cash in a parking lot. Your task will be to answer questions about how each person approached their decision-making process.</p>
+      <p>After reading the scenario, you’ll be asked a series of questions about each individual’s thought process. Please base your answers solely on the details provided in the scenario.</p>
+      <p>There are no right or wrong answers. Answer honestly based on your own views and beliefs.</p>
+      <p><strong>Press any key to continue to the scenarios.</strong></p>
+    `,
+     choices: ['Continue']
+  };
+  timeline.push(studyInstructions);
+
   // Introduction prompt
   const intro = {
     type: jsPsychHtmlButtonResponse,
@@ -151,19 +167,19 @@
   };
   timeline.push(attentionCheck);
 
-// Feedback question
-const feedbackQuestion = {
-  type: jsPsychSurveyText,
-  questions: [
-    {
-      prompt: "Do you have any feedback? Did you experience any issues? Please be descriptive. Thank you!",
-      placeholder: "Enter your feedback here...",
-      rows: 4,
-      required: false
-    }
-  ]
-};
-timeline.push(feedbackQuestion);
+  // Feedback question
+  const feedbackQuestion = {
+    type: jsPsychSurveyText,
+    questions: [
+      {
+        prompt: "Do you have any feedback? Did you experience any issues? Please be descriptive. Thank you!",
+        placeholder: "Enter your feedback here...",
+        rows: 4,
+        required: false
+      }
+    ]
+  };
+  timeline.push(feedbackQuestion);
   
   // Thank-you message at the end of the experiment
   const thankYouMessage = {
@@ -172,14 +188,16 @@ timeline.push(feedbackQuestion);
     choices: []  // No choices/buttons, just the message
   };
 
-              const save_data = {
-                type: jsPsychPipe,
-                action: "save",
-                experiment_id: "J9NfO09GdvBM",
-                filename: filename,
-                data_string: ()=>jsPsych.data.get().csv()
-              };
-   timeline.push(save_data);
+  // Save data action
+  const save_data = {
+    type: jsPsychPipe,
+    action: "save",
+    experiment_id: "J9NfO09GdvBM",
+    filename: filename,
+    data_string: () => jsPsych.data.get().csv()
+  };
+  timeline.push(save_data);
+
   // Run the experiment
   jsPsych.run(timeline);
 </script>
