@@ -183,8 +183,14 @@
   // Thank-you message at the end of the experiment
   const thankYouMessage = {
     type: jsPsychHtmlButtonResponse,
-    stimulus: '<p>Thank you for participating in this experiment!</p>',
-    choices: []  // No choices/buttons, just the message
+    stimulus: `
+      <p>Thank you for participating in this experiment!</p>
+      <p><strong>You must click the "Finish" button to fully complete the survey.</strong></p>
+    `,
+    choices: ['Finish'], // No choices/buttons, just the message
+    on_finish: function() {
+      window.location.href = "https://app.prolific.com/submissions/complete?cc=C1YIZRAL";
+    }
   };
 
   // Save data action
