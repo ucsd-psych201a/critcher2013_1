@@ -1,0 +1,209 @@
+---
+title: "Replication of Study X by Sample & Sample (20xx, Psychological Science)"
+author: "Replication Author[s] (contact information)"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+format:
+  html:
+    toc: true
+    toc_depth: 3
+---
+
+<!-- Replication reports should all use this template to standardize reporting across projects.  These reports will be public supplementary materials that accompany the summary report(s) of the aggregate results. -->
+
+## Introduction
+
+The original study examined how the speed of decision-making influences perception of moral character. It found that decision speed helps classify whether a choice is moral or immoral depending on the perceived certainty of the decision. Quick decisions perceived as moral led to more positive character evaluations, while quick immoral decisions resulted in harsher judgments. In contrast, slower decisions were viewed as less certain, leading to more moderate evaluations.
+
+Replicating Experiment 1 from “How Quick Decisions Illuminate Moral Character” offers an opportunity to explore how decision speed affects character judgments. In this experiment, participants will read a scenario about two characters who find separate cash-filled wallets in a grocery store parking lot. One character decides quickly, while the other takes longer. Participants will be randomly assigned to either a moral or immoral condition. Those in the moral condition will learn that both characters returned the wallets, while those in the immoral condition will read that both characters kept the money. Participants will then rate each character based on perceived decision speed, moral principles, decision certainty, and impulsiveness. A two-way ANOVA will then be used to analyze whether decision speed consistently affects moral judgments. 
+
+## Design Overview
+
+### Manipulated Variables
+
+1.  Decision speed (quick or slow): The researchers manipulated the speed by informing participants whether Justin or Nate made their decisions quickly or after "long and careful deliberation".
+2.  Moral conditions (immoral or moral act): The moral decision was assigned between subjects, meaning participants were only exposed to one moral condition. Although this assignment was random, it counts as a manipulation because the researchers intentionally varied the condition to study differences in participant perception.
+
+### Measurements
+
+-   Four primary measures were taken in Experiment 1
+
+    -   Moral character evaluation
+
+    -   Quickness
+
+    -   Certainty
+
+    -   Emotional impulsivity
+
+### Study Design
+
+Experiment 1 is a between-participant design because the key condition was assigned between participants. Each participant was exposed to only one type of moral outcome, either the characters acted morally or immorally.
+
+### Repetition in Measures
+
+In experiment 1, four measures were repeated for quick and slow decision speeds. Each participant provided responses to the same set of questions (e.g., moral character evaluation, certainty, emotional impulsivity) for each condition.
+
+### Consequences of Design Alterations
+
+Modifying the study to a within-participant design, where participants experience both moral and immoral conditions, may elicit biased responses. A within-participant design may negatively influence participant judgments by making it harder to evaluate behaviors in each condition independently. It may also create demand characteristics, where participants guess the study's purpose and modify their responses as a result.
+
+### Reducing Demand characteristics
+
+Preserving the between-participant design and randomly assigning conditions minimizes demand characteristics. This approach reduces the influence of prior knowledge on evaluations and prevents participants from making direct comparisons between conditions. Random assignment also minimizes bias and percents participants from recognizing patterns that could reveal the study's intent.
+
+## Methods
+
+### Power Analysis
+
+The original study did not provide sufficient statistical information to conduct a power analysis. Specifically, it did not report the mean difference between decision speeds or the corresponding standard error, nor did it provide the means and standard errors for the interaction between decision and speed. Additionally, the figure for Experiment 1 lacked error bars, making it impossible to visually estimate variability or calculate effect sizes. Without these metrics it is difficult to perform a reliable power analysis to determine the required sample size for replication. Therefore, we are using an alternative approach by applying the standard procedure of multiplying the original sample size (n = 119) by 2.5, resulting in a desired sample size of N = 289 participants.
+
+### Planned Sample
+
+Our planned sample size is 289 participants.
+
+### Materials
+
+To replicate this experiment, we will use JSPsych to create an online study involving written scenarios and participant surveys. Participants will read scenarios involving Justin and Nate, and then rate them on quickness, moral character, decision certainty, and impulsivity. The original author of the study has kindly provided us with a detailed document outlining the script and protocol used for Experiment 1, which we will use to ensure that our replication remains as close as possible to the original study.
+
+**Experimental paradigm link: <https://ucsd-psych201a.github.io/critcher2013_1/>**
+
+### Procedure
+
+We plan to follow the procedure outlined by the authors.
+
+Experiment 1:
+
+-   "Participants read about both Justin and Nate, two men who each independently came upon two separate cash-filled wallets in the parking lot of a local grocery store. Justin 'was able to decide quickly' what to do. Nate 'was only able to decide after long and careful deliberation.'"
+
+-   "Participants assigned to the moral condition learned both men 'did not steal the money but instead left the wallet with customer service.' Those in the immoral condition learned instead that both men 'pocketed the money and drove off.'"
+
+-   "Participants were asked to rate the quickness, moral character evaluation, decision certainty, and emotional impulsivity of the agents on 1-7 scales."
+
+-   Quickness: "participants indicated how quickly (vs. slowly) the decision was made"
+
+-   Moral Character Evaluation: "participants assess the agents’ underlying moral principles and standards...by asking whether the agent: “has entirely good (vs. entirely bad) moral principles,” “has good (vs. bad) moral standards,” and “deep down has the moral principles and knowledge to do the right thing.”
+
+-   Certainty: "Participants indicated 'how conflicted \[each\] felt when making his decision', 'how many reservations \[each\] had', whether the target 'was quite certain in his decision', and 'how far \[each\] was from choosing the alternate course of action.'"
+
+-   Emotional Impulsivity: "Participants indicated to what extent the person remained “calm and emotionally contained” (reverse-scored) and 'became upset and acted without thinking.'"
+
+### Analysis Plan
+
+Our primary focus in this study is to evaluate moral character based on decision morality and decision speed. To minimize error and confounding, we plan to include several covariates, including randomization decision category (moral or immoral condition), decision speed (quickness), moral character evaluation, decision certainty, and emotional impulsivity. Once our data is collected, we will exclude responses with non-answers and participants who fail our attention check at the end of the survey, which we will implement to assess attentiveness during the experiment. With these measures, we hope to ensure that the data is good quality and ready for analysis. We also intent to increase the generalizability of our findings by collecting demographic data, such as participants' age and gender.
+
+For the statistical analysis, our main question of interest involves testing the effect of two factors (speed and decision) and their interaction on the response variable (moral character judgement); thus a type III, two-way analysis of variance (ANOVA) test is appropriate. A type III ANOVA tests each main effect and interaction, adjusting for all other factors and interactions in the model.
+
+Below is pseudo-code for the planned analysis:\
+
+```{r, eval = F}
+
+# Fit a model with the interaction of interest
+
+intmod <- aov(Judg ~ speed * decision + uncertainty + impluse, data = dat)
+
+# Use a Type III, 2x2 Two-way ANOVA test
+
+# the results will tell us if the interaction term in needed in the model
+
+Anova(intmod, type = "III")
+
+```
+
+The results of the type III two-way ANOVA will tell us whether a model with the interaction term is better than just a model with all the predictors additively. After the best model is found, the ANOVA assumptions and model diagnostics, such as normality, homogeneity of variances, and independence will be assessed.
+
+```{r, eval = F}
+
+# Assessing Independence of Observations is a thought exercise
+
+## No participants responses should impact another participants responses,
+## therefore there is no reason to suspect violations of this assumption.
+
+# Next, generate the standard suite of diagnostic plots 
+
+par(mfrow=c(2,2))
+
+plot(intmod)
+
+# Assess Homogeneity of Variance with a Residuals vs Fitted plot
+# Assess Normality of Residuals with a Normal Q-Q Plot
+
+## Extra residual plots
+
+eij = residuals(intmod)
+
+hist(eij,main = "Histogram of residuals")
+
+plot(density(eij),
+     main = "Density plot of residuals",
+     ylab = "Density",
+     xlab = "Residuals")
+
+```
+
+```{r, eval = F}
+# Determine whether we had a balanced design with the tally function
+
+## This will give us the sample size of each randomized condition group
+
+library(mosaic)
+tally(~ decision, data = dat)
+
+```
+
+### Differences from Original Study
+
+In our replication project, we will introduce several features that will differ from the original experiment. One difference is the addition of an attention check at the end of the experiment where we will ask participants to name one of the characters from the scenarios. This attention check is designed to ensure participants are engaged throughout the study and will be used to assist in the data cleaning process. Another difference is that our participants will not be limited to undergraduate students since we are conducting an online study. Additionally, our sample size will differ from the original study because we could not conduct a power analysis based on the information provided in the article. Instead, we opted for a rule-of-thumb multiplier to determine our required sample size. These differences may affect the replication by introducing variability not present in the original study.
+
+### Methods Addendum (Post Data Collection)
+
+You can comment this section out prior to final report with data collection.
+
+#### Actual Sample
+
+Sample size, demographics, data exclusions based on rules spelled out in analysis plan
+
+#### Differences from pre-data collection methods plan
+
+Any differences from what was described as the original plan, or “none”.
+
+## Results
+
+### Data preparation
+
+For our preparation plan, we will remove observation that meet our exclusion criteria. We will also pivot our dataset to a long format to make graph creation easier. Lastly, we will investigate each outlier to determine whether it is suspicious or problematic before deciding to remove it.
+
+Data preparation following the analysis plan.
+
+```{r include=F}
+### Data Preparation
+
+#### Load Relevant Libraries and Functions
+
+#### Import data
+
+#### Data exclusion / filtering
+
+#### Prepare data for analysis - create columns etc.
+```
+
+### Confirmatory analysis
+
+The analyses as specified in the analysis plan.
+
+*Side-by-side graph with original graph is ideal here*
+
+The statistical test we will use to justify the main inference of the paper is a two-way ANOVA. This test will allow us to analyze the interaction between decision speed and decision type to determine how they influence moral character evaluations. It will also use it to assess the individual and combined effects of both independent variables.
+
+### Exploratory analyses
+
+Any follow-up analyses desired (not required).
+
+## Discussion
+
+### Summary of Replication Attempt
+
+Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.
+
+### Commentary
+
+Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt. None of these need to be long.
