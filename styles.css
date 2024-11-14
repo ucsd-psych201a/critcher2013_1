@@ -7,3 +7,15 @@ body {
     align-items: center;
     height: 100vh;
 }
+
+.consent-info {
+    font-size: 0.85em; /* Smaller font size */
+    max-width: 800px;
+    margin: auto;
+    text-align: justify;
+}
+
+h2 {
+    font-size: 1.2em;
+    text-align: center;
+}
