@@ -16,7 +16,7 @@
   // Initialize jsPsych
   const jsPsych = initJsPsych({
     on_finish: function () {
-      jsPsych.run([thankYouMessage]); // Display thank-you message at the end
+      jsPsych.run([thankYouMessage]);  // Display thank-you message at the end
     }
   });
 
@@ -26,40 +26,42 @@
   // Subject ID and filename for data
   const subject_id = jsPsych.randomization.randomID(10);
   const filename = `${subject_id}.csv`;
-
+   
   // Random assignment to moral or immoral condition
   const condition = Math.random() > 0.5 ? 'moral' : 'immoral';
 
-  // Log the condition in a dedicated trial
-  const logCondition = {
-    type: jsPsychHtmlButtonResponse,
-    stimulus: `<p>Initializing experiment...</p>`,
-    choices: ['Continue'],
-    data: { condition: condition } // Log the condition once
-  };
-  timeline.push(logCondition);
-
-  // Consent information
+   // Consent information
   const consentInfo = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `
-      <div class="consent-info">
-        <h2>Consent Information</h2>
-        <p>Consent text goes here...</p>
-      </div>
+    <div class="consent-info">
+      <h2>Consent Information</h2>
+      <p>You are being invited to participate in a research study titled “Reproducibility of Psychological Science and Instruction.” This study is being done by Dr. Bria Long from UC San Diego and associated graduate students in the Experimental Methods course.</p>
+      <p>You were selected to participate in this study because you are an adult in the U.S. and have been a represented population in previous psychology studies.</p>
+      <p>The purpose of this study is to better understand how well previously published studies in the psychological field replicate online and with different populations. Your participation in this research should last approximately 5-30 minutes.</p>
+      <p>If you agree to take part in this study, you may be asked to view a set of stimuli, including pictures, sounds, written text, or videos, and then give some responses via key-presses, verbally, or with paper-and-pencil. We may also observe your choices or preferences among an array of stimuli. These stimuli will be taken directly from or closely adapted from studies that already exist in the published psychological literature. Stimuli will include, e.g., pictures of objects and human faces, audio and video clips, short text passages, etc. None of the stimuli will be disturbing, threatening, or offensive.</p>
+      <p>The online and in-person experiments described in this protocol will take no more than 30 minutes. An example game you might play would be to click on an image on the screen that matches a word you hear being said out loud. Your total expected time commitment for this study is between 5-30 minutes, and is specified in the study description.</p>
+      <p>Your participation in this study is completely voluntary and you can withdraw at any time. Choosing not to participate or withdrawing will result in no penalty or loss of benefits to which you are entitled. You are free to skip any question that you choose.</p>
+      <p>We will not be asking for any personally identifying information, and we will handle responses as confidentially as possible. Your SONA or Prolific IDs will never be tied to your responses on this survey. However, we cannot guarantee the confidentiality of information transmitted over the Internet. To minimize this risk, data containing anything that might be personally identifiable (e.g., Prolific IDs or IP addresses) will be encrypted on transfer and storage and will only be accessible to qualified lab personnel. We will be keeping data collected as part of this experiment indefinitely. This anonymized data (containing neither Prolific IDs nor IP addresses) may be shared with the scientific community or with other participants to be used as stimuli in future studies.</p>
+      <p>If you have questions about this project or if you have a research-related problem, you may contact the researcher(s), Dr. Bria Long, brlong@ucsd.edu. If you have any questions concerning your rights as a research subject, you may contact the UC San Diego Office of IRB Administration at irb@ucsd.edu or 858-246-4777.</p>
+      <p>By participating in this research you are indicating that you are at least 18 years old, have read this consent form, and agree to participate in this research study. Please keep this consent form for your records.</p>
+   </div>
     `,
-    choices: ['Continue']
+     choices: ['Continue']
   };
   timeline.push(consentInfo);
-
+   
   // Study instructions page
   const studyInstructions = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `
       <h2>Instructions</h2>
-      <p>Instructions text goes here...</p>
+      <p>In this study, you will read scenarios and answer questions about moral decisions. You’ll be presented with a story involving two people, Justin and Nate, who each come across a wallet containing cash in a parking lot. Your task will be to answer questions about how each person approached their decision-making process.</p>
+      <p>After reading the scenario, you’ll be asked a series of questions about each individual’s thought process. Please base your answers solely on the details provided in the scenario.</p>
+      <p>There are no right or wrong answers. Answer honestly based on your own views and beliefs.</p>
     `,
-    choices: ['Continue']
+     choices: ['Continue']
+     data: { condition: condition }
   };
   timeline.push(studyInstructions);
 
@@ -67,7 +69,10 @@
   const intro = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `
-      <p>Intro text goes here...</p>
+      <p>Justin and Nate were walking to separate cars in the parking lot of Andronico&apos;s, a local grocery store, 
+      when they each spotted a different lost wallet next to their cars. Upon picking up the wallet and looking inside, 
+      each found several hundred dollars in cash. Each man considered whether he should return the wallet and money to the 
+      Customer Service desk at Andronico&apos;s, or pocket the money and drive away.</p>
     `,
     choices: ['Continue']
   };
@@ -77,7 +82,11 @@
   const moralPrompt = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `
-      <p>Justin's moral decision story goes here...</p>
+      <p>Justin saw his decision as an easy one and <i>was able to decide quickly. He did not steal the money</i> and instead 
+      left the wallet with Customer Service.</p>
+      <p>In contrast, Nate saw his decision as difficult and <i>was only able to decide after long and careful deliberation</i>. 
+      After several minutes of thinking in his car, <i>he too decided not to steal the money</i> and instead left the wallet 
+      with Customer Service.</p>
     `,
     choices: ['Continue']
   };
@@ -85,7 +94,9 @@
   const immoralPrompt = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `
-      <p>Justin's immoral decision story goes here...</p>
+      <p>Justin saw his decision as an easy one and <i>was able to decide quickly. He pocketed the money</i> and drove off.</p>
+      <p>In contrast, Nate saw his decision as difficult and <i>was only able to decide after long and careful deliberation</i>. 
+      After several minutes of thinking in his car, <i>he too decided to pocket the money</i> and drove off.</p>
     `,
     choices: ['Continue']
   };
@@ -97,19 +108,85 @@
     {
       prompt: 'Did Justin make his decision quickly or slowly?',
       labels: ['1 - Particularly slowly', '2', '3', '4', '5', '6', '7 - Particularly quickly']
+    },
+    {
+      prompt: "Regardless of Justin&apos;s decision, does it sound like Justin has underlying moral principles that are good, bad, or somewhere in between?",
+      labels: ['1 - Completely bad', '2', '3', '4 - Mixed', '5', '6', '7 - Completely good']
+    },
+    {
+      prompt: "Regardless of Justin&apos;s decision, do you think Justin has moral standards that are good, bad, or somewhere in between?",
+      labels: ['1 - Completely bad', '2', '3', '4 - Mixed', '5', '6', '7 - Completely good']
+    },
+    {
+      prompt: "Regardless of Justin&apos;s decision, do you think Justin possesses the moral knowledge and principles necessary to do ‘the right thing’?",
+      labels: ['1 - Not at all', '2', '3', '4 - Somewhat', '5', '6', '7 - Completely']
+    },
+    {
+      prompt: "Would you say Justin was quite certain in his decision, or did he have hesitations?",
+      labels: ['1 - Completely certain', '2', '3', '4', '5', '6', '7 - Considerable hesitations']
+    },
+    {
+      prompt: "How close do you think Justin was to choosing the alternate course of action?",
+      labels: ['1 - Very close to', '2', '3', '4', '5', '6', '7 - Not close at all']
+    },
+    {
+      prompt: "How conflicted do you think Justin felt in making the decision?",
+      labels: ['1 - Very conflicted', '2', '3', '4', '5', '6', '7 - Not at all conflicted']
+    },
+    {
+      prompt: "Based on the information provided, do you think Justin had many reservations about the decision?",
+      labels: ['1 - None at all', '2', '3', '4', '5', '6', '7 - A whole lot']
+    },
+    {
+      prompt: "Do you think Justin was calm and emotionally contained while making the decision?",
+      labels: ['1 - Not at all', '2', '3', '4', '5', '6', '7 - Entirely so']
+    },
+    {
+      prompt: "To what extent do you think Justin became upset and acted without thinking?",
+      labels: ['1 - Not at all', '2', '3', '4', '5', '6', '7 - Entirely so']
     }
-    // Add additional questions as needed...
   ];
 
   justinQuestions.forEach(question => {
     timeline.push({
       type: jsPsychSurveyLikert,
       preamble: condition === 'moral' ? 
-        "Justin's moral story summary goes here..." : 
-        "Justin's immoral story summary goes here...",
+        "Justin saw his decision as an easy one and was able to decide quickly. He did not steal the money and instead left the wallet with Customer Service." : 
+        "Justin saw his decision as an easy one and was able to decide quickly. He pocketed the money and drove off.",
       questions: [{ prompt: question.prompt, labels: question.labels, required: true }]
     });
   });
+
+  // Nate-related questions
+  const nateQuestions = [
+    { prompt: 'Did Nate make his decision quickly or slowly?', labels: justinQuestions[0].labels },
+    { prompt: "Regardless of Nate&apos;s decision, does it sound like Nate has underlying moral principles that are good, bad, or somewhere in between?", labels: justinQuestions[1].labels },
+    { prompt: "Regardless of Nate&apos;s decision, do you think Nate has moral standards that are good, bad, or somewhere in between?", labels: justinQuestions[2].labels },
+    { prompt: "Regardless of Nate&apos;s decision, do you think Nate possesses the moral knowledge and principles necessary to do ‘the right thing’?", labels: justinQuestions[3].labels },
+    { prompt: "Would you say Nate was quite certain in his decision, or did he have hesitations?", labels: justinQuestions[4].labels },
+    { prompt: "How close do you think Nate was to choosing the alternate course of action?", labels: justinQuestions[5].labels },
+    { prompt: "How conflicted do you think Nate felt in making the decision?", labels: justinQuestions[6].labels },
+    { prompt: "Based on the information provided, do you think Nate had many reservations about the decision?", labels: justinQuestions[7].labels },
+    { prompt: "Do you think Nate was calm and emotionally contained while making the decision?", labels: justinQuestions[8].labels },
+    { prompt: "To what extent do you think Nate became upset and acted without thinking?", labels: justinQuestions[9].labels }
+  ];
+
+  nateQuestions.forEach(question => {
+    timeline.push({
+      type: jsPsychSurveyLikert,
+      preamble: condition === 'moral' ? 
+        "Nate saw his decision as difficult and was only able to decide after long and careful deliberation. After several minutes of thinking in his car, he too decided not to steal the money and instead left the wallet with Customer Service." : 
+        "Nate saw his decision as difficult and was only able to decide after long and careful deliberation. After several minutes of thinking in his car, he too decided to pocket the money and drove off.",
+      questions: [{ prompt: question.prompt, labels: question.labels, required: true }]
+    });
+  });
+
+  // Attention check question
+  const attentionCheck = {
+    type: jsPsychSurveyText,
+    questions: [{ prompt: "Please enter the name of either character mentioned in the prompts.", required: true }]
+  };
+  timeline.push(attentionCheck);
 
   // Feedback question
   const feedbackQuestion = {
@@ -124,14 +201,15 @@
     ]
   };
   timeline.push(feedbackQuestion);
-
-  // Thank-you message
+  
+  // Thank-you message at the end of the experiment
   const thankYouMessage = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `
-      <p>Thank you for participating!</p>
+      <p>Thank you for participating in this experiment!</p>
+      <p><strong>You must click the "Finish" button to fully complete this survey and return to Prolific.</strong></p>
     `,
-    choices: ['Finish'],
+    choices: ['Finish'], // No choices/buttons, just the message
     on_finish: function() {
       window.location.href = "https://app.prolific.com/submissions/complete?cc=C99FVA42";
     }
@@ -151,4 +229,3 @@
   jsPsych.run(timeline);
 </script>
 </html>
-
