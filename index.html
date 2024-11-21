@@ -29,14 +29,8 @@
    
   const condition = Math.random() > 0.5 ? 'moral' : 'immoral';
 
-  // Log the condition in a dedicated trial
-  const logCondition = {
-    type: jsPsychHtmlButtonResponse,
-    stimulus: `<p>Initializing experiment...</p>`,
-    choices: ['Continue'],
-    data: { condition: condition } // Log the condition once
-  };
-  timeline.push(logCondition);
+  // Add condition globally as a column
+  jsPsych.data.addProperties({ condition: condition });
 
 
    // Consent information
