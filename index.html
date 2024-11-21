@@ -27,8 +27,17 @@
   const subject_id = jsPsych.randomization.randomID(10);
   const filename = `${subject_id}.csv`;
    
-  // Random assignment to moral or immoral condition
   const condition = Math.random() > 0.5 ? 'moral' : 'immoral';
+
+  // Log the condition in a dedicated trial
+  const logCondition = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: `<p>Initializing experiment...</p>`,
+    choices: ['Continue'],
+    data: { condition: condition } // Log the condition once
+  };
+  timeline.push(logCondition);
+
 
    // Consent information
   const consentInfo = {
