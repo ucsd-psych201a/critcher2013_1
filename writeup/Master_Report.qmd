@@ -65,7 +65,7 @@ Our planned sample size is 289 participants.
 
 To replicate this experiment, we will use JSPsych to create an online study involving written scenarios and participant surveys. Participants will read scenarios involving Justin and Nate, and then rate them on quickness, moral character, decision certainty, and impulsivity. The original author of the study has kindly provided us with a detailed document outlining the script and protocol used for Experiment 1, which we will use to ensure that our replication remains as close as possible to the original study.
 
-Link to experimental paradigm: https://ucsd-psych201a.github.io/critcher2013_1/
+**Experimental paradigm link: <https://ucsd-psych201a.github.io/critcher2013_1/>**
 
 ### Procedure
 
@@ -93,9 +93,7 @@ Our primary focus in this study is to evaluate moral character based on decision
 
 For the statistical analysis, our main question of interest involves testing the effect of two factors (speed and decision) and their interaction on the response variable (moral character judgement); thus a type III, two-way analysis of variance (ANOVA) test is appropriate. A type III ANOVA tests each main effect and interaction, adjusting for all other factors and interactions in the model.
 
-Below is pseudo-code for the planned analysis:
-
-\
+Below is pseudo-code for the planned analysis:\
 
 ```{r, eval = F}
 

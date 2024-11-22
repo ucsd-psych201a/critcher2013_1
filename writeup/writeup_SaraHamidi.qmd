@@ -8,25 +8,77 @@ format:
     toc: true
     toc_depth: 3
 ---
+
 <!-- Replication reports should all use this template to standardize reporting across projects.  These reports will be public supplementary materials that accompany the summary report(s) of the aggregate results. -->
 
 ## Introduction
 
-Morality is one of the many complex facets and areas of research within social psychology. Being able to study relationships between a multitude of different justifications for certain positive or negative actions can provide valuable insight into how people reach these perceptions. Performing a replication study of the first experiment in "How Quick Decisions Illuminate Moral Character" is a key step in building a foundation for these insights. In replicating this experiment there will be two fictional characters who will be part of four different scenarios: one in which an individual comes to a “moral” decision quickly, one where the same individual comes to the same decision after a longer time of consideration, another where another individual comes to an “immoral” decision quickly, and lastly, one where the same individual comes to the same “immoral” decision after some consideration. Following the disclosure of these four scenarios, the participants will be surveyed on their opinions regarding the following: quickness, moral character, certainty, emotional impulsivity. To analyze the results, we will be running a two-way 2x2 ANOVA. 
+Morality is one of the many complex facets and areas of research within social psychology. Being able to study relationships between a multitude of different justifications for certain positive or negative actions can provide valuable insight into how people reach these perceptions. Performing a replication study of the first experiment in "How Quick Decisions Illuminate Moral Character" is a key step in building a foundation for these insights. In replicating this experiment there will be two fictional characters who will be part of four different scenarios: one in which an individual comes to a “moral” decision quickly, one where the same individual comes to the same decision after a longer time of consideration, another where another individual comes to an “immoral” decision quickly, and lastly, one where the same individual comes to the same “immoral” decision after some consideration. Following the disclosure of these four scenarios, the participants will be surveyed on their opinions regarding the following: quickness, moral character, certainty, emotional impulsivity. To analyze the results, we will be running a two-way 2x2 ANOVA.
 
-Some potential challenges in this replication involve the possibility of introducing confounding variables when surveying for emotional impulsivity or certainty. This may lead to multicollinearity and some difficulties in determining whether the moral judgements were solely based upon speed. 
+Some potential challenges in this replication involve the possibility of introducing confounding variables when surveying for emotional impulsivity or certainty. This may lead to multicollinearity and some difficulties in determining whether the moral judgements were solely based upon speed.
 
+## Design Overview
+
+\
+•How many factors were manipulated?
+
+The only factor being manipulated is the scenario given to each participant: moral or immoral.
+
+\
+•How many measures were taken?
+
+There are 9 measures: a 1-7 ranking of quickness, moral character, certainty, emotional impulsivity, experimental condition (moral/immoral). In addition to these, we will implement an attention check.
+
+\
+•Did it use a within-participants or between-participants design?
+
+Between-participants because they are only exposed to one condition (moral or immoral scenario), and not both.
+
+\
+•Were measures repeated?
+
+No, measures were not repeated.
+
+\
+•What would have been the consequence of changing one of these decisions? (e.g. moving from within to between participants). Could it have been either way?
+
+Moving to a within-participants study would ultimately reveal the intention of the study to participants.
+
+\
+•Were steps taken to reduce demand characteristics?
+
+The study aims to reduce demand characteristics by implementing a between-participants design in addition to randomization of scenarios given to participants.
+
+\
+How would you critique the design?
+
+-   Can you think of any potential confounds to the study?
+
+    -   By asking participants to rate their certainty, we aim to reduce any potential confounds to the study.
+
+-   Do you see any limitations to generalizability?
+
+    -   In the original study, there are some limitations due to the sample used which only included UC Berkeley undergraduate students and some community members. This limits the generalizability but we aim to reduce this issue through the use of an online format that reaches a wider range of participants.
 
 ## Methods
 
+### Power Analysis
+
+The original study lacked sufficient statistical details for conducting a power analysis. In specific, the study does not report the mean difference in decision speeds or the corresponding standard error. Furthermore, it also lacked statistical details for addressing the interaction between decision and speed. Moreover, a figure for Experiment 1 lacks error bars, making it difficult to estimate variability or calculate effect sizes visually. Without these, a reliable power analysis is more challenging. As a result, we have opted to use an alternative method in which we multiply the original sample size (n = 119) by 2.5, which gives us a sample size of N = 289 participants. 
+
+### Planned Sample
+
+Our planned sample size is 289 participants.
+
+Link to experimental paradigm: https://ucsd-psych201a.github.io/critcher2013_1/
+
 ### Materials
 
-We will be using JSPsych to develop the majority of this online experiment. We believe that due to the nature of this experiment and its reliance on written scenarios and survey responses, the online format through an interactive interface is ideal. 
+We will be using JSPsych to develop the majority of this online experiment. We believe that due to the nature of this experiment and its reliance on written scenarios and survey responses, the online format through an interactive interface is ideal.
 
 In terms of the instructions for participants, we will present three passages: one that introduces the two men (Justin and Nate), who have found the cash-filled wallets. Justin is the character that came to a quick decision and Nate is the one who took longer. Next, we will randomly assign each participant to one of two morality conditions: one that describes both men returning the wallet(acting morally), and the other where they keep the money(acting immorally).
 
-
-### Procedure	
+### Procedure
 
 Experiment 1:
 
@@ -34,28 +86,85 @@ Experiment 1:
 -   "Participants assigned to the moral condition learned both men 'did not steal the money but instead left the wallet with customer service.' Those in the immoral condition learned instead that both men 'pocketed the money and drove off.'"
 -   "Participants were asked to rate the quickness, moral character evaluation, decision certainty, and emotional impulsivity of the agents on 1-7 scales."
 
-
 ### Analysis Plan
 
-Our main analysis will be to understand the impact of decision morality and speed on moral character judgement. In efforts to achieve this goal, we will be collecting subject IDs and the randomized decision category of the participants. Each participant will then be surveyed on the following for each character (Justin and Nate): quickness (decision speed), moral character evaluation, decision certainty, and emotional impulsivity. We may also be helpful to collect demographics such as age and gender to make more informed generalizability decisions post-experiment. 
+Our main analysis will be to understand the impact of decision morality and speed on moral character judgement. In efforts to achieve this goal, we will be collecting subject IDs and the randomized decision category of the participants. Each participant will then be surveyed on the following for each character (Justin and Nate): quickness (decision speed), moral character evaluation, decision certainty, and emotional impulsivity. We may also be helpful to collect demographics such as age and gender to make more informed generalizability decisions post-experiment. Furthermore, we plan on excluding any surveys that contain non-answers from our data analysis. In addition, we will be utilizing an attention check and any participants who fail will be removed as well.
 
-Furthermore, we plan on excluding any surveys that contain non-answers from our data analysis. In addition, we will be utilizing an attention check and any participants who fail will be removed as well. 
+As for our statistical analysis, the main questions of interest involve testing the effect of speed and decision and the interaction on the response variable: moral character judgement. As a result, a type III, two-way analysis of variance (ANOVA) test is appropriate. We will test each main effect and interaction, adjusting for all other factors and interactions. 
+
+Below is pseudo-code for the planned analysis:
+
+\
+
+```{r, eval = F}
+
+# Fit a model with the interaction of interest
+
+intmod <- aov(Judg ~ speed * decision + uncertainty + impluse, data = dat)
+
+# Use a Type III, 2x2 Two-way ANOVA test
+
+# the results will tell us if the interaction term in needed in the model
+
+Anova(intmod, type = "III")
+
+```
+
+These results will determine whether a model with the interaction term is better than a model with predictors additively. After we have found the better model, the ANOVA assumptions and model diagnostics, will be assessed. 
+
+```{r, eval = F}
+
+# Assessing Independence of Observations is a thought exercise
+
+## No participants responses should impact another participants responses,
+## therefore there is no reason to suspect violations of this assumption.
+
+# Next, generate the standard suite of diagnostic plots 
+
+par(mfrow=c(2,2))
+
+plot(intmod)
+
+# Assess Homogeneity of Variance with a Residuals vs Fitted plot
+# Assess Normality of Residuals with a Normal Q-Q Plot
+
+## Extra residual plots
+
+eij = residuals(intmod)
+
+hist(eij,main = "Histogram of residuals")
+
+plot(density(eij),
+     main = "Density plot of residuals",
+     ylab = "Density",
+     xlab = "Residuals")
+
+```
+
+```{r, eval = F}
+# Determine whether we had a balanced design with the tally function
+
+## This will give us the sample size of each randomized condition group
+
+library(mosaic)
+tally(~ decision, data = dat)
+
+```
 
 ### Differences from Original Study
 
-One potential difference from the original experiment is the setting in which it will be conducted. While it is never explicitly revealed whether the experiment was run electronically or in person, we have assumed that running our replication online, will introduce variability in terms of where each participant will be contributing from. However, this should not have any significant impact on our data or results. 
+One potential difference from the original experiment is the setting in which it will be conducted. While it is never explicitly revealed whether the experiment was run electronically or in person, we have assumed that running our replication online, will introduce variability in terms of where each participant will be contributing from. However, this should not have any significant impact on our data or results.
 
-Additionally, the online nature of our replication enables us to have a greater chance of diversifying our sample in terms of demographics such as age, race, region etc. This will inevitably increase our generalizability, unlike the original study that only had participants from UC Berkeley and its community members. 
+Additionally, the online nature of our replication enables us to have a greater chance of diversifying our sample in terms of demographics such as age, race, region etc. This will inevitably increase our generalizability, unlike the original study that only had participants from UC Berkeley and its community members.
 
-Lastly, we will be incorporating an attention check in our experiment, which was not part of the original. Because of the online nature of our experiment, it is difficult to identify any potential bots who may skew our survey results. Furthermore, there may be participants who are simply selecting answers without actually reading the instructions or scenarios. We have introduced an attention check at the end of the experiment that will ask the partipant to name a character from the scenarios. We are hopeful that this will mitigate the possibility of biases in our data. 
+Lastly, we will be incorporating an attention check in our experiment, which was not part of the original. Because of the online nature of our experiment, it is difficult to identify any potential bots who may skew our survey results. Furthermore, there may be participants who are simply selecting answers without actually reading the instructions or scenarios. We have introduced an attention check at the end of the experiment that will ask the partipant to name a character from the scenarios. We are hopeful that this will mitigate the possibility of biases in our data.
 
 ## Results
 
-
 ### Data preparation
 
-We plan to conduct data cleaning and wrangling prior to our analysis by removing any of the exclusion criteria as listed in the previous section. Additionally, we will be closely monitoring any potential outliers that may prove to be problematic in our final analysis. Lastly, we expect to pivot data into a long format for better data visualizations and easier statistical testing. 
-	
+We plan to conduct data cleaning and wrangling prior to our analysis by removing any of the exclusion criteria as listed in the previous section. Additionally, we will be closely monitoring any potential outliers that may prove to be problematic in our final analysis. Lastly, we expect to pivot data into a long format for better data visualizations and easier statistical testing.
+
 ```{r include=F}
 ### Data Preparation
 
@@ -70,4 +179,4 @@ library(tidyverse)
 
 ### Confirmatory analysis
 
-Our main analysis method is a two-way 2 (decision) x 2 (speed) Analysis of Variance (ANOVA) on moral evaluations. We will also be exloring the relationship between decision speed (fast vs. slow) and decision type (moral vs. immoral). Other possible analysis methods include a manipulation check, exploring the possible interactions between decision speed/emotional impulsivity and decision speed/certainty. 
+Our main analysis method is a two-way 2 (decision) x 2 (speed) Analysis of Variance (ANOVA) on moral evaluations. We will also be exloring the relationship between decision speed (fast vs. slow) and decision type (moral vs. immoral). Other possible analysis methods include a manipulation check, exploring the possible interactions between decision speed/emotional impulsivity and decision speed/certainty.
