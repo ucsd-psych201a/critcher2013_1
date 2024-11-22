@@ -1,6 +1,7 @@
 ---
-title: "Replication of Study X by Sample & Sample (20xx, Psychological Science)"
-author: "Replication Author[s] (contact information)"
+title: "Replication of ___How Quick Decisions Illuminate Moral Character___ by Critcher et al (2013, Social Psychological and Personality Science)"
+subtitle: "Original Authors: Clayton R. Critcher, Yoel Inbar, & David A. Pizarro"
+author: "Harley Clifton, Sara Hamidi, Prosperity Land, & Bella Mullen"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 format:
   html:
@@ -37,7 +38,7 @@ Replicating Experiment 1 from “How Quick Decisions Illuminate Moral Character�
 
 ### Study Design
 
-Experiment 1 is a between-participant design because the key condition was assigned between participants. Each participant was exposed to only one type of moral outcome, either the characters acted morally or immorally.
+Experiment 1 is a mixed design because the key condition was assigned between participants, but multiple measures were recorded for each subject, making it also within-participants. Each participant was exposed to only one type of moral outcome, either the characters acted morally or immorally.
 
 ### Repetition in Measures
 
@@ -93,62 +94,9 @@ Our primary focus in this study is to evaluate moral character based on decision
 
 For the statistical analysis, our main question of interest involves testing the effect of two factors (speed and decision) and their interaction on the response variable (moral character judgement); thus a type III, two-way analysis of variance (ANOVA) test is appropriate. A type III ANOVA tests each main effect and interaction, adjusting for all other factors and interactions in the model.
 
-Below is pseudo-code for the planned analysis:\
-
-```{r, eval = F}
-
-# Fit a model with the interaction of interest
-
-intmod <- aov(Judg ~ speed * decision + uncertainty + impluse, data = dat)
-
-# Use a Type III, 2x2 Two-way ANOVA test
-
-# the results will tell us if the interaction term in needed in the model
-
-Anova(intmod, type = "III")
-
-```
-
 The results of the type III two-way ANOVA will tell us whether a model with the interaction term is better than just a model with all the predictors additively. After the best model is found, the ANOVA assumptions and model diagnostics, such as normality, homogeneity of variances, and independence will be assessed.
 
-```{r, eval = F}
 
-# Assessing Independence of Observations is a thought exercise
-
-## No participants responses should impact another participants responses,
-## therefore there is no reason to suspect violations of this assumption.
-
-# Next, generate the standard suite of diagnostic plots 
-
-par(mfrow=c(2,2))
-
-plot(intmod)
-
-# Assess Homogeneity of Variance with a Residuals vs Fitted plot
-# Assess Normality of Residuals with a Normal Q-Q Plot
-
-## Extra residual plots
-
-eij = residuals(intmod)
-
-hist(eij,main = "Histogram of residuals")
-
-plot(density(eij),
-     main = "Density plot of residuals",
-     ylab = "Density",
-     xlab = "Residuals")
-
-```
-
-```{r, eval = F}
-# Determine whether we had a balanced design with the tally function
-
-## This will give us the sample size of each randomized condition group
-
-library(mosaic)
-tally(~ decision, data = dat)
-
-```
 
 ### Differences from Original Study
 
@@ -178,13 +126,102 @@ Data preparation following the analysis plan.
 ### Data Preparation
 
 #### Load Relevant Libraries and Functions
+library(tidyverse)
+library(car)
+#library(ez)
+```
 
+```{r}
 #### Import data
+df <- read_csv("../data/cleaned_combined_pilotB.csv")
+colfactor <- c("condition", "ID", "FastorSlow", "measure")
+df[colfactor] <- lapply(df[colfactor], as.factor)
+#summary(df)
 
+# some participants did not respond to every question
+index_mapping <- df %>%
+  select(trial_index, FastorSlow, measure) %>%
+  distinct()
+
+# Create a complete data frame ensuring all trial indexes (4-25) exist for each ID
+complete_data <- df %>%
+  complete(ID, trial_index = 4:25, fill = list(response = NA)) %>%
+  left_join(index_mapping, by = "trial_index") %>%
+  group_by(ID) %>%
+  mutate(
+    condition = first(condition, order_by = trial_index)
+  ) %>%
+  ungroup()
+
+# Overwrite the original `FastorSlow` and `measure` columns with the mapped values
+complete_data <- complete_data %>%
+  mutate(
+    FastorSlow = FastorSlow.y,
+    measure = measure.y
+  ) %>%
+  select(-FastorSlow.y, -measure.y, -FastorSlow.x, -measure.x)  
+  # Remove the temporary columns
+
+
+#summary(complete_data)
+```
+
+```{r}
 #### Data exclusion / filtering
 
-#### Prepare data for analysis - create columns etc.
+exclu_data <- complete_data %>%
+  # Group by ID
+  group_by(ID) %>%
+  # Check if the response contains "nate" or "justin" in rows where measure is "attention"
+  filter(any(measure == "attention" & grepl("nate|justin", response, ignore.case = TRUE))) %>%
+  # Ungroup after filtering
+  ungroup()
+
+#summary(exclu_data)
 ```
+
+```{r}
+#### Prepare data for analysis - create columns etc.
+
+filtered_data <- exclu_data %>%
+  filter(measure %in% c("quickness", "character"))
+
+
+# Calculate averages for "character" measure grouped by ID and FastorSlow
+character_averages <- filtered_data %>%
+  filter(measure == "character") %>%
+  group_by(ID, FastorSlow, condition) %>%
+  summarize(
+    response = mean(as.numeric(response), na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(measure = "character") # Ensure the measure column remains "character"
+
+
+# Keep only the "quickness" rows
+quickness_data <- filtered_data %>%
+  filter(measure == "quickness") %>%
+  select(ID, FastorSlow, condition, response, measure)
+
+
+# Combine the averaged "character" data with the "quickness" data
+tidydf <- rbind(quickness_data, character_averages)
+```
+
+
+
+```{r}
+## Descriptive Statistics
+
+# Determine whether we had a balanced design
+
+## sample size of each randomized condition group
+tidydf %>%
+  group_by(condition) %>%
+  summarize(subject_count = n_distinct(ID), .groups = "drop")
+```
+
+
 
 ### Confirmatory analysis
 
@@ -192,11 +229,105 @@ The analyses as specified in the analysis plan.
 
 *Side-by-side graph with original graph is ideal here*
 
+```{r}
+# Creating the Bar Plot to Assess Evidence of an Interaction
+
+# Filter data to include only rows where measure is "character"
+character_data <- tidydf %>%
+  filter(measure == "character") %>%
+  mutate(response = as.numeric(response), # Ensure response is numeric
+         FastorSlow = as.factor(FastorSlow), # Convert FastorSlow to factor
+         condition = as.factor(condition), # Convert condition to factor
+         ID = as.factor(ID)) # Convert ID to factor
+
+# Create the bar plot
+ggplot(character_data, 
+       aes(x = condition, y = response, fill = FastorSlow)) +
+  stat_summary(fun = mean, # Compute mean of response
+               geom = "bar", # Use bars to represent the summary
+               position = position_dodge(width = 0.8), width = 0.8) +
+  stat_summary(fun.data = mean_se, # Add error bars (mean ± standard error)
+               geom = "errorbar",
+               position = position_dodge(width = 0.8), width = 0.2) +
+  labs(title = "Character Judgements by   \n Morality Condition and Decision Speed",
+       x = "Morality Condition",
+       y = "(Positive) Moral Character Evaluation",
+       fill = "Decision Speed") +
+  scale_fill_manual(values = c("f" = "turquoise2", "s" = "orange1"), #Custom colors
+                    labels = c("f" = "Quick", "s" = "Slow")) +
+  scale_y_continuous(breaks = 1:7) +
+  coord_cartesian(ylim = c(1, 7)) +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5),
+        axis.title.x = element_text(size = 11),
+        axis.title.y = element_text(size = 11),
+        legend.position = "right",
+        legend.title = element_text(size = 12),
+        legend.text = element_text(size = 10))
+
+```
+
+
 The statistical test we will use to justify the main inference of the paper is a two-way ANOVA. This test will allow us to analyze the interaction between decision speed and decision type to determine how they influence moral character evaluations. It will also use it to assess the individual and combined effects of both independent variables.
+
+```{r}
+## Running the ANOVA Interaction Test
+
+# Fit a model with the interaction of interest
+intmod <- aov(response ~ FastorSlow * condition, data = character_data)
+
+# Use a Type III, 2x2 Two-way ANOVA test
+# the results will tell us if the interaction term in needed in the model
+Anova(intmod, type = "III")
+```
+
+
+**Model Diagnostics:**
+
+Assessing _Independence of Observations_ is a thought exercise. No participants responses should impact another participants responses, therefore there is no reason to suspect violations of this assumption.
+
+Next, the standard suite of diagnostic plots was generated.
+
+```{r}
+par(mfrow=c(2,2))
+plot(intmod)
+```
+
+
+To assess _Homogeneity of Variance_, the Residuals vs Fitted plot will be investigated. 
+
+
+To assess _Normality of Residuals_, the Normal Q-Q Plot will be referenced. We will also use the following residuals plots for further confirmation.
+
+```{r}
+## Extra residual plots
+
+eij = residuals(intmod)
+
+hist(eij,main = "Histogram of residuals")
+
+plot(density(eij),
+     main = "Density plot of residuals",
+     ylab = "Density",
+     xlab = "Residuals")
+```
+
+
+
+
+
 
 ### Exploratory analyses
 
 Any follow-up analyses desired (not required).
+
+_We plan to confirm that decision speed is not being used as a proxy for uncertainty or emotional impulsivity as the original researchers did._
+
+* uncertainty
+
+* emotional impulsivity
+
+
 
 ## Discussion
 
