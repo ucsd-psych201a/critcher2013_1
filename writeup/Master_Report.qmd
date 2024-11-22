@@ -90,7 +90,11 @@ Experiment 1:
 
 ### Analysis Plan
 
-Our primary focus in this study is to evaluate moral character based on decision morality and decision speed. To minimize error and confounding, we plan to include several covariates, including randomization decision category (moral or immoral condition), decision speed (quickness), moral character evaluation, decision certainty, and emotional impulsivity. Once our data is collected, we will exclude responses with non-answers and participants who fail our attention check at the end of the survey, which we will implement to assess attentiveness during the experiment. With these measures, we hope to ensure that the data is good quality and ready for analysis. We also intent to increase the generalizability of our findings by collecting demographic data, such as participants' age and gender.
+Our primary focus in this study is to evaluate moral character based on decision morality and decision speed. To minimize error and confounding, we plan to include several covariates, including randomization decision category (moral or immoral condition), decision speed (quickness), moral character evaluation, decision certainty, and emotional impulsivity. 
+
+Once our data is collected, we will exclude responses with non-answers and participants who fail our attention check at the end of the survey, which we will implement to assess attentiveness during the experiment. As a sanity check, participants should always rate Justin as faster (higher numerical value) than Nate. If participants fail to do so, even if they rate them at the same speed, we have reason to question whether they were adequately reading and thus their data will be excluded from the analysis. Any participants who respond the same way to all numerical response questions also give us reason to question the validity of their responses, and their data will be excluded from the analysis as well.
+
+With these measures, we hope to ensure that the data is good quality and ready for analysis. We also intent to increase the generalizability of our findings by collecting demographic data, such as participants' age and gender.
 
 For the statistical analysis, our main question of interest involves testing the effect of two factors (speed and decision) and their interaction on the response variable (moral character judgement); thus a type III, two-way analysis of variance (ANOVA) test is appropriate. A type III ANOVA tests each main effect and interaction, adjusting for all other factors and interactions in the model.
 
@@ -109,6 +113,14 @@ You can comment this section out prior to final report with data collection.
 #### Actual Sample
 
 Sample size, demographics, data exclusions based on rules spelled out in analysis plan
+
+
+Our exclusion criteria are as follows:
+* submissions with any non-answers
+* participants that fail the attention check
+* participants who incorrectly rate Justin as _slower_ (lower numerical value) than Nate
+* participants who respond the same to all numerical response questions
+
 
 #### Differences from pre-data collection methods plan
 
