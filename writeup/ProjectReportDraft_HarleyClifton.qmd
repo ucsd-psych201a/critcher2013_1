@@ -9,6 +9,10 @@ format:
     toc_depth: 3
 ---
 
+
+LINK: https://osf.io/f83d5/
+
+
 <!-- Replication reports should all use this template to standardize reporting across projects.  These reports will be public supplementary materials that accompany the summary report(s) of the aggregate results. -->
 
 ## Introduction
@@ -19,7 +23,38 @@ I anticipate a few potential challenges with replicating this study. It is possi
 
 $~$
 
+## Design Overview
+
+There is only one manipulated factor in this experiment: whether participants read the _moral_ or _immoral_ outcome.
+
+The original study had 9 measurements taken including (1) speed, (2) character evaluation, (3) certainty, & (4) impulsivity for each character, and the randomized experimental condition. We will also include an attention check measurement.
+
+Since different participants are randomly assigned to one of the two morality experimental conditions, this is a between-subjects design. There are no repeated measures.
+
+If the experiment were redesigned as within-subjects, we risk introducing demand characteristics because the participants are much more likely to become aware of what the experimental goal is. This knowledge could impact or bias their subsequent responses.
+
+The researcher of the original paper did a good job at anticipating potential confounds, such as perceived decision uncertainty, and included these measurements in the experiment to make sure decision speed was not being used as a proxy.
+
+
+
+
+$~$
+
 ## Methods
+
+
+### Power Analysis
+
+The original study did not report the mean difference between decision speeds and its corresponding standard error. They also did not report the relevant mean and standard error for the interaction between decision and speed. Additionally, no error bars were present in their figure for visualizing experiment 1, so that information was not available to calculate required sample size that way either. Therefore, we are calculating our required sample size by doing the standard procedure of multiplying the original sample size (n = 119) by 2.5, to result in a desired sample size of N = 289 participants.
+
+
+### Planned Sample
+
+Our planned sample size is a total of 289 participants.
+
+__Planned sample size and/or termination rule, sampling frame, known demographics if any, preselection rules if any.__
+
+
 
 ### Materials
 
@@ -37,11 +72,61 @@ Experiment 1:
 -   "Participants assigned to the moral condition learned both men 'did not steal the money but instead left the wallet with customer service.' Those in the immoral condition learned instead that both men 'pocketed the money and drove off.'"
 -   "Participants were asked to rate the quickness, moral character evaluation, decision certainty, and emotional impulsivity of the agents on 1-7 scales."
 
+
 ### Analysis Plan
 
 The key analysis of interest is to assess the impact of decision morality and speed on moral character judgement. To do this effectively, data will be collected on subject id and randomized decision category (immoral or moral condition). Participants will also indicate the following for each of the characters, Justin and Nate: quickness (perceived decision speed), moral character evaluation, perceived decision certainty, and perceived emotional impulsivity. It would also be useful to have general demographic information about participants, like age and gender, for generalizability purposes.
 
 There has also been some data exclusion criteria established. If there are submissions with any non-answers, they will be excluded from our data analysis. In addition, participants that fail the attention check built into the experiment will be removed from the dataset to prevent against bots.
+
+__
+
+For the statistical analysis, our main question of interest involves testing the effect of two factors (speed and decision) and their interaction on the response variable (moral character judgement); thus a type III, two-way analysis of variance (ANOVA) test is appropriate. A type III ANOVA tests each main effect and interaction, adjusting for all other factors and interactions in the model.
+
+Below is pseudo-code for the planned analysis:
+
+```{r, eval = F}
+# Fit a model with the interaction of interest
+intmod <- aov(Judg ~ speed * decision + uncertainty + impluse, data = dat)
+
+# Use a Type III, 2x2 Two-way ANOVA test
+# the results will tell us if the interaction term in needed in the model
+Anova(intmod, type = "III")
+```
+
+The results of the type III two-way ANOVA will tell us whether a model with the interaction term is better than just a model with all the predictors additively. After the best model is found, the ANOVA assumptions and model diagnostics, such as normality, homogeneity of variances, and independence will be assessed.
+
+```{r, eval = F}
+# Assessing Independence of Observations is a thought exercise
+## No participants responses should impact another participants responses,
+## therefore there is no reason to suspect violations of this assumption.
+
+# Next, generate the standard suite of diagnostic plots 
+par(mfrow=c(2,2))
+plot(intmod)
+
+# Assess Homogeneity of Variance with a Residuals vs Fitted plot
+
+# Assess Normality of Residuals with a Normal Q-Q Plot
+## Extra residual plots
+eij = residuals(intmod)
+hist(eij,main = "Histogram of residuals")
+plot(density(eij),
+     main = "Density plot of residuals",
+     ylab = "Density",
+     xlab = "Residuals")
+```
+
+```{r, eval = F}
+# Determine whether we had a balanced design with the tally function
+## This will give us the sample size of each randomized condition group
+
+library(mosaic)
+tally(~ decision, data = dat)
+```
+
+
+
 
 ### Differences from Original Study
 
@@ -50,6 +135,8 @@ In this replication experiment, there are a few anticipated differences from the
 One advantage of the online experiment format is that the sample of participants has a greater chance to contain people from a variety of ages, races, regions, etc. This will ideally increase the generalizability of results to more than just undergraduate students at UC Berkeley and community members.
 
 An intentional difference that was included is the addition of an attention check at the end of the experiment. For in-person settings, it is easier to monitor whether a subject is paying appropriate attention to the presented stimuli. However, online formats introduce the potential for bots to participate and potentially skew results. Additionally, with no experimenter monitoring each participant, they may be more likely to arbitrarily select answers without reading to get the experiment over with. To avoid this, an attention check was added at the end of the experiment. The attention check asks the participant to name one of the characters in the scenarios they were presented. This is believed to alleviate the possibility of misleading data by allowing researchers to identify and exclude data from potential bots or participants who were not paying appropriate attention.
+
+The original researchers were contacted to obtain the exact prompts used, so those items will not differ from the original experiment. However, it is likely that the text formatting, font, font size, etc. may differ, but these aspects are not expected to impact study results.
 
 $~$
 
