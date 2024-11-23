@@ -56,30 +56,28 @@ cleaned_data <- cleaned_data %>%
     TRUE ~ NA_character_
   ))
 
-index_mapping <- df %>%
+# Create index mapping to ensure consistency
+index_mapping <- cleaned_data %>%
   select(trial_index, FastorSlow, measure) %>%
   distinct()
-# Create a complete data frame ensuring all trial indexes (4-25) exist for each ID
-complete_data <- df %>%
+
+# Complete the dataset to ensure all trial indexes exist for each ID
+cleaned_data <- cleaned_data %>%
   complete(ID, trial_index = 4:25, fill = list(response = NA)) %>%
   left_join(index_mapping, by = "trial_index") %>%
   group_by(ID) %>%
-  mutate(
-    condition = first(condition, order_by = trial_index)
-  ) %>%
+  mutate(condition = first(condition, order_by = trial_index)) %>%
   ungroup()
-# Overwrite the original `FastorSlow` and `measure` columns with the mapped values
-complete_data <- complete_data %>%
-  mutate(
-    FastorSlow = FastorSlow.y,
-    measure = measure.y
+
+# Rename 'FastorSlow.x' and 'measure.x' to 'FastorSlow' and 'measure'
+# Remove 'FastorSlow.y' and 'measure.y'
+cleaned_data <- cleaned_data %>%
+  rename(
+    FastorSlow = FastorSlow.x,
+    measure = measure.x
   ) %>%
-  select(-FastorSlow.y, -measure.y, -FastorSlow.x, -measure.x)
-# Remove the temporary columns
-# View the resulting data
-head(complete_data)
-# Save the result back to a CSV file
-write.csv(complete_data, "completed_data.csv", row.names = FALSE)
+  select(-FastorSlow.y, -measure.y)
+
 
 # Save the combined and cleaned dataset
 write.csv(cleaned_data, "/Users/bellamullen/Documents/CSS_204/replication_project/pilot_B/cleaned_combined_pilotB.csv", row.names = FALSE)
