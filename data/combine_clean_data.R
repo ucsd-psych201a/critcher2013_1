@@ -78,6 +78,15 @@ cleaned_data <- cleaned_data %>%
   ) %>%
   select(-FastorSlow.y, -measure.y)
 
+# Add a new column 'response_reverse' with reverse coding for specific questions
+cleaned_data <- cleaned_data %>%
+  mutate(
+    response_reverse = case_when(
+      trial_index %in% c(9, 13, 19, 21, 23) & grepl("^[0-9]+$", response) ~ as.character(8 - as.numeric(response)),  # Reverse coding for numeric responses
+      TRUE ~ response  # Keep original response for all others, including strings
+    )
+  )
+
 
 # Save the combined and cleaned dataset
 write.csv(cleaned_data, "/Users/bellamullen/Documents/CSS_204/replication_project/pilot_B/cleaned_combined_pilotB.csv", row.names = FALSE)
