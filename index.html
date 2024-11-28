@@ -194,7 +194,7 @@
   // Attention check question
   const attentionCheck = {
     type: jsPsychSurveyText,
-    questions: [{ prompt: "Please enter the name of either character mentioned in the prompts.", required: true }]
+    questions: [{ prompt: "Please enter the name of ONE of the characters mentioned in the prompts.", required: true }]
   };
   timeline.push(attentionCheck);
 
@@ -203,8 +203,8 @@
     type: jsPsychSurveyText,
     questions: [
       {
-        prompt: "Do you have any feedback? Did you experience any issues? Please be descriptive. Thank you!",
-        placeholder: "Enter your feedback here...",
+        prompt: "If you have any feedback or would like to report any issues you experienced, you can do so here. Thank you!",
+        placeholder: "Enter any comments here...",
         rows: 4,
         required: false
       }
