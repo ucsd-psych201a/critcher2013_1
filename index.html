@@ -10,8 +10,16 @@
    <script src="https://unpkg.com/@jspsych/plugin-survey-text@2.0.0"></script>
    <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
    <link href="https://unpkg.com/jspsych@8.0.0/css/jspsych.css" rel="stylesheet" type="text/css" />
+   <style>
+      body {
+         width: 70%;
+         margin: auto;
+         padding: 20px; /* Add padding to prevent text from touching screen edges */
+         box-sizing: border-box; /* Ensures padding is included in width calculation */
+      }
+   </style>
 </head>
-<body style="width: 70%;"></body>
+<body></body>
 <script>
   // Initialize jsPsych
   const jsPsych = initJsPsych({
