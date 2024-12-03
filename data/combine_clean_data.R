@@ -83,7 +83,7 @@ cleaned_data <- cleaned_data %>%
 cleaned_data <- cleaned_data %>%
   mutate(
     response_reverse = case_when(
-      trial_index %in% c(9, 13, 19, 21, 23) & grepl("^[0-9]+$", response) ~ as.character(8 - as.numeric(response)),  # Reverse coding for numeric responses
+      trial_index %in% c(9, 10, 13, 19, 20, 23) & grepl("^[0-9]+$", response) ~ as.character(8 - as.numeric(response)),  # Reverse coding for numeric responses
       TRUE ~ response  # Keep original response for all others, including strings
     )
   )
