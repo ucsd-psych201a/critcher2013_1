@@ -422,3 +422,10 @@ Open the discussion section with a paragraph summarizing the primary result from
 ### Commentary
 
 Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt. None of these need to be long.
+
+
+$~$
+
+#### Credit Taxonomy
+
+**Harley Clifton**: Conceptualization, Formal Analysis, Investigation, Data Curation, Writing, Visualization, Project Administration. **Sara Hamidi**: Conceptualization, Software, Investigation, Resources, Data Curation. **Prosperity Land**: Conceptualization, Investigation, Writing, Visualization. **Isabella Mullen**: Conceptualization, Software, Investigation, Resources, Data Curation, Project Administration.
