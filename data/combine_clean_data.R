@@ -1,8 +1,9 @@
 library(dplyr)
 library(stringr)
+library(tidyr)
 
 #path to individual response folders
-path_to_csvs <- "/Users/bellamullen/Documents/CSS_204/replication_project/pilot_B/pilot_B_data"
+path_to_csvs <- "/Users/bellamullen/Documents/CSS_204/replication_project/final_files/final_data"
 
 # Combine all CSV files into one dataset
 csv_files <- list.files(path = path_to_csvs, pattern = "*.csv", full.names = TRUE)
@@ -11,7 +12,7 @@ cleaned_data <- csv_files %>%
   bind_rows()
 
 # Save the combined dataset as 'combined_pilotB.csv'
-write.csv(cleaned_data, "/Users/bellamullen/Documents/CSS_204/replication_project/pilot_B/combined_pilotB.csv", row.names = FALSE)
+write.csv(cleaned_data, "/Users/bellamullen/Documents/CSS_204/replication_project/final_files/combined_final_data.csv", row.names = FALSE)
 
 # Add an 'ID' column with the file name
 cleaned_data <- list.files(path = path_to_csvs, pattern = "*.csv", full.names = TRUE) %>%
@@ -89,5 +90,5 @@ cleaned_data <- cleaned_data %>%
 
 
 # Save the combined and cleaned dataset
-write.csv(cleaned_data, "/Users/bellamullen/Documents/CSS_204/replication_project/pilot_B/cleaned_combined_pilotB.csv", row.names = FALSE)
+write.csv(cleaned_data, "/Users/bellamullen/Documents/CSS_204/replication_project/final_files/quick_decisions_1_clean_data.csv", row.names = FALSE)
 
