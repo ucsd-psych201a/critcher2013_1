@@ -154,7 +154,8 @@ df[colfactor] <- lapply(df[colfactor], as.factor)
 # some participants did not respond to every question
 index_mapping <- df %>%
   select(trial_index, FastorSlow, measure) %>%
-  distinct()
+  distinct() %>%
+  drop_na()
 
 # Create a complete data frame ensuring all trial indexes (4-25) exist for each ID
 complete_data <- df %>%
@@ -176,21 +177,91 @@ complete_data <- complete_data %>%
   # Remove the temporary columns
 
 
-#summary(complete_data)
+summary(complete_data)
 ```
+
+```{r include = F}
+# filter out rows that are Bria's or the TA's responses
+
+complete_data <- complete_data %>%
+  group_by(ID) %>%
+  filter(!any(measure == "feedback" & grepl("Bria|Mihir", response_reverse))) %>%
+  ungroup()
+
+# feedback_rows <- complete_data %>%
+#   filter(measure == "feedback")
+
+
+# quickness_rows <- complete_data %>%
+#   filter(measure == "quickness")
+
+
+# filtered_data <- complete_data %>%
+#   group_by(ID) %>%
+#   filter(!any(is.na(response))) %>%
+#   ungroup()
+# # so there are only 19 people who actually answered every question
+
+
+unique_ids <- complete_data %>%
+  # Focus only on the relevant combinations of measure and FastorSlow
+  filter(measure %in% c("quickness", "character") & FastorSlow %in% c("f", "s")) %>%
+  group_by(ID) %>%
+  # Check if each ID has at least one non-NA response for all combinations
+  filter(all(!is.na(response[measure == "quickness" & FastorSlow == "f"])) &
+         all(!is.na(response[measure == "quickness" & FastorSlow == "s"])) &
+         all(!is.na(response[measure == "character" & FastorSlow == "f"])) &
+         all(!is.na(response[measure == "character" & FastorSlow == "s"]))) %>%
+  ungroup() %>%
+  distinct(ID)
+
+
+# Step 2: Filter the original dataset to keep only rows with those IDs
+filtered_data <- complete_data %>%
+  filter(ID %in% unique_ids$ID)
+
+
+distinct_id_count <- filtered_data %>%
+  summarise(count = n_distinct(ID))
+
+```
+
 
 ```{r}
 #### Data exclusion / filtering
 
-exclu_data <- complete_data %>%
+exclu_data <- filtered_data %>%
+  
   # Group by ID
   group_by(ID) %>%
+  
+  
   # Check if the response contains "nate" or "justin" in rows where measure is "attention"
   filter(any(measure == "attention" & grepl("nate|justin", response, ignore.case = TRUE))) %>%
+   # 38 left after excluding those that failed the attention check
+  
+  
+  # removed any ids that rate the fast person as slower than the slow person
+  filter(!any(measure == "quickness" &
+              FastorSlow == "f" &
+              response_reverse < response_reverse[measure == "quickness" & FastorSlow == "s"])) %>%
+  # 35 left after this
+  
+  
+  # filter out ids that have all the same non-na response values
+  filter(n_distinct(response, na.rm = TRUE) > 1) %>%
+  # still 35 thank god
+  
+  
   # Ungroup after filtering
   ungroup()
 
-#summary(exclu_data)
+
+# distinct_id_count <- exclu_data %>%
+#   summarise(count = n_distinct(ID))
+
+
+summary(exclu_data)
 ```
 
 ```{r}
@@ -266,7 +337,7 @@ ggplot(character_data,
        x = "Morality Condition",
        y = "(Positive) Moral Character Evaluation",
        fill = "Decision Speed") +
-  scale_fill_manual(values = c("f" = "turquoise2", "s" = "orange1"), #Custom colors
+  scale_fill_manual(values = c("f" = "lightskyblue", "s" = "maroon1"), #Custom colors
                     labels = c("f" = "Quick", "s" = "Slow")) +
   scale_y_continuous(breaks = 1:7) +
   coord_cartesian(ylim = c(1, 7)) +
