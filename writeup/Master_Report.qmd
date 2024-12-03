@@ -116,6 +116,7 @@ Sample size, demographics, data exclusions based on rules spelled out in analysi
 
 
 Our exclusion criteria are as follows:
+
 * submissions with any non-answers
 * participants that fail the attention check
 * participants who incorrectly rate Justin as _slower_ (lower numerical value) than Nate
@@ -145,7 +146,7 @@ library(car)
 
 ```{r}
 #### Import data
-df <- read_csv("../data/cleaned_combined_pilotB.csv")
+df <- read_csv("../data/quick_decisions_1_clean_data.csv")
 colfactor <- c("condition", "ID", "FastorSlow", "measure")
 df[colfactor] <- lapply(df[colfactor], as.factor)
 #summary(df)
