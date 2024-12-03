@@ -10,6 +10,14 @@
    <script src="https://unpkg.com/@jspsych/plugin-survey-text@2.0.0"></script>
    <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
    <link href="https://unpkg.com/jspsych@8.0.0/css/jspsych.css" rel="stylesheet" type="text/css" />
+   <style>
+      body {
+         width: 70%;
+         margin: auto;
+         padding: 40px 200px; /* Add padding to prevent text from touching screen edges */ /* Top/Bottom spacing first, the Left/Right */
+         box-sizing: border-box; /* Ensures padding is included in width calculation */
+      }
+   </style>
 </head>
 <body></body>
 <script>
@@ -186,7 +194,7 @@
   // Attention check question
   const attentionCheck = {
     type: jsPsychSurveyText,
-    questions: [{ prompt: "Please enter the name of either character mentioned in the prompts.", required: true }]
+    questions: [{ prompt: "Please enter the name of ONE of the characters mentioned in the prompts.", required: true }]
   };
   timeline.push(attentionCheck);
 
@@ -195,8 +203,8 @@
     type: jsPsychSurveyText,
     questions: [
       {
-        prompt: "Do you have any feedback? Did you experience any issues? Please be descriptive. Thank you!",
-        placeholder: "Enter your feedback here...",
+        prompt: "If you have any feedback or would like to report any issues you experienced, you can do so here. Thank you!",
+        placeholder: "Enter any comments here...",
         rows: 4,
         required: false
       }
@@ -213,7 +221,7 @@
     `,
     choices: ['Finish'], // No choices/buttons, just the message
     on_finish: function() {
-      window.location.href = "https://app.prolific.com/submissions/complete?cc=C99FVA42";
+      window.location.href = "https://app.prolific.com/submissions/complete?cc=C45SP5V5";
     }
   };
 

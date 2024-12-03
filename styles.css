@@ -6,6 +6,9 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    padding: 20px; /* Add padding around the content */
+    overflow-y: auto; /* Allow scrolling for longer content */
+    box-sizing: border-box;
 }
 
 .consent-info {
@@ -13,9 +16,12 @@ body {
     max-width: 800px;
     margin: auto;
     text-align: justify;
+    padding: 20px; /* Add padding inside the container */
+    line-height: 1.6; /* Increase line height for better readability */
 }
 
 h2 {
     font-size: 1.2em;
     text-align: center;
+    margin-bottom: 15px; /* Add space below the heading */
 }

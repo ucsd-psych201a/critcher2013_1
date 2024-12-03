@@ -1,8 +1,9 @@
 library(dplyr)
 library(stringr)
+library(tidyr)
 
 #path to individual response folders
-path_to_csvs <- "/Users/bellamullen/Documents/CSS_204/replication_project/pilot_B/pilot_B_data"
+path_to_csvs <- "/Users/bellamullen/Documents/CSS_204/replication_project/final_files/final_data"
 
 # Combine all CSV files into one dataset
 csv_files <- list.files(path = path_to_csvs, pattern = "*.csv", full.names = TRUE)
@@ -11,7 +12,7 @@ cleaned_data <- csv_files %>%
   bind_rows()
 
 # Save the combined dataset as 'combined_pilotB.csv'
-write.csv(cleaned_data, "/Users/bellamullen/Documents/CSS_204/replication_project/pilot_B/combined_pilotB.csv", row.names = FALSE)
+write.csv(cleaned_data, "/Users/bellamullen/Documents/CSS_204/replication_project/final_files/combined_final_data.csv", row.names = FALSE)
 
 # Add an 'ID' column with the file name
 cleaned_data <- list.files(path = path_to_csvs, pattern = "*.csv", full.names = TRUE) %>%
@@ -56,7 +57,38 @@ cleaned_data <- cleaned_data %>%
     TRUE ~ NA_character_
   ))
 
+# Create index mapping to ensure consistency
+index_mapping <- cleaned_data %>%
+  select(trial_index, FastorSlow, measure) %>%
+  distinct()
+
+# Complete the dataset to ensure all trial indexes exist for each ID
+cleaned_data <- cleaned_data %>%
+  complete(ID, trial_index = 4:25, fill = list(response = NA)) %>%
+  left_join(index_mapping, by = "trial_index") %>%
+  group_by(ID) %>%
+  mutate(condition = first(condition, order_by = trial_index)) %>%
+  ungroup()
+
+# Rename 'FastorSlow.x' and 'measure.x' to 'FastorSlow' and 'measure'
+# Remove 'FastorSlow.y' and 'measure.y'
+cleaned_data <- cleaned_data %>%
+  rename(
+    FastorSlow = FastorSlow.x,
+    measure = measure.x
+  ) %>%
+  select(-FastorSlow.y, -measure.y)
+
+# Add a new column 'response_reverse' with reverse coding for specific questions
+cleaned_data <- cleaned_data %>%
+  mutate(
+    response_reverse = case_when(
+      trial_index %in% c(9, 13, 19, 21, 23) & grepl("^[0-9]+$", response) ~ as.character(8 - as.numeric(response)),  # Reverse coding for numeric responses
+      TRUE ~ response  # Keep original response for all others, including strings
+    )
+  )
+
 
 # Save the combined and cleaned dataset
-write.csv(cleaned_data, "/Users/bellamullen/Documents/CSS_204/replication_project/pilot_B/cleaned_combined_pilotB.csv", row.names = FALSE)
+write.csv(cleaned_data, "/Users/bellamullen/Documents/CSS_204/replication_project/final_files/quick_decisions_1_clean_data.csv", row.names = FALSE)
 
