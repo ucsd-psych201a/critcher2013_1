@@ -141,7 +141,6 @@ library(car)
 library(patchwork)
 library(lme4)
 #library(nlme)
-library(effectsize)
 ```
 
 ```{r}
@@ -333,7 +332,7 @@ ggplot(character_data,
        x = "Morality Condition",
        y = "(Positive) Moral Character Evaluation",
        fill = "Decision Speed") +
-  scale_fill_manual(values = c("f" = "lightskyblue", "s" = "maroon1"), #Custom colors
+  scale_fill_manual(values = c("f" = "orange1", "s" = "magenta3"), #Custom colors
                     labels = c("f" = "Quick", "s" = "Slow")) +
   scale_y_continuous(breaks = 1:7) +
   coord_cartesian(ylim = c(1, 7)) +
@@ -361,7 +360,7 @@ barplot <- ggplot(character_data,
   labs(x = "Morality Condition",
        y = "(Positive) Moral Character Evaluation",
        fill = "Decision Speed") +
-  scale_fill_manual(values = c("f" = "lightskyblue", "s" = "maroon1"),
+  scale_fill_manual(values = c("f" = "orange1", "s" = "magenta3"),
                     labels = c("f" = "Quick", "s" = "Slow")) +
   scale_y_continuous(breaks = 1:7) +
   coord_cartesian(ylim = c(1, 7)) +
@@ -385,7 +384,7 @@ lineplot <- ggplot(character_data,
   labs(x = "Morality Condition",
        y = "(Positive) Moral Character Evaluation",
        color = "Decision Speed") +
-  scale_color_manual(values = c("f" = "lightskyblue", "s" = "maroon1"), 
+  scale_color_manual(values = c("f" = "orange1", "s" = "magenta3"), 
                      labels = c("f" = "Quick", "s" = "Slow")) +
   scale_y_continuous(breaks = 1:7) +
   coord_cartesian(ylim = c(1, 7)) +
@@ -448,27 +447,57 @@ Assessing *Independence of Observations* is a thought exercise. No participants 
 
 To assess *Linearity* and *Homogeneity of Variance*, the Residuals vs Fitted plot will be investigated.
 
-```{r}
-plot(intmod)
+```{r include = F}
+fitted_vals <- fitted(intmod)
+residuals <- resid(intmod)
+
+plot(fitted_vals, residuals,
+    pch = 19, col = "black",
+    main = "Residuals vs Fitted",
+    xlab = "Fitted Values",
+    ylab = "Residuals")
+abline(h = 0, col = "black")  # Horizontal line at 0
+lines(lowess(fitted_vals, residuals), col = "red", lwd = 2)
 ```
 
 To assess *Normality of Residuals*, the Normal Q-Q Plot will be referenced. We will also use the following residuals plots for further confirmation.
 
 ```{r}
-qqnorm(resid(intmod)); qqline(resid(intmod))
-```
+# Normal Q-Q Plot
+qqplot <- ggplot(data.frame(resid = resid(intmod)), aes(sample = resid)) +
+  stat_qq(size = 1.5, shape = 1) +  # Adjust point size and shape
+  stat_qq_line() +  # Add the Q-Q line
+  labs(title = "Normal Q-Q Plot",
+       x = "Theoretical Quantiles",
+       y = "Sample Quantities") +
+  theme_minimal() + 
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title = element_text(size = 11), 
+        axis.text = element_text(size = 11), 
+        aspect.ratio = 1 / 2)  # Makes the plot rectangular (width > height)
 
-```{r}
-## Extra residual plots
 
+# Histogram of Residuals
 eij = residuals(intmod)
+normhist <- ggplot(data.frame(resid = eij), aes(x = resid)) +
+  geom_histogram(binwidth = 0.5, color = "black", fill = "lightgray") +
+  labs(title = "Histogram of Residuals", 
+       x = "Residuals", 
+       y = "Frequency") +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5),
+        axis.title = element_text(size = 11),
+        axis.text = element_text(size = 11),
+        aspect.ratio = 2 / 3)  # Makes the plot rectangular (width > height)
 
-hist(eij,main = "Histogram of residuals")
 
-plot(density(eij),
-     main = "Density plot of residuals",
-     ylab = "Density",
-     xlab = "Residuals")
+# Combine plots using patchwork
+normresid_plot <- qqplot + normhist +
+  plot_layout(ncol = 2)
+
+
+# Display the combined plot
+print(normresid_plot)
 ```
 
 
