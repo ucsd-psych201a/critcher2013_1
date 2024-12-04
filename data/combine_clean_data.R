@@ -88,6 +88,10 @@ cleaned_data <- cleaned_data %>%
     )
   )
 
+# Transform trial_index to range from 1 to 22
+cleaned_data <- cleaned_data %>%
+  mutate(trial_index = trial_index - 3)
+
 # Save the combined and cleaned dataset
 write.csv(cleaned_data, "/Users/bellamullen/Documents/CSS_204/replication_project/final_files/quick_decisions_1_clean_data.csv", row.names = FALSE)
 
