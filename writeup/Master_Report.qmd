@@ -142,6 +142,7 @@ Data preparation following the analysis plan.
 library(tidyverse)
 library(car)
 #library(ez)
+library(patchwork)
 ```
 
 ```{r}
@@ -324,6 +325,7 @@ character_data <- tidydf %>%
          condition = as.factor(condition), # Convert condition to factor
          ID = as.factor(ID)) # Convert ID to factor
 
+
 # Create the bar plot
 ggplot(character_data, 
        aes(x = condition, y = response, fill = FastorSlow)) +
@@ -348,7 +350,67 @@ ggplot(character_data,
         legend.position = "right",
         legend.title = element_text(size = 12),
         legend.text = element_text(size = 10))
+```
+```{r}
+## More complex plot
 
+# Create the bar plot
+barplot <- ggplot(character_data, 
+       aes(x = condition, y = response, fill = FastorSlow)) +
+  stat_summary(fun = mean, # Compute mean of response
+               geom = "bar", # Use bars to represent the summary
+               position = position_dodge(width = 0.8), width = 0.8) +
+  stat_summary(fun.data = mean_se, # Add error bars (mean ± standard error)
+               geom = "errorbar",
+               position = position_dodge(width = 0.8), width = 0.2) +
+  labs(x = "Morality Condition",
+       y = "(Positive) Moral Character Evaluation",
+       fill = "Decision Speed") +
+  scale_fill_manual(values = c("f" = "lightskyblue", "s" = "maroon1"), #Custom colors
+                    labels = c("f" = "Quick", "s" = "Slow")) +
+  scale_y_continuous(breaks = 1:7) +
+  coord_cartesian(ylim = c(1, 7)) +
+  theme_bw() +
+  theme(axis.title.x = element_text(size = 11),
+        axis.title.y = element_text(size = 11),
+        legend.position = "none")
+
+
+# Create a line plot
+lineplot <- ggplot(character_data, 
+       aes(x = condition, y = response, color = FastorSlow, group = FastorSlow)) +
+  stat_summary(fun = mean, # Compute mean of response
+               geom = "line", # Use lines to connect the means
+               size = 1) +
+  stat_summary(fun = mean, # Add points for the means
+               geom = "point",  size = 3) +
+  stat_summary(fun.data = mean_se, # Add error bars (mean ± standard error)
+               geom = "errorbar", width = 0.4) +
+  labs(x = "Morality Condition",
+       y = "(Positive) Moral Character Evaluation",
+       color = "Decision Speed") +
+  scale_color_manual(values = c("f" = "lightskyblue", "s" = "maroon1"), # Custom colors
+                     labels = c("f" = "Quick", "s" = "Slow")) +
+  scale_y_continuous(breaks = 1:7) +
+  coord_cartesian(ylim = c(1, 7)) +
+  theme_bw() +
+  theme(axis.title.x = element_text(size = 11),
+        axis.title.y = element_text(size = 11),
+        legend.position = "right",
+        legend.title = element_text(size = 12),
+        legend.text = element_text(size = 10))
+
+
+# Combine plots using patchwork
+combined_plot <- (barplot + lineplot) +
+  plot_layout(widths = c(2, 1)) + # Bar plot takes up 2/3, line plot 1/3
+  plot_annotation(
+    title = "Character Judgements by Morality Condition and Decision Speed",
+    theme = theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold")))
+
+
+# Display the combined plot
+combined_plot
 ```
 
 
