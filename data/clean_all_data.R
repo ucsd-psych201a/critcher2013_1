@@ -49,4 +49,26 @@ long_data <- all_data %>%
     )
   )
 
+# Add a unique ID for each person
+long_data <- long_data %>%
+  mutate(ID = paste0(ceiling(row_number() / 20)))  # Assign IDs by group of 20 rows
+
+# Add FastorSlow column
+long_data <- long_data %>%
+  mutate(FastorSlow = ifelse(trial_index <= 10, "f", "s"))  # Assign 'f' for 1-10 and 's' for 11-20
+
+# Add a new column 'measure' based on the 'trial_index' values
+long_data <- long_data %>%
+  mutate(measure = case_when(
+    trial_index %in% c(5,6,7,8,15,16,17,18) ~ "certainty",
+    trial_index %in% c(2, 3, 4, 12, 13, 14) ~ "character",
+    trial_index %in% c(9,10,19,20) ~ "impulsivity",
+    trial_index %in% c(1, 11) ~ "quickness",
+    TRUE ~ NA_character_
+  ))
+
+
+# Save the combined and cleaned dataset
+write.csv(long_data, "/Users/bellamullen/Documents/GITHUB/critcher2013_1/data/all_quick_decisions_clean_data.csv", row.names = FALSE)
+
 
