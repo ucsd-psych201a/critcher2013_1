@@ -1,0 +1,1 @@
+# script to clean three quick decisons group's data
