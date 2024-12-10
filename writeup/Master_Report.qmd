@@ -24,18 +24,15 @@ $~$
 ### Manipulated Variables
 
 1.  Decision speed (quick or slow): The researchers manipulated the speed by informing participants whether Justin or Nate made their decisions quickly or after "long and careful deliberation".
+
 2.  Moral conditions (immoral or moral act): The moral decision was assigned between subjects, meaning participants were only exposed to one moral condition. Although this assignment was random, it counts as a manipulation because the researchers intentionally varied the condition to study differences in participant perception.
 
 ### Measurements
 
 -   Four primary measures were taken in Experiment 1
-
     -   Moral character evaluation
-
     -   Quickness
-
     -   Certainty
-
     -   Emotional impulsivity
 
 ### Study Design
