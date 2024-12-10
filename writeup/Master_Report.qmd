@@ -107,7 +107,7 @@ In our replication project, we will introduce several features that will differ 
 
 ### Methods Addendum (Post Data Collection)
 
-You can comment this section out prior to final report with data collection.
+In our class, we are one of three separate groups running replications of this study. Due to budget constraints, there were not enough funds for all three groups to run 289 participants. Therefore, each group was allowed to run 100 participants for their replication study. Data was analysed from our individual group's results, as well as the combined data from all 3 studies (only from participants that passed the groups' unique attention checks).
 
 #### Actual Sample
 
@@ -120,7 +120,7 @@ Our exclusion criteria are as follows:
 -   participants who incorrectly rate Justin as *slower* (lower numerical value) than Nate
 -   participants who respond the same to all numerical response questions
 
-
+After these the data exclusions and filtering were applied to the final combined data from all three groups, the resulting sample sizes was **220**.
 
 #### Differences from pre-data collection methods plan
 
@@ -130,7 +130,7 @@ $~$
 
 ## Results
 
-In our class, we are one of three separate groups running replications of this study. Due to budget constraints, there were not enough funds for all three groups to run 289 participants. Therefore, each group was allowed to run 100 participants for their replication study. Data was analysed from our individual group's results, as well as the combined data from all 3 studies (only from participants that passed the groups' unique attention checks). What follow is the analysis and results of the three groups combined data. See the Appendix for more detailed analysis of our group's individual data analysis and results.
+What follows is the analysis and results of the three groups combined data. See the Appendix for more detailed analysis of our group's individual data analysis and results.
 
 ### Data preparation
 
