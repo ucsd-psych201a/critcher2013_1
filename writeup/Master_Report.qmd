@@ -151,23 +151,16 @@ library(patchwork)
 library(lme4)
 ```
 
-
-
-
-
-### Confirmatory analysis
-
 ```{r}
 #### Import data
 cdf <- read_csv("../data/quick_decisions_all_clean_data.csv")
 colfactor <- c("condition", "ID", "FastorSlow", "measure")
 cdf[colfactor] <- lapply(cdf[colfactor], as.factor)
-summary(cdf)
 ```
 
-```{r}
-## keeping only responses for IDs that have at least one non-NA response for each unique combo of quickness, character, and fast or slow levels
+As previously mentioned, our initial plan was altered so data was only used from participants who had at least one non-NA response for each unique combination of character judgement and quickness conditions for both the fast and slow categories.
 
+```{r}
 uniqueIDs <- cdf %>%
   # Focus only on the relevant combinations of measure and FastorSlow
   filter(measure %in% c("quickness", "character") & FastorSlow %in% c("f", "s")) %>%
@@ -212,8 +205,7 @@ excluData <- filteredData %>%
 Filtering out responses from any participants that incorrectly rated the slow condition as faster or equal to the quick condition left us with a sample of 223 unique participant IDs. 
 Then excluding responses from any participants whose non-NA responses were all the same left us with a final combined sample size of 220.
 
-Next, each participants' average rating for character and quickness, split by the fast and slow categories, were calculated for visualisation purposes and statistical analyses.
-
+Next, each participants' average rating for character and quickness, split by the fast and slow categories, were calculated for visualization purposes and statistical analyses.
 
 ```{r}
 #### Prepare data for analysis - create columns etc.
@@ -256,7 +248,7 @@ tidyDF %>%
 
 After all of the data cleaning and data exclusions, the combined data ended up with a perfectly balanced design. 110 participants were randomly assigned to the immoral condition, and 110 were randomly assigned to the moral condition.
 
-#### Confirmatory analysis
+### Confirmatory analysis
 
 The combined data were used to create a bar graph and line plot to explore the potential for an interaction between decision speed and morality condition on moral character judgement. 
 
@@ -300,7 +292,7 @@ linePlot <- ggplot(characterData,
            color = FastorSlow, group = FastorSlow)) +
   stat_summary(fun = mean, # Compute mean of response
                geom = "line", # Use lines to connect the means
-               size = 1) +
+               linewidth = 1) +
   stat_summary(fun = mean, # Add points for the means
                geom = "point",  size = 3) +
   stat_summary(fun.data = mean_se, # Add error bars (mean ± standard error)
@@ -332,7 +324,9 @@ combinedPlot <- (barPlot + linePlot) +
 print(combinedPlot)
 ```
 
-The intersecting lines in the lineplot suggest high likelihood of an interacted prior to any statistical tests being ran. With this evidence, a random intercept mixed effect model will be fit. The random intercept allows the model to appropraitely account for repeated measures on participants. Then, a type III, two-way ANOVA will be run on the model to assess if the interaction is needed in the model to explain the patterns in the data (aka, if it is significant). A type III ANOVA is appropriate to test models with interaction terms, and a two-way ANOVA is needed because we have two 2-level factors being tested: (1) Decision Speed (fast or slow), and (2) Morality Condition (moral or immoral).
+The intersecting lines in the line plot indicate a very high likelihood of an interaction prior to any statistical tests being ran. 
+
+Following this evidence, a our model was fit; a mixed effect model was chosen to appropriately account for the repeated measures on participants with a random intercept. Then, a type III, two-way ANOVA will be run on the model to assess if the interaction is needed in the model to explain the patterns in the data (aka, if it is significant). A type III ANOVA is appropriate to test models with interaction terms, and a two-way ANOVA is needed because we have two 2-level factors being tested: (1) Decision Speed (fast or slow), and (2) Morality Condition (moral or immoral).
 
 ```{r}
 # Fit a mixed model (accounts for ID) with the interaction of interest
@@ -359,6 +353,7 @@ To assess how well this model fits and explains the data, diagnostics plots were
 #### Model Diagnostics
 
 **Independence Assumption**
+
 Assessing *Independence of Observations* is a thought exercise. No one participant's responses should impact another participant's responses, therefore there is no reason to suspect violations of this assumption.
 
 
@@ -378,12 +373,15 @@ lines(lowess(fitted_vals, residuals), col = "red", lwd = 2)
 ```
 
 **Linearity Assumption**
+
 The red line does a fairly good job of following the horizontal zero line, indicating little evidence of any missed curvature that our model would fail to account for. Therefore, there is not enough deviation to suspect problematic violation of this assumption.
 
 **Homoskedacity**
+
 To assess homogeneity of variance, we are looking for drastic changes in vertical spread of point on the residual vs. fitted plot. For fitted values between 2 and 4.5 there is an increasing fanning pattern, and fitted values between 4.5 and 7 illistrated a decreasing fanning pattern. This double fanning, or diamond shape, indiciates a clear violation of the homoskedacity assumption.
 
 **Normality of Residuals**
+
 To assess *Normality of Residuals*, the Normal Q-Q Plot and a histogram of residuals will be referenced.
 ```{r}
 # Normal Q-Q Plot
@@ -427,6 +425,7 @@ The Normal Q-Q plot and Histogram of Residuals both show evidence of a heavy-tai
 
 
 **Multicollinearity**
+
 The potential for *Multicollinearity* was explored by investigating the variance inflation factors (vifs).
 
 ```{r}
@@ -623,12 +622,10 @@ tidydf %>%
   group_by(condition) %>%
   summarize(subject_count = n_distinct(ID), .groups = "drop")
 ```
+Even though our group's final sample size was quite small due to all of the exclusion criteria, it still ended up being a fairly balanced design.
+
 
 #### Confirmatory analysis
-
-The analyses as specified in the analysis plan.
-
-*Side-by-side graph with original graph is ideal here*
 
 ```{r, include = F, echo = FALSE}
 # Creating the Bar Plot to Assess Evidence of an Interaction
@@ -708,7 +705,7 @@ lineplot <- ggplot(character_data,
            color = FastorSlow, group = FastorSlow)) +
   stat_summary(fun = mean, # Compute mean of response
                geom = "line", # Use lines to connect the means
-               size = 1) +
+               linewidth = 1) +
   stat_summary(fun = mean, # Add points for the means
                geom = "point",  size = 3) +
   stat_summary(fun.data = mean_se, # Add error bars (mean ± standard error)
@@ -740,11 +737,6 @@ combined_plot <- (barplot + lineplot) +
 print(combined_plot)
 ```
 
-The statistical test we will use to justify the main inference of the paper is a two-way ANOVA. This test will allow us to analyze the interaction between decision speed and decision type to determine how they influence moral character evaluations. It will also use it to assess the individual and combined effects of both independent variables.
-
-
-**FIT MIXED EFFECT MODEL TO ACCOUNT FOR REPEATED MEASURES, RANDOM INTERCEPT**
-
 ```{r}
 ## Running the ANOVA Interaction Test
 
@@ -757,6 +749,7 @@ intmod <- lmer(response_reverse ~ condition * FastorSlow + (1 | ID),
 Anova(intmod, type = "III")
 ```
 
+Despite having such a small sample size with just our groups data, the study still replicated!
 
 
 #### Model Diagnostics
