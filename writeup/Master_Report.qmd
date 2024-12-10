@@ -111,16 +111,17 @@ In our class, we are one of three separate groups running replications of this s
 
 #### Actual Sample
 
-Sample size and data exclusions based on rules spelled out in analysis plan
+**Data Exclusion Criteria**
 
 Our exclusion criteria are as follows:
-
 -   submissions with any non-answers
 -   participants that fail the attention check
 -   participants who incorrectly rate Justin as *slower* (lower numerical value) than Nate
 -   participants who respond the same to all numerical response questions
 
+**Official Sample Size**
 After these the data exclusions and filtering were applied to the final combined data from all three groups, the resulting sample sizes was **220**.
+
 
 #### Differences from pre-data collection methods plan
 
