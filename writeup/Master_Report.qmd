@@ -27,6 +27,7 @@ $~$
 
 2.  Moral conditions (immoral or moral act): The moral decision was assigned between subjects, meaning participants were only exposed to one moral condition. Although this assignment was random, it counts as a manipulation because the researchers intentionally varied the condition to study differences in participant perception.
 
+###### 
 ### Measurements
 
 -   Four primary measures were taken in Experiment 1
@@ -35,6 +36,7 @@ $~$
     -   Certainty
     -   Emotional impulsivity
 
+###### 
 ### Study Design
 
 Experiment 1 is a mixed design because the key condition was assigned between-participants, but multiple measures were recorded for each subject, making it also within-participants. Each participant was exposed to only one type of moral outcome, either the characters acted morally or immorally.
@@ -63,12 +65,14 @@ The original study did not provide sufficient statistical information to conduct
 
 Our planned sample size is 289 participants.
 
+###### 
 ### Materials
 
 To replicate this experiment, we will use JSPsych to create an online study involving written scenarios and participant surveys. Participants will read scenarios involving Justin and Nate, and then rate them on quickness, moral character, decision certainty, and impulsivity. The original author of the study has kindly provided us with a detailed document outlining the script and protocol used for Experiment 1, which we will use to ensure that our replication remains as close as possible to the original study.
 
 **Experimental paradigm link: <https://ucsd-psych201a.github.io/critcher2013_1/>**
 
+###### 
 ### Procedure
 
 We plan to follow the procedure outlined by the authors.
@@ -89,6 +93,7 @@ Experiment 1:
 
 -   Emotional Impulsivity: "Participants indicated to what extent the person remained “calm and emotionally contained” (reverse-scored) and 'became upset and acted without thinking.'"
 
+###### 
 ### Analysis Plan
 
 Our primary focus in this study is to evaluate moral character based on decision morality and decision speed; specifically, the determine whether there is an interaction between morality condition and decision speed on moral character judgement.
@@ -101,27 +106,31 @@ For the statistical analysis, our main question of interest involves testing the
 
 The results of the type III two-way ANOVA will tell us whether a model with the interaction term is better than just a model with all the predictors additively. After the best model is found, the ANOVA assumptions and model diagnostics will be assessed and the results will be interpretation for ease of understanding.
 
+###### 
 #### Differences from Original Study
 
 In our replication project, we will introduce several features that will differ from the original experiment. One difference is the addition of an attention check at the end of the experiment where we will ask participants to name one of the characters from the scenarios. This attention check is designed to ensure participants are engaged throughout the study and will be used to assist in the data cleaning process. Another difference is that our participants will not be limited to undergraduate students since we are conducting an online study. Additionally, our sample size will differ from the original study because we could not conduct a power analysis based on the information provided in the article. Instead, we opted for a rule-of-thumb multiplier to determine our required sample size. These differences may affect the replication by introducing variability not present in the original study.
 
+###### 
 ### Methods Addendum (Post Data Collection)
 
 In our class, we are one of three separate groups running replications of this study. Due to budget constraints, there were not enough funds for all three groups to run 289 participants. Therefore, each group was allowed to run 100 participants for their replication study. Data was analysed from our individual group's results, as well as the combined data from all 3 studies (only from participants that passed the groups' unique attention checks).
 
+###### 
 #### Actual Sample
 
-**Data Exclusion Criteria**
+**Data Exclusion Criteria:**
+Our exclusion criteria are as follows
 
-Our exclusion criteria are as follows:
 -   submissions with any non-answers
 -   participants that fail the attention check
 -   participants who incorrectly rate Justin as *slower* (lower numerical value) than Nate
 -   participants who respond the same to all numerical response questions
 
-**Official Sample Size**
+**Official Sample Size:**
 After these the data exclusions and filtering were applied to the final combined data from all three groups, the resulting sample sizes was **220**.
 
+###### 
 
 #### Differences from pre-data collection methods plan
 
@@ -246,6 +255,7 @@ tidyDF %>%
 
 After all of the data cleaning and data exclusions, the combined data ended up with a perfectly balanced design. 110 participants were randomly assigned to the immoral condition, and 110 were randomly assigned to the moral condition.
 
+###### 
 ### Confirmatory analysis
 
 The combined data were used to create a bar graph and line plot to explore the potential for an interaction between decision speed and morality condition on moral character judgement. 
@@ -347,11 +357,10 @@ $~$
 
 To assess how well this model fits and explains the data, diagnostics plots were used to asses our model assumptions.
 
-
+###### 
 #### Model Diagnostics
 
-**Independence Assumption**
-
+**Independence Assumption:**
 Assessing *Independence of Observations* is a thought exercise. No one participant's responses should impact another participant's responses, therefore there is no reason to suspect violations of this assumption.
 
 
@@ -370,16 +379,13 @@ abline(h = 0, col = "black")  # Horizontal line at 0
 lines(lowess(fitted_vals, residuals), col = "red", lwd = 2)
 ```
 
-**Linearity Assumption**
-
+**Linearity Assumption:**
 The red line does a fairly good job of following the horizontal zero line, indicating little evidence of any missed curvature that our model would fail to account for. Therefore, there is not enough deviation to suspect problematic violation of this assumption.
 
-**Homoskedacity**
+**Homoskedacity:**
+To assess homogeneity of variance, we are looking for drastic changes in vertical spread of point on the residual vs. fitted plot. For fitted values between 2 and 4.5 there is an increasing fanning pattern, and fitted values between 4.5 and 7 illustrated a decreasing fanning pattern. This double fanning, or diamond shape, indicates a clear violation of the homoskedacity assumption.
 
-To assess homogeneity of variance, we are looking for drastic changes in vertical spread of point on the residual vs. fitted plot. For fitted values between 2 and 4.5 there is an increasing fanning pattern, and fitted values between 4.5 and 7 illistrated a decreasing fanning pattern. This double fanning, or diamond shape, indiciates a clear violation of the homoskedacity assumption.
-
-**Normality of Residuals**
-
+**Normality of Residuals:**
 To assess *Normality of Residuals*, the Normal Q-Q Plot and a histogram of residuals will be referenced.
 ```{r}
 # Normal Q-Q Plot
@@ -422,10 +428,8 @@ print(normresid_plot)
 The Normal Q-Q plot and Histogram of Residuals both show evidence of a heavy-tailed pattern, which indicates potential for problematic violation of the normality assumption.
 
 
-**Multicollinearity**
-
+**Multicollinearity:**
 The potential for *Multicollinearity* was explored by investigating the variance inflation factors (vifs).
-
 ```{r}
 car::vif(intmodc)
 ```
@@ -436,7 +440,7 @@ The square root of the interaction's variance inflation factor tells us that the
 
 
 
-
+###### 
 #### Interpretation of Results
 
 As previously mentioned, the study replicated! Our model and statistical analysis also indicated that the interaction term is necessary in the model. 
@@ -459,13 +463,14 @@ $~$
 
 Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.
 
+###### 
 ### Commentary
 
 Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt. None of these need to be long.
 
 $~$
 
-#### Credit Taxonomy
+## Credit Taxonomy
 
 **Harley Clifton**: Conceptualization, Formal Analysis, Investigation, Data Curation, Writing, Visualization, Project Administration. **Sara Hamidi**: Conceptualization, Software, Investigation, Resources, Data Curation. **Prosperity Land**: Conceptualization, Investigation, Writing, Visualization. **Isabella Mullen**: Conceptualization, Software, Investigation, Resources, Data Curation, Project Administration.
 
