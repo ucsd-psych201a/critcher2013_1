@@ -133,15 +133,11 @@ $~$
 
 ## Results
 
-In our class, we are one of three separate groups running replications of this study. Due to budget constraints, there were not enough funds for all three groups to run 289 participants. Therefore, each group was allowed to run 100 participants for their replication study. Data was analysed from our individual group's results, as well as the combined data from all 3 studies (only from participants that passed the groups' unique attention checks).
+In our class, we are one of three separate groups running replications of this study. Due to budget constraints, there were not enough funds for all three groups to run 289 participants. Therefore, each group was allowed to run 100 participants for their replication study. Data was analysed from our individual group's results, as well as the combined data from all 3 studies (only from participants that passed the groups' unique attention checks). What follow is the analysis and results of the three groups combined data. See the Appendix for more detailed analysis of our group's individual data analysis and results.
 
+### Data preparation
 
-### Our Group's Findings
-
-
-#### Data preparation
-
-For our preparation plan, we will remove observation that meet our exclusion criteria. We will also pivot our dataset to a long format to make graph creation easier. Lastly, we will investigate each outlier to determine whether it is suspicious or problematic before deciding to remove it.
+For our preparation plan, we removed observations that met our exclusion criteria. We also pivoted our dataset to a long format to expedite data visualization Lastly, we planned to investigate any suspicious outliers to determine whether they were problematic before removing them.
 
 Data preparation following the analysis plan.
 
@@ -154,6 +150,341 @@ library(car)
 library(patchwork)
 library(lme4)
 ```
+
+
+
+
+
+### Confirmatory analysis
+
+```{r}
+#### Import data
+cdf <- read_csv("../data/quick_decisions_all_clean_data.csv")
+colfactor <- c("condition", "ID", "FastorSlow", "measure")
+cdf[colfactor] <- lapply(cdf[colfactor], as.factor)
+summary(cdf)
+```
+
+```{r}
+## keeping only responses for IDs that have at least one non-NA response for each unique combo of quickness, character, and fast or slow levels
+
+uniqueIDs <- cdf %>%
+  # Focus only on the relevant combinations of measure and FastorSlow
+  filter(measure %in% c("quickness", "character") & FastorSlow %in% c("f", "s")) %>%
+  group_by(ID) %>%
+  # Check if each ID has at least one non-NA response for all combinations
+  filter(all(!is.na(value[measure == "quickness" & FastorSlow == "f"])) &
+         all(!is.na(value[measure == "quickness" & FastorSlow == "s"])) &
+         all(!is.na(value[measure == "character" & FastorSlow == "f"])) &
+         all(!is.na(value[measure == "character" & FastorSlow == "s"]))) %>%
+  ungroup() %>%
+  distinct(ID)
+
+# Filter the original dataset to keep only rows with those IDs
+filteredData <- cdf %>% filter(ID %in% uniqueIDs$ID)
+
+distinctIDcount <- filteredData %>% summarise(count = n_distinct(ID))
+uninum <- distinctIDcount[[1]]
+```
+
+From the combined data, there are `r uninum` unique participants that have at least one non-NA response in each unique combination of Quickness, Character Judgments, and Decision Speed conditions.
+
+```{r}
+#### Data exclusion / filtering
+
+excluData <- filteredData %>%
+  group_by(ID) %>%   # Group by ID
+  
+  # all of these responses are ones from the groups that 
+  # passed their individual attention checks
+  
+  # removed any ids that rate the fast person as slower than the slow person
+  filter(!any(measure == "quickness" &
+              FastorSlow == "f" &
+              value < value[measure == "quickness" & FastorSlow == "s"])) %>%
+  
+  # filter out ids that have all the same non-na response values
+  filter(n_distinct(value, na.rm = TRUE) > 1) %>%
+  
+  ungroup() # Ungroup after filtering
+```
+
+Filtering out responses from any participants that incorrectly rated the slow condition as faster or equal to the quick condition left us with a sample of 223 unique participant IDs. 
+Then excluding responses from any participants whose non-NA responses were all the same left us with a final combined sample size of 220.
+
+Next, each participants' average rating for character and quickness, split by the fast and slow categories, were calculated for visualisation purposes and statistical analyses.
+
+
+```{r}
+#### Prepare data for analysis - create columns etc.
+
+filtereDData <- excluData %>%
+  filter(measure %in% c("quickness", "character"))
+
+
+# Calculate averages for "character" measure grouped by ID and FastorSlow
+characterAverages <- filtereDData %>%
+  filter(measure == "character") %>%
+  group_by(ID, FastorSlow, condition) %>%
+  summarize(
+    response_reverse = mean(as.numeric(response_reverse), na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(measure = "character") # Ensure the measure column remains "character"
+
+
+# Keep only the "quickness" rows
+quicknessData <- filtereDData %>%
+  filter(measure == "quickness") %>%
+  select(ID, FastorSlow, condition, response_reverse, measure)
+
+
+# Combine the averaged "character" data with the "quickness" data
+tidyDF <- rbind(quicknessData, characterAverages)
+```
+
+```{r}
+## Descriptive Statistics
+
+# Determine whether we had a balanced design
+
+## sample size of each randomized condition group
+tidyDF %>%
+  group_by(condition) %>%
+  summarize(subject_count = n_distinct(ID), .groups = "drop")
+```
+
+After all of the data cleaning and data exclusions, the combined data ended up with a perfectly balanced design. 110 participants were randomly assigned to the immoral condition, and 110 were randomly assigned to the moral condition.
+
+#### Confirmatory analysis
+
+The combined data were used to create a bar graph and line plot to explore the potential for an interaction between decision speed and morality condition on moral character judgement. 
+
+```{r}
+### Data Visualization (Combined Data)
+
+# Filter data to include only rows where measure is "character"
+characterData <- tidyDF %>%
+  filter(measure == "character") %>%
+  mutate(response_reverse = as.numeric(response_reverse), # response is numeric
+         FastorSlow = as.factor(FastorSlow), # Convert FastorSlow to factor
+         condition = as.factor(condition), # Convert condition to factor
+         ID = as.factor(ID)) # Convert ID to factor
+
+
+# Create the bar plot
+barPlot <- ggplot(characterData, 
+       aes(x = condition, y = response_reverse, fill = FastorSlow)) +
+  stat_summary(fun = mean, # Compute mean of response
+               geom = "bar", # Use bars to represent the summary
+               position = position_dodge(width = 0.8), width = 0.8) +
+  stat_summary(fun.data = mean_se, # Add error bars (mean ± standard error)
+               geom = "errorbar",
+               position = position_dodge(width = 0.8), width = 0.2) +
+  labs(x = "Morality Condition",
+       y = "(Positive) Moral Character Evaluation",
+       fill = "Decision Speed") +
+  scale_fill_manual(values = c("f" = "orange1", "s" = "magenta3"),
+                    labels = c("f" = "Quick", "s" = "Slow")) +
+  scale_y_continuous(breaks = 1:7) +
+  coord_cartesian(ylim = c(1, 7)) +
+  theme_bw() +
+  theme(axis.title.x = element_text(size = 11),
+        axis.title.y = element_text(size = 11),
+        legend.position = "none")
+
+
+# Create a line plot
+linePlot <- ggplot(characterData, 
+       aes(x = condition, y = response_reverse, 
+           color = FastorSlow, group = FastorSlow)) +
+  stat_summary(fun = mean, # Compute mean of response
+               geom = "line", # Use lines to connect the means
+               size = 1) +
+  stat_summary(fun = mean, # Add points for the means
+               geom = "point",  size = 3) +
+  stat_summary(fun.data = mean_se, # Add error bars (mean ± standard error)
+               geom = "errorbar", width = 0.4) +
+  labs(x = "Morality Condition",
+       y = "(Positive) Moral Character Evaluation",
+       color = "Decision Speed") +
+  scale_color_manual(values = c("f" = "orange1", "s" = "magenta3"), 
+                     labels = c("f" = "Quick", "s" = "Slow")) +
+  scale_y_continuous(breaks = 1:7) +
+  coord_cartesian(ylim = c(1, 7)) +
+  theme_bw() +
+  theme(axis.title.x = element_text(size = 11),
+        axis.title.y = element_text(size = 11),
+        legend.position = "right",
+        legend.title = element_text(size = 12),
+        legend.text = element_text(size = 10))
+
+
+# Combine plots using patchwork
+combinedPlot <- (barPlot + linePlot) +
+  plot_layout(widths = c(2, 1)) + # Bar plot takes up 2/3, line plot 1/3
+  plot_annotation(
+    title = "Character Judgements by Morality Condition and Decision Speed  \n (Combined Data)",
+    theme = theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold")))
+
+
+# Display the combined plot
+print(combinedPlot)
+```
+
+The intersecting lines in the lineplot suggest high likelihood of an interacted prior to any statistical tests being ran. With this evidence, a random intercept mixed effect model will be fit. The random intercept allows the model to appropraitely account for repeated measures on participants. Then, a type III, two-way ANOVA will be run on the model to assess if the interaction is needed in the model to explain the patterns in the data (aka, if it is significant). A type III ANOVA is appropriate to test models with interaction terms, and a two-way ANOVA is needed because we have two 2-level factors being tested: (1) Decision Speed (fast or slow), and (2) Morality Condition (moral or immoral).
+
+```{r}
+# Fit a mixed model (accounts for ID) with the interaction of interest
+intmodc <- lmer(response_reverse ~ condition * FastorSlow + (1 | ID), 
+               data = characterData)
+
+# Use a Type III, 2x2 Two-way ANOVA test
+# the results will tell us if the interaction term in needed in the model
+Anova(intmodc, type = "III")
+```
+
+The results of the ANOVA are consistent with what we saw in our figure; the interaction between decision speed and morality condition has a significant effect on moral character judgement. In short, the experiment replicated!
+
+
+
+$~$
+
+
+### Exploratory analyses
+
+To assess how well this model fits and explains the data, diagnostics plots were used to asses our model assumptions.
+
+
+#### Model Diagnostics
+
+**Independence Assumption**
+Assessing *Independence of Observations* is a thought exercise. No one participant's responses should impact another participant's responses, therefore there is no reason to suspect violations of this assumption.
+
+
+To assess *Linearity* and *Homogeneity of Variance*, the Residuals vs Fitted plot will be investigated.
+
+```{r}
+fitted_vals <- fitted(intmodc)
+residuals <- resid(intmodc)
+
+plot(fitted_vals, residuals,
+    pch = 19, col = "black",
+    main = "Residuals vs Fitted",
+    xlab = "Fitted Values",
+    ylab = "Residuals")
+abline(h = 0, col = "black")  # Horizontal line at 0
+lines(lowess(fitted_vals, residuals), col = "red", lwd = 2)
+```
+
+**Linearity Assumption**
+The red line does a fairly good job of following the horizontal zero line, indicating little evidence of any missed curvature that our model would fail to account for. Therefore, there is not enough deviation to suspect problematic violation of this assumption.
+
+**Homoskedacity**
+To assess homogeneity of variance, we are looking for drastic changes in vertical spread of point on the residual vs. fitted plot. For fitted values between 2 and 4.5 there is an increasing fanning pattern, and fitted values between 4.5 and 7 illistrated a decreasing fanning pattern. This double fanning, or diamond shape, indiciates a clear violation of the homoskedacity assumption.
+
+**Normality of Residuals**
+To assess *Normality of Residuals*, the Normal Q-Q Plot and a histogram of residuals will be referenced.
+```{r}
+# Normal Q-Q Plot
+qqplot <- ggplot(data.frame(resid = resid(intmodc)), aes(sample = resid)) +
+  stat_qq(size = 1.5, shape = 1) +  # Adjust point size and shape
+  stat_qq_line() +  # Add the Q-Q line
+  labs(title = "Normal Q-Q Plot",
+       x = "Theoretical Quantiles",
+       y = "Sample Quantities") +
+  theme_minimal() + 
+  theme(plot.title = element_text(hjust = 0.5), 
+        axis.title = element_text(size = 11), 
+        axis.text = element_text(size = 11), 
+        aspect.ratio = 1 / 2)  # Makes the plot rectangular (width > height)
+
+
+# Histogram of Residuals
+eij = residuals(intmodc)
+normhist <- ggplot(data.frame(resid = eij), aes(x = resid)) +
+  geom_histogram(binwidth = 0.5, color = "black", fill = "lightgray") +
+  labs(title = "Histogram of Residuals", 
+       x = "Residuals", 
+       y = "Frequency") +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5),
+        axis.title = element_text(size = 11),
+        axis.text = element_text(size = 11),
+        aspect.ratio = 2 / 3)  # Makes the plot rectangular (width > height)
+
+
+# Combine plots using patchwork
+normresid_plot <- qqplot + normhist +
+  plot_layout(ncol = 2)
+
+
+# Display the combined plot
+print(normresid_plot)
+```
+
+The Normal Q-Q plot and Histogram of Residuals both show evidence of a heavy-tailed pattern, which indicates potential for problematic violation of the normality assumption.
+
+
+**Multicollinearity**
+The potential for *Multicollinearity* was explored by investigating the variance inflation factors (vifs).
+
+```{r}
+car::vif(intmodc)
+```
+```{r}
+sqrt(2.478771)
+```
+The square root of the interaction's variance inflation factor tells us that the standard error for the interaction term is 1.574 times larger due to multicollinearity (the sharing of information) with other variables in the model than it would have been otherwise. 
+
+
+
+
+#### Interpretation of Results
+
+As previously mentioned, the study replicated! Our model and statistical analysis also indicated that the interaction term is necessary in the model. 
+
+Next, a confidence interval for the interaction term was created to give more insight into what this meaningfully tells us.
+```{r}
+summary(intmodc)
+confint(intmodc)
+```
+
+**Interpreting the Interaction:**
+Making a moral decision slowly results in _lower_ moral character judgement, compared to moral decisions made quickly. The opposite is true for immoral decisions; making an immoral decision slowly results in _higher_ moral character judgement compared to immoral decisions made quickly. In more general terms, the effect of decision speed on moral character judgement is very dependent on the morality of the decision made.
+
+
+$~$
+
+## Discussion
+
+### Summary of Replication Attempt
+
+Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.
+
+### Commentary
+
+Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt. None of these need to be long.
+
+$~$
+
+#### Credit Taxonomy
+
+**Harley Clifton**: Conceptualization, Formal Analysis, Investigation, Data Curation, Writing, Visualization, Project Administration. **Sara Hamidi**: Conceptualization, Software, Investigation, Resources, Data Curation. **Prosperity Land**: Conceptualization, Investigation, Writing, Visualization. **Isabella Mullen**: Conceptualization, Software, Investigation, Resources, Data Curation, Project Administration.
+
+
+$~$
+
+## Appendix
+
+### Our Group's Findings, Analysis, & Results
+
+
+#### Data preparation
+
+For our preparation plan, we removed observations that met our exclusion criteria. We also pivoted our dataset to a long format to expedite data visualization Lastly, we planned to investigate any suspicious outliers to determine whether they were problematic before removing them.
+
+Data preparation following the analysis plan.
 
 ```{r}
 #### Import data
@@ -337,8 +668,17 @@ ggplot(character_data,
         legend.text = element_text(size = 10))
 ```
 
-```{r  echo = FALSE}
+```{r}
 ### Data Visualization (Our Group Only)
+
+# Filter data to include only rows where measure is "character"
+character_data <- tidydf %>%
+  filter(measure == "character") %>%
+  mutate(response_reverse = as.numeric(response_reverse), # Ensure response is numeric
+         FastorSlow = as.factor(FastorSlow), # Convert FastorSlow to factor
+         condition = as.factor(condition), # Convert condition to factor
+         ID = as.factor(ID)) # Convert ID to factor
+
 
 # Create the bar plot
 barplot <- ggplot(character_data, 
@@ -392,7 +732,7 @@ lineplot <- ggplot(character_data,
 combined_plot <- (barplot + lineplot) +
   plot_layout(widths = c(2, 1)) + # Bar plot takes up 2/3, line plot 1/3
   plot_annotation(
-    title = "Character Judgements by Morality Condition and Decision Speed",
+    title = "Character Judgements by Morality Condition and Decision Speed  \n (Group Data Only)",
     theme = theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold")))
 
 
@@ -419,14 +759,15 @@ Anova(intmod, type = "III")
 
 
 
-**Model Diagnostics:**
+#### Model Diagnostics
 
+**Independence Assumption**
 Assessing *Independence of Observations* is a thought exercise. No participants responses should impact another participants responses, therefore there is no reason to suspect violations of this assumption.
 
 
 To assess *Linearity* and *Homogeneity of Variance*, the Residuals vs Fitted plot will be investigated.
 
-```{r include = F}
+```{r}
 fitted_vals <- fitted(intmod)
 residuals <- resid(intmod)
 
@@ -439,8 +780,15 @@ abline(h = 0, col = "black")  # Horizontal line at 0
 lines(lowess(fitted_vals, residuals), col = "red", lwd = 2)
 ```
 
-To assess *Normality of Residuals*, the Normal Q-Q Plot will be referenced. We will also use the following residuals plots for further confirmation.
+**Linearity Assumption**
+The red line does a great job of following the horizontal zero line, indicating little evidence of any missed curvature that our model would fail to account for. Therefore, there is no evidence to suspect any violations of this assumption.
 
+**Homoskedacity**
+To assess homogeneity of variance, we are looking for drastic changes in vertical spread of point on the residual vs. fitted plot. AS fitted values increase, we see a slight decreasing fanning pattern. This suggests slight evidence against our equal variance assumption, but not extreme enough to be problematic for our results.
+
+
+**Normality of Residuals**
+To assess *Normality of Residuals*, the Normal Q-Q Plot and a histogram of residuals will be referenced.
 ```{r}
 # Normal Q-Q Plot
 qqplot <- ggplot(data.frame(resid = resid(intmod)), aes(sample = resid)) +
@@ -478,57 +826,16 @@ normresid_plot <- qqplot + normhist +
 # Display the combined plot
 print(normresid_plot)
 ```
+The Normal Q-Q plot and Histogram of Residuals both show evidence of a light-tailed (short-tailed) pattern. This means that low values are higher than we expect, and high values are lower than we would expect. This is actually really good, meaning our residuals are even less problematic than expected! Therefore, there are no violations of the normality assumption.
 
 
+**Multicollinearity**
 The potential for *Multicollinearity* was explored by investigating the variance inflation factors (vifs).
 
 ```{r}
 car::vif(intmod)
 ```
-
-
-
-$~$
-
-### Combined Findings
-
-#### Data preparation
-
-
-
-
-
-
-
-
-$~$
-
-
-### Exploratory analyses
-
-Any follow-up analyses desired (not required).
-
-*We plan to confirm that decision speed is not being used as a proxy for uncertainty or emotional impulsivity as the original researchers did.*
-
--   uncertainty
-
--   emotional impulsivity
-
-
-$~$
-
-## Discussion
-
-### Summary of Replication Attempt
-
-Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.
-
-### Commentary
-
-Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt. None of these need to be long.
-
-$~$
-
-#### Credit Taxonomy
-
-**Harley Clifton**: Conceptualization, Formal Analysis, Investigation, Data Curation, Writing, Visualization, Project Administration. **Sara Hamidi**: Conceptualization, Software, Investigation, Resources, Data Curation. **Prosperity Land**: Conceptualization, Investigation, Writing, Visualization. **Isabella Mullen**: Conceptualization, Software, Investigation, Resources, Data Curation, Project Administration.
+```{r}
+sqrt(2.882353)
+```
+The square root of the interaction's variance inflation factor tells us that the standard error for the interaction term is 1.7 times larger due to multicollinearity (the sharing of information) with other variables in the model than it would have been otherwise. 
