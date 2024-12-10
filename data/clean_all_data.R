@@ -4,7 +4,7 @@ library(tidyr)
 library(dplyr)
 
 # File path
-file_path <- "/Users/bellamullen/Documents/GITHUB/critcher2013_1/data/quick_decisions_combined.csv"
+file_path <- "/Users/bellamullen/Documents/GITHUB/critcher2013_1/data/quick_decisions_all_data.csv"
 
 # Load the data
 all_data <- read.csv(file_path)
@@ -67,8 +67,16 @@ long_data <- long_data %>%
     TRUE ~ NA_character_
   ))
 
+long_data <- long_data %>%
+  mutate(
+    response_reverse = case_when(
+      is.na(value) ~ NA_character_,  # Retain NA if value is NA
+      trial_index %in% c(6, 7, 10, 16, 17, 20) & !is.na(as.numeric(value)) ~ as.character(8 - as.numeric(value)),  # Reverse coding for numeric responses
+      TRUE ~ as.character(value)  # Ensure the original value is cast to character
+    )
+  )
 
 # Save the combined and cleaned dataset
-write.csv(long_data, "/Users/bellamullen/Documents/GITHUB/critcher2013_1/data/all_quick_decisions_clean_data.csv", row.names = FALSE)
+write.csv(long_data, "/Users/bellamullen/Documents/GITHUB/critcher2013_1/data/quick_decisions_all_clean_data.csv", row.names = FALSE)
 
 
