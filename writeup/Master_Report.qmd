@@ -17,6 +17,8 @@ The original study examined how the speed of decision-making influences percepti
 
 Replicating Experiment 1 from “How Quick Decisions Illuminate Moral Character” offers an opportunity to explore how decision speed affects character judgments. In this experiment, participants will read a scenario about two characters who find separate cash-filled wallets in a grocery store parking lot. One character decides quickly, while the other takes longer. Participants will be randomly assigned to either a moral or immoral condition. Those in the moral condition will learn that both characters returned the wallets, while those in the immoral condition will read that both characters kept the money. Participants will then rate each character based on perceived decision speed, moral principles, decision certainty, and impulsiveness. A two-way ANOVA will then be used to analyze whether decision speed consistently affects moral judgments. 
 
+$~$
+
 ## Design Overview
 
 ### Manipulated Variables
@@ -51,6 +53,8 @@ Modifying the study to a within-participant design, where participants experienc
 ### Reducing Demand characteristics
 
 Preserving the between-participant design and randomly assigning conditions minimizes demand characteristics. This approach reduces the influence of prior knowledge on evaluations and prevents participants from making direct comparisons between conditions. Random assignment also minimizes bias and percents participants from recognizing patterns that could reveal the study's intent.
+
+$~$
 
 ## Methods
 
@@ -119,13 +123,23 @@ Our exclusion criteria are as follows:
 -   participants who incorrectly rate Justin as *slower* (lower numerical value) than Nate
 -   participants who respond the same to all numerical response questions
 
+
+
 #### Differences from pre-data collection methods plan
 
-Any differences from what was described as the original plan, or “none”.
+After collecting our group's portion of the data, we quickly realized there were only 16 participants (out of our sample of 100) who responded to every rating question—so the initial intention to only use data from those participants had to be changed in the hopes of increased power. Therefore, we decided that instead, we would only use data from participants that had at least one non-NA response in each unique combination of Quickness, Character Judgments, and Decision Speed conditions. This would make it reasonable to still conduct our main analyses of interest on these data, without risking muddled results due to abundant missing comparisons. 
+
+$~$
 
 ## Results
 
-### Data preparation
+In our class, we are one of three separate groups running replications of this study. Due to budget constraints, there were not enough funds for all three groups to run 289 participants. Therefore, each group was allowed to run 100 participants for their replication study. Data was analysed from our individual group's results, as well as the combined data from all 3 studies (only from participants that passed the groups' unique attention checks).
+
+
+### Our Group's Findings
+
+
+#### Data preparation
 
 For our preparation plan, we will remove observation that meet our exclusion criteria. We will also pivot our dataset to a long format to make graph creation easier. Lastly, we will investigate each outlier to determine whether it is suspicious or problematic before deciding to remove it.
 
@@ -137,10 +151,8 @@ Data preparation following the analysis plan.
 #### Load Relevant Libraries and Functions
 library(tidyverse)
 library(car)
-#library(ez)
 library(patchwork)
 library(lme4)
-#library(nlme)
 ```
 
 ```{r}
@@ -148,15 +160,15 @@ library(lme4)
 df <- read_csv("../data/quick_decisions_1_clean_data.csv")
 colfactor <- c("condition", "ID", "FastorSlow", "measure")
 df[colfactor] <- lapply(df[colfactor], as.factor)
-#summary(df)
 
-# some participants did not respond to every question
+## some participants did not respond to every question
+## Making columns for those with NAs as placeholders
 index_mapping <- df %>%
   select(trial_index, FastorSlow, measure) %>%
   distinct() %>%
   drop_na()
 
-# Create a complete data frame ensuring all trial indexes (4-25) exist for each ID
+ # Create a complete data frame ensuring all trial indexes (4-25) exist for each ID
 complete_data <- df %>%
   complete(ID, trial_index = 4:25, fill = list(response = NA)) %>%
   left_join(index_mapping, by = "trial_index") %>%
@@ -166,7 +178,7 @@ complete_data <- df %>%
   ) %>%
   ungroup()
 
-# Overwrite the original `FastorSlow` and `measure` columns with the mapped values
+ # Overwrite the original `FastorSlow` and `measure` columns with the mapped values
 complete_data <- complete_data %>%
   mutate(
     FastorSlow = FastorSlow.y,
@@ -174,9 +186,6 @@ complete_data <- complete_data %>%
   ) %>%
   select(-FastorSlow.y, -measure.y, -FastorSlow.x, -measure.x)  
   # Remove the temporary columns
-
-
-summary(complete_data)
 ```
 
 ```{r include = F}
@@ -187,21 +196,15 @@ complete_data <- complete_data %>%
   filter(!any(measure == "feedback" & grepl("Bria|Mihir", response_reverse))) %>%
   ungroup()
 
-# feedback_rows <- complete_data %>%
-#   filter(measure == "feedback")
+filtered_data <- complete_data %>%
+  group_by(ID) %>%
+  filter(!any(is.na(response))) %>%
+  ungroup()
+```
 
+Our first step in our data cleaning was to obtain the subset of data from participants who had at least one non-NA response in each unique combination of Quickness, Character Judgments, and Decision Speed conditions.
 
-# quickness_rows <- complete_data %>%
-#   filter(measure == "quickness")
-
-
-# filtered_data <- complete_data %>%
-#   group_by(ID) %>%
-#   filter(!any(is.na(response))) %>%
-#   ungroup()
-# # so there are only 19 people who actually answered every question
-
-
+```{r}
 unique_ids <- complete_data %>%
   # Focus only on the relevant combinations of measure and FastorSlow
   filter(measure %in% c("quickness", "character") & FastorSlow %in% c("f", "s")) %>%
@@ -214,53 +217,42 @@ unique_ids <- complete_data %>%
   ungroup() %>%
   distinct(ID)
 
-
-# Step 2: Filter the original dataset to keep only rows with those IDs
+# Filter the original dataset to keep only rows with those IDs
 filtered_data <- complete_data %>%
   filter(ID %in% unique_ids$ID)
 
-
-distinct_id_count <- filtered_data %>%
-  summarise(count = n_distinct(ID))
-
+distinct_id_count <- filtered_data %>% summarise(count = n_distinct(ID))
+uni_num <- distinct_id_count[[1]]
 ```
+
+For our groups' data, there are `r uni_num` unique participants (out of the original 100) that have at least one non-NA response in each unique combination of Quickness, Character Judgments, and Decision Speed conditions. Next, we excluded data from any participants who (a) failed our attention check, (b) incorrectly rated the slow condition as faster or equal to the quick condition, and/or (c) responded the same way for all non-NA responses.
 
 ```{r}
 #### Data exclusion / filtering
 
 exclu_data <- filtered_data %>%
+  group_by(ID) %>%  # Group by ID
   
-  # Group by ID
-  group_by(ID) %>%
-  
-  
-  # Check if the response contains "nate" or "justin" in rows where measure is "attention"
+# Response should contain "nate" or "justin" in rows where measure = "attention"
   filter(any(measure == "attention" & grepl("nate|justin", response, ignore.case = TRUE))) %>%
-   # 38 left after excluding those that failed the attention check
   
-  
-  # removed any ids that rate the fast person as slower than the slow person
+# removed any ids that rate the fast person as slower than the slow person
   filter(!any(measure == "quickness" &
               FastorSlow == "f" &
               response_reverse < response_reverse[measure == "quickness" & FastorSlow == "s"])) %>%
-  # 35 left after this
   
-  
-  # filter out ids that have all the same non-na response values
+# filter out ids that have all the same non-na response values
   filter(n_distinct(response, na.rm = TRUE) > 1) %>%
-  # still 35 thank god
   
-  
-  # Ungroup after filtering
-  ungroup()
+  ungroup() # Ungroup after filtering
 
 
-# distinct_id_count <- exclu_data %>%
-#   summarise(count = n_distinct(ID))
-
-
-summary(exclu_data)
+distinct_id_count <- exclu_data %>% summarise(count = n_distinct(ID))
+finss <- distinct_id_count[[1]]
 ```
+
+For our groups' data, filtering out responses based on the previously specified exclusion criteria left us with a final sample size of `r finss` particpants' responses.
+
 
 ```{r}
 #### Prepare data for analysis - create columns etc.
@@ -301,13 +293,13 @@ tidydf %>%
   summarize(subject_count = n_distinct(ID), .groups = "drop")
 ```
 
-### Confirmatory analysis
+#### Confirmatory analysis
 
 The analyses as specified in the analysis plan.
 
 *Side-by-side graph with original graph is ideal here*
 
-```{r  echo = FALSE}
+```{r, include = F, echo = FALSE}
 # Creating the Bar Plot to Assess Evidence of an Interaction
 
 # Filter data to include only rows where measure is "character"
@@ -346,7 +338,7 @@ ggplot(character_data,
 ```
 
 ```{r  echo = FALSE}
-## More complex plot
+### Data Visualization (Our Group Only)
 
 # Create the bar plot
 barplot <- ggplot(character_data, 
@@ -426,19 +418,6 @@ Anova(intmod, type = "III")
 ```
 
 
-```{r, include = F, eval = F}
-## Running the ANOVA Interaction Test
-## lme model
-
-# Fit a mixed model (accounts for ID) with the interaction of interest
-lmemod <- lme(response_reverse ~ condition * FastorSlow, random = ~1|ID, 
-               data = character_data)
-
-# Use a Type III, 2x2 Two-way ANOVA test
-# the results will tell us if the interaction term in needed in the model
-anova(lmemod)
-```
-
 
 **Model Diagnostics:**
 
@@ -509,6 +488,21 @@ car::vif(intmod)
 
 
 
+$~$
+
+### Combined Findings
+
+#### Data preparation
+
+
+
+
+
+
+
+
+$~$
+
 
 ### Exploratory analyses
 
@@ -519,6 +513,9 @@ Any follow-up analyses desired (not required).
 -   uncertainty
 
 -   emotional impulsivity
+
+
+$~$
 
 ## Discussion
 
