@@ -357,7 +357,7 @@ $~$
 
 To assess how well this model fits and explains the data, diagnostics plots were used to asses our model assumptions.
 
-###### 
+
 #### Model Diagnostics
 
 **Independence Assumption:**
