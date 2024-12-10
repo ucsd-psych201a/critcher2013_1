@@ -463,10 +463,16 @@ $~$
 
 Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.
 
+The results from our confirmatory analysis indicate that the interaction between decision speed and decision morality significantly influences character evaluations. Like the original study, we found that quick moral decisions led to more positive character evaluations, while slow immoral decisions resulted in harsher character evaluations. Our ANOVA corroborates the statistical significance of the interaction between these variables, therefore confirming that we successfully replicated the key outcome of the original study.
+
 ###### 
 ### Commentary
 
 Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt. None of these need to be long.
+
+(b) Although there are a few minor differences between our study and the original, such as collecting data online and using different exclusion criteria, the statistical significance of the interaction and the replication of the original findings suggest that these modifications did not affect the outcome.
+
+(c) There were no objections raised by the original authors regarding our replication attempt. We made every effort to replicate their procedure as closely as possible, including using the exact same written scenarios they composed for Experiment 1.
 
 $~$
 
