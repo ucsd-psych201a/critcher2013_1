@@ -844,7 +844,7 @@ Despite having such a small sample size with just our groups data, the study sti
 Assessing *Independence of Observations* is a thought exercise. No participants responses should impact another participants responses, therefore there is no reason to suspect violations of this assumption.
 
 
-To assess *Linearity* and *Homogeneity of Variance*, the Residuals vs Fitted plot will be investigated.
+To assess *Linearity* and *Homogeneity of Variance*, the Residuals vs Fitted plot was investigated.
 
 ```{r}
 fitted_vals <- fitted(intmod)
@@ -860,14 +860,14 @@ lines(lowess(fitted_vals, residuals), col = "red", lwd = 2)
 ```
 
 **Linearity Assumption**
-The red line does a great job of following the horizontal zero line, indicating little evidence of any missed curvature that our model would fail to account for. Therefore, there is no evidence to suspect any violations of this assumption.
+The red line did a great job of following the horizontal zero line, indicating little evidence of any missed curvature that our model failed to account for. Therefore, there was no evidence to suspect any violations of this assumption.
 
 **Homoskedacity**
-To assess homogeneity of variance, we are looking for drastic changes in vertical spread of point on the residual vs. fitted plot. AS fitted values increase, we see a slight decreasing fanning pattern. This suggests slight evidence against our equal variance assumption, but not extreme enough to be problematic for our results.
+To assess homogeneity of variance, we looked for drastic changes in vertical spread of point on the residual vs. fitted plot. AS fitted values increase, we see a slight decreasing fanning pattern. This suggested slight evidence against our equal variance assumption, but was not extreme enough to be problematic for our results.
 
 
 **Normality of Residuals**
-To assess *Normality of Residuals*, the Normal Q-Q Plot and a histogram of residuals will be referenced.
+To assess *Normality of Residuals*, the Normal Q-Q Plot and a histogram of residuals was referenced.
 ```{r}
 # Normal Q-Q Plot
 qqplot <- ggplot(data.frame(resid = resid(intmod)), aes(sample = resid)) +
@@ -905,7 +905,7 @@ normresid_plot <- qqplot + normhist +
 # Display the combined plot
 print(normresid_plot)
 ```
-The Normal Q-Q plot and Histogram of Residuals both show evidence of a light-tailed (short-tailed) pattern. This means that low values are higher than we expect, and high values are lower than we would expect. This is actually really good, meaning our residuals are even less problematic than expected! Therefore, there are no violations of the normality assumption.
+The Normal Q-Q plot and Histogram of Residuals both showed evidence of a light-tailed (short-tailed) pattern. This meant that low values are higher than we expected, and high values are lower than we would expect. This is actually really good, meaning our residuals were even less problematic than expected! Therefore, there were no violations of the normality assumption.
 
 
 **Multicollinearity**
@@ -917,6 +917,6 @@ car::vif(intmod)
 ```{r}
 sqrt(2.882353)
 ```
-The square root of the interaction's variance inflation factor tells us that the standard error for the interaction term is 1.7 times larger due to multicollinearity (the sharing of information) with other variables in the model than it would have been otherwise. 
+The square root of the interaction's variance inflation factor told us that the standard error for the interaction term is 1.7 times larger due to multicollinearity (the sharing of information) with other variables in the model than it would have been otherwise. 
 
 
