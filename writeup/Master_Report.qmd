@@ -544,7 +544,7 @@ The results from our confirmatory analysis indicated that the interaction betwee
 ###### 
 ### Commentary
 
-Although we found a violation of the normality assumption, we do not believe this to be particularly problematic for our purposes. The random effects in mixed models assume multivariate normality, but moderate deviations often have minimal impact on the validity of the model estimates, particularly if the sample size is large. Since our sample size for the combined data is considered large under the lenses of the Central Limit Theorem, we deem this violation to be not impactful.
+Although we found a violation of the normality assumption, we do not believe this to be particularly problematic for our purposes. The random effects in mixed models assume multivariate normality, but moderate deviations often have minimal impact on the validity of the model estimates, particularly if the sample size is large. Since our sample size for the combined data is considered large under the lens of the Central Limit Theorem, we deem this violation to be unimpactful.
 
 Despite a few minor differences between our study and the original, such as the data collection modality and exclusion criteria, the replication of the original findings still suggest that these modifications did not affect the outcome.
 
