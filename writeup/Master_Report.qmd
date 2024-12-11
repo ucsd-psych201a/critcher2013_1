@@ -9,14 +9,11 @@ format:
     toc_depth: 3
 ---
 
-
 ## Introduction
 
 The original study examined how the speed of decision-making influences the perception of moral character. It found that decision speed helps classify whether a choice is moral or immoral depending on the perceived certainty of the decision. Quick decisions perceived as moral led to more positive character evaluations, while quick immoral decisions resulted in harsher judgments. In contrast, slower decisions were viewed as less certain, leading to more moderate evaluations.
 
-Replicating Experiment 1 from “How Quick Decisions Illuminate Moral Character” offers an opportunity to explore how decision speed affects character judgments. In this experiment, participants read a scenario about two characters who find separate cash-filled wallets in a grocery store parking lot. Participants were randomly assigned to either the moral or immoral condition. Those in the moral condition learned that both characters returned the wallets, while those in the immoral condition read that both characters kept the money. One character decided quickly, while the other took longer. Participants then rated each character on a 1-7 scale, based on perceived decision speed, moral principles, decision certainty, and impulsiveness. A two-way ANOVA was used to analyze whether there is an interaction between decision speed and morality conditions on moral character judgments. 
-
-
+Replicating Experiment 1 from “How Quick Decisions Illuminate Moral Character” offers an opportunity to explore how decision speed affects character judgments. In this experiment, participants read a scenario about two characters who find separate cash-filled wallets in a grocery store parking lot. Participants were randomly assigned to either the moral or immoral condition. Those in the moral condition learned that both characters returned the wallets, while those in the immoral condition read that both characters kept the money. One character decided quickly, while the other took longer. Participants then rated each character on a 1-7 scale, based on perceived decision speed, moral principles, decision certainty, and impulsiveness. A two-way ANOVA was used to analyze whether there is an interaction between decision speed and morality conditions on moral character judgments.
 
 $~$
 
@@ -24,34 +21,36 @@ $~$
 
 ### Manipulated Variables
 
-1.  Decision speed (quick or slow):  Each participant was informed that one character, Justin, was able to make their decision quickly, and the other character, Nate, was only able to make their decision after "long and careful deliberation" regardless of moral condition.
+1.  Decision speed (quick or slow): Each participant was informed that one character, Justin, was able to make their decision quickly, and the other character, Nate, was only able to make their decision after "long and careful deliberation" regardless of moral condition.
 
-2.  Moral conditions (immoral or moral): Participants were given the same scenario where Justin and Nate come across a cash-filled wallet. Then they were randomly assigned to one of two conditions: moral or immoral. Based on their condition, they were given a prompt with the respective outcome. In the moral condition, both characters return the wallet, while in the immoral condition, they both keep it. 
+2.  Moral conditions (immoral or moral): Participants were given the same scenario where Justin and Nate come across a cash-filled wallet. Then they were randomly assigned to one of two conditions: moral or immoral. Based on their condition, they were given a prompt with the respective outcome. In the moral condition, both characters return the wallet, while in the immoral condition, they both keep it.
 
 ###### 
+
 ### Measurements
 
 Four categories of measurements were recorded on a 1-7 scale:
 
-  -   Moral character evaluation (3 questions per character, 6 total)
-  -   Quickness (1 question per character, 2 total)
-  -   Certainty (4 questions per character, 8 total)
-  -   Emotional impulsivity (2 questions per character, 4 total)
+-   Moral character evaluation (3 questions per character, 6 total)
+-   Quickness (1 question per character, 2 total)
+-   Certainty (4 questions per character, 8 total)
+-   Emotional impulsivity (2 questions per character, 4 total)
 
 (See Procedure section for more details on the types of questions in these categories)
 
 ###### 
+
 ### Study Design
 
 This study is a mixed design because the moral condition was assigned between-participants, but multiple measures were recorded for each subject, making it also within-participants. Each participant was exposed to only one type of moral outcome, either the characters acted morally or immorally.
 
 #### Repetition in Measures
 
-The questions regarding moral character evaluations, perceived decision speed, certainty, and emotional impulsivity were presented for each character, once for Justin (who decided quickly) and again for Nate (who decided slowly). 
+The questions regarding moral character evaluations, perceived decision speed, certainty, and emotional impulsivity were presented for each character, once for Justin (who decided quickly) and again for Nate (who decided slowly).
 
 ##### Consequences of Design Alterations
 
-We decided not to alter the study design because modifying to only within-participant design, where participants experience both moral and immoral conditions, may elicit response bias. This is because a within-participant design may negatively influence participant judgments by making it harder to evaluate behaviors in each condition independently. It may also create demand characteristics, where participants guess the study's purpose and modify their responses as a result. For these reasons, we chose to move forward with the original mixed design. 
+We decided not to alter the study design because modifying to only within-participant design, where participants experience both moral and immoral conditions, may elicit response bias. This is because a within-participant design may negatively influence participant judgments by making it harder to evaluate behaviors in each condition independently. It may also create demand characteristics, where participants guess the study's purpose and modify their responses as a result. For these reasons, we chose to move forward with the original mixed design.
 
 #### Reducing Demand Characteristics
 
@@ -67,19 +66,18 @@ The original study did not provide sufficient statistical information to conduct
 
 #### Planned Sample
 
-Our planned sample size is 289 participants.
-(See Methods Addendum section for more information on the official sample size.)
+Our planned sample size is 289 participants. (See Methods Addendum section for more information on the official sample size.)
 
 ###### 
+
 ### Materials
 
-To replicate this experiment, we used JSPsych to create an online survey. Participants read scenarios involving Justin and Nate, and then rated them on quickness, moral character, decision certainty, and impulsivity on a scale of 1-7. We reached out to Dr. Clayton Critcher, an author of the original study, who kindly provided us with a detailed document outlining the script and protocol used for Experiment 1. Our study used identical language to the original study in the spirit of replication. 
+To replicate this experiment, we used JSPsych to create an online survey. Participants read scenarios involving Justin and Nate, and then rated them on quickness, moral character, decision certainty, and impulsivity on a scale of 1-7. We reached out to Dr. Clayton Critcher, an author of the original study, who kindly provided us with a detailed document outlining the script and protocol used for Experiment 1. Our study used identical language to the original study in the spirit of replication.
 
 Link to experimental paradigm [here](https://ucsd-psych201a.github.io/critcher2013_1/).
 
-To access all materials used in this replication project please access our GitHub repository [here:] (https://github.com/ucsd-psych201a/critcher2013_1)
+To access all materials used in this replication project please access our GitHub repository [here:](https://github.com/ucsd-psych201a/critcher2013_1)
 
-###### 
 ### Procedure
 
 We mimicked the procedure from the original study. Here are descriptions from the original paper:
@@ -99,44 +97,47 @@ We mimicked the procedure from the original study. Here are descriptions from th
 -   Emotional Impulsivity: "Participants indicated to what extent the person remained “calm and emotionally contained” (reverse-scored) and 'became upset and acted without thinking.'"
 
 ###### 
+
 ### Analysis Plan
 
 The primary focus of this study was to evaluate moral character based on decision morality and decision speed; specifically, to determine whether there is an interaction between morality condition and decision speed on moral character judgement.
 
-Once our data was collected, we planned to exclude responses from participants with any non-answers or those who failed our attention check. We also included a sanity check because participants should have rated Justin _(who is able to decide quickly)_ as faster (higher numerical value) than Nate _(who only makes his decision after careful consideration)_. If participants failed to do so, even if they rated them at the same speed, we had reason to question whether they were adequately reading the prompts and thus their data was excluded from the analysis. Any participants who responded the same way to all numerical response questions also gave us reason to question the validity of their responses, and their data was excluded from the analysis as well. With these exclusion criteria, we hoped to ensure that the data was good quality and ready for analysis.
+Once our data was collected, we planned to exclude responses from participants with any non-answers or those who failed our attention check. We also included a sanity check because participants should have rated Justin *(who is able to decide quickly)* as faster (higher numerical value) than Nate *(who only makes his decision after careful consideration)*. If participants failed to do so, even if they rated them at the same speed, we had reason to question whether they were adequately reading the prompts and thus their data was excluded from the analysis. Any participants who responded the same way to all numerical response questions also gave us reason to question the validity of their responses, and their data was excluded from the analysis as well. With these exclusion criteria, we hoped to ensure that the data was good quality and ready for analysis.
 
 For statistical analysis, our main question of interest involved testing the effect of two factors (speed and decision morality) and their interaction on the response variable (moral character judgement); thus a type III, two-way analysis of variance (ANOVA) test was appropriate. A type III ANOVA tests each main effect and interaction, adjusting for all other factors and interactions in the model.
 
 The results of the type III two-way ANOVA revealed whether a model with the interaction term is better than just a model with all the predictors additively. After the best model was found, the ANOVA assumptions and model diagnostics were assessed and the results were interpreted for ease of understanding.
 
 ###### 
+
 #### Differences from Original Study
 
 In our replication, we introduced several features that differed from the original experiment. One difference was the addition of an attention check at the end of the experiment where we asked participants to name one of the characters from the scenarios. This attention check was designed to ensure participants were engaged throughout the study. Another difference was that our participants were not limited to undergraduate students since we were conducting an online study through Prolific. Additionally, our sample size differed from the original study because we could not conduct a power analysis based on the information provided in the article. Instead, we opted for a rule-of-thumb multiplier to determine our required sample size. These differences may have affected the replication by introducing variability not present in the original study.
 
 ###### 
+
 ### Methods Addendum (Post Data Collection)
 
 In our class, we were one of three separate groups running replications of this study. Due to budget constraints, there were not enough funds for all three groups to run 289 participants. Therefore, each group was allowed to run 100 participants for their replication study. We combined and analyzed data from the 3 respective studies and kept only participants who passed each groups' unique attention checks. Then we applied our exclusion criteria to the combined data for analysis. We also separately analyzed our individual group’s results as well (see Appendix).
 
 ###### 
+
 #### Differences From Pre-Data Collection Methods Plan
 
-After collecting our group's portion of the data, we quickly realized there were only 16 participants (out of our sample of 100) who responded to every rating question—so the planned exclusion criteria had to be changed in the hopes of increased power. Instead we only used data from participants that had at least one non-NA response in each unique combination of Quickness, Character Judgments, and Decision Speed conditions. This made it reasonable to still conduct our main analyses of interest on these data, without risking muddled results due to abundant missing comparisons. 
+After collecting our group's portion of the data, we quickly realized there were only 16 participants (out of our sample of 100) who responded to every rating question—so the planned exclusion criteria had to be changed in the hopes of increased power. Instead we only used data from participants that had at least one non-NA response in each unique combination of Quickness, Character Judgments, and Decision Speed conditions. This made it reasonable to still conduct our main analyses of interest on these data, without risking muddled results due to abundant missing comparisons.
 
 ###### 
+
 #### Actual Sample
 
-**Data Exclusion Criteria:**
-Our exclusion criteria are as follows:
+**Data Exclusion Criteria:** Our exclusion criteria are as follows:
 
 -   Submissions with all non-answers for at least one unique combination of Quickness, Character Judgments, and Decision Speed conditions.
 -   Participants who failed the attention check.
 -   Participants who incorrectly rated Justin as *slower* (lower numerical value) than Nate.
 -   Participants who responded the same to all numerical response questions.
 
-**Official Sample Size:**
-After cleaning the final combined data from all groups, the resulting sample size was **220**.
+**Official Sample Size:** After cleaning the final combined data from all groups, the resulting sample size was **220**.
 
 $~$
 
@@ -146,7 +147,7 @@ The following is our analysis and results from the three groups’ combined data
 
 ### Data Preparation
 
-We began the data cleaning process by pivoting our dataset to a long format to expedite data visualization. Next, we created a standardized trial index column and added a participant ID to keep unique submissions identifiable. Then, to aid with analysis, we added a `FastorSlow` column where Justin questions were coded as fast and Nate questions were coded as slow. Furthermore, we created a  `measure` variable to categorize which question corresponded to which category of measure. Finally, six questions required reverse coding to ensure consistent scale for the certainty and impulsivity measures. The original author had recommended including appropriate reverse coding but the procedure was our own.
+We began the data cleaning process by pivoting our dataset to a long format to expedite data visualization. Next, we created a standardized trial index column and added a participant ID to keep unique submissions identifiable. Then, to aid with analysis, we added a `FastorSlow` column where Justin questions were coded as fast and Nate questions were coded as slow. Furthermore, we created a `measure` variable to categorize which question corresponded to which category of measure. Finally, six questions required reverse coding to ensure consistent scale for the certainty and impulsivity measures. The original author had recommended including appropriate reverse coding but the procedure was our own.
 
 ```{r, eval = F}
 # File path
@@ -226,8 +227,7 @@ long_data <- long_data %>%
 write.csv(long_data, "../data/quick_decisions_all_clean_data.csv", row.names = FALSE)
 ```
 
-After cleaning, we wrangled the data to prepare it for analysis. We then removed observations following our exclusion criteria. 
-
+After cleaning, we wrangled the data to prepare it for analysis. We then removed observations following our exclusion criteria.
 
 ```{r include=F}
 ### Data Preparation
@@ -334,9 +334,10 @@ tidyDF %>%
 After all of the cleaning and exclusions, we ended up with a perfectly balanced design where 110 participants were randomly assigned to the immoral condition, and 110 were randomly assigned to the moral condition.
 
 ###### 
+
 ### Confirmatory Analysis
 
-The combined data were used to create a bar graph and line plot to explore the potential for an interaction between decision speed and morality condition on moral character judgement. 
+The combined data were used to create a bar graph and line plot to explore the potential for an interaction between decision speed and morality condition on moral character judgement.
 
 ```{r}
 ### Data Visualization (Combined Data)
@@ -410,7 +411,7 @@ combinedPlot <- (barPlot + linePlot) +
 print(combinedPlot)
 ```
 
-The intersecting lines in the line plot indicate a very high likelihood of an interaction prior to any statistical tests being run. 
+The intersecting lines in the line plot indicate a very high likelihood of an interaction prior to any statistical tests being run.
 
 Following this evidence, our model was fit; we chose a mixed effects model to appropriately account for the repeated measures on participants with a random intercept. Then, a type III, two-way ANOVA was run on the model to assess if the interaction was needed in the model to explain the patterns in the data (aka, if it is significant). A type III ANOVA was appropriate to test models with interaction terms, and a two-way ANOVA was needed because we have two 2-level factors being tested: (1) Decision Speed (fast or slow), and (2) Morality Condition (moral or immoral).
 
@@ -426,21 +427,15 @@ Anova(intmodc, type = "III")
 
 The results of the ANOVA were consistent with what we saw in our figure; the interaction between decision speed and morality condition had a significant effect on moral character judgement. In short, the experiment replicated!
 
-
-
 $~$
-
 
 ### Exploratory Analyses
 
 We used diagnostics plots to assess model assumptions and determine how well the model fits and explains the data.
 
-
 #### Model Diagnostics
 
-**Independence Assumption:**
-Assessing *Independence of Observations* is a thought exercise. No one participant's responses should impact another participant's responses, therefore there is no reason to suspect violations of this assumption.
-
+**Independence Assumption:** Assessing *Independence of Observations* is a thought exercise. No one participant's responses should impact another participant's responses, therefore there is no reason to suspect violations of this assumption.
 
 To assess *Linearity* and *Homogeneity of Variance*, the Residuals vs Fitted plot will be investigated.
 
@@ -457,14 +452,12 @@ abline(h = 0, col = "black")  # Horizontal line at 0
 lines(lowess(fitted_vals, residuals), col = "red", lwd = 2)
 ```
 
-**Linearity Assumption:**
-The red line did a fairly good job of following the horizontal zero line, indicating little evidence of any missed curvature that our model would fail to account for. Therefore, there was not enough deviation to suspect problematic violation of this assumption.
+**Linearity Assumption:** The red line did a fairly good job of following the horizontal zero line, indicating little evidence of any missed curvature that our model would fail to account for. Therefore, there was not enough deviation to suspect problematic violation of this assumption.
 
-**Homoskedacity:**
-To assess homogeneity of variance, we were looking for drastic changes in vertical spread of points on the residual vs. fitted plot. For fitted values between 2 and 4.5 there was an increasing fanning pattern, and fitted values between 4.5 and 7 illustrated a decreasing fanning pattern. This double fanning, or diamond shape, indicated a clear violation of the homoskedacity assumption.
+**Homoskedacity:** To assess homogeneity of variance, we were looking for drastic changes in vertical spread of points on the residual vs. fitted plot. For fitted values between 2 and 4.5 there was an increasing fanning pattern, and fitted values between 4.5 and 7 illustrated a decreasing fanning pattern. This double fanning, or diamond shape, indicated a clear violation of the homoskedacity assumption.
 
-**Normality of Residuals:**
-To assess *Normality of Residuals*, the Normal Q-Q Plot and a histogram of residuals were referenced.
+**Normality of Residuals:** To assess *Normality of Residuals*, the Normal Q-Q Plot and a histogram of residuals were referenced.
+
 ```{r}
 # Normal Q-Q Plot
 qqplot <- ggplot(data.frame(resid = resid(intmodc)), aes(sample = resid)) +
@@ -505,24 +498,23 @@ print(normresid_plot)
 
 The Normal Q-Q plot and Histogram of Residuals both showed evidence of a heavy-tailed pattern, which indicated potential for problematic violation of the normality assumption.
 
-
-**Multicollinearity:**
-We investigated the variance inflation factors (vifs) to explore the potential for *Multicollinearity*.
+**Multicollinearity:** We investigated the variance inflation factors (vifs) to explore the potential for *Multicollinearity*.
 
 ```{r}
 car::vif(intmodc)
 ```
+
 ```{r}
 sqrt(2.478771)
 ```
-The square root of the interaction's variance inflation factor told us that the standard error for the interaction term was 1.574 times larger due to multicollinearity (the sharing of information) with other variables in the model than it would have been otherwise. 
 
-
+The square root of the interaction's variance inflation factor told us that the standard error for the interaction term was 1.574 times larger due to multicollinearity (the sharing of information) with other variables in the model than it would have been otherwise.
 
 ###### 
+
 #### Interpretation of Results
 
-As previously mentioned, the study replicated! Our model and statistical analysis also indicated that the interaction term was necessary in the model. 
+As previously mentioned, the study replicated! Our model and statistical analysis also indicated that the interaction term was necessary in the model.
 
 Next, to give more insight, we calculated a confidence interval for the model coefficient estimates.
 
@@ -531,9 +523,7 @@ summary(intmodc)
 confint(intmodc)
 ```
 
-**Interpreting the Interaction:**
-Making a moral decision slowly resulted in _lower_ moral character judgement, compared to moral decisions made quickly. The opposite was true for immoral decisions; making an immoral decision slowly resulted in _higher_ moral character judgement compared to immoral decisions made quickly. In more general terms, the effect of decision speed on moral character judgement was very dependent on the morality of the decision made.
-
+**Interpreting the Interaction:** Making a moral decision slowly resulted in *lower* moral character judgement, compared to moral decisions made quickly. The opposite was true for immoral decisions; making an immoral decision slowly resulted in *higher* moral character judgement compared to immoral decisions made quickly. In more general terms, the effect of decision speed on moral character judgement was very dependent on the morality of the decision made.
 
 $~$
 
@@ -544,13 +534,14 @@ $~$
 The results from our confirmatory analysis indicated that the interaction between decision speed and decision morality had a significant impact on character evaluations. Like the original study, quick decisions lead to more extreme character judgements, while slow decisions were associated with less harsh judgements. Our ANOVA corroborated the statistical significance of the interaction between these variables, therefore confirming that we successfully replicated the key outcome of the original study.
 
 ###### 
+
 ### Commentary
 
 Although we found a violation of the normality assumption, we do not believe this to be particularly problematic for our purposes. The random effects in mixed models assume multivariate normality, but moderate deviations often have minimal impact on the validity of the model estimates, particularly if the sample size is large. Since our sample size for the combined data is considered large under the lens of the Central Limit Theorem, we deem this violation to be unimpactful.
 
 Despite a few minor differences between our study and the original, such as the data collection modality and exclusion criteria, the replication of the original findings still suggest that these modifications did not affect the outcome.
 
-There were no objections raised by the original authors regarding our replication attempt. We made every effort to replicate their procedure as closely as possible by using the exact written scenarios composed for Experiment 1. 
+There were no objections raised by the original authors regarding our replication attempt. We made every effort to replicate their procedure as closely as possible by using the exact written scenarios composed for Experiment 1.
 
 $~$
 
@@ -558,20 +549,17 @@ $~$
 
 **Harley Clifton**: Conceptualization, Formal Analysis, Investigation, Data Curation, Writing, Visualization, Project Administration. **Sara Hamidi**: Conceptualization, Software, Investigation, Resources, Data Curation. **Prosperity Land**: Conceptualization, Investigation, Writing, Visualization. **Isabella Mullen**: Conceptualization, Software, Investigation, Resources, Data Curation, Project Administration.
 
-
 $~$
 
 ## Appendix
 
 ### Our Group's Findings, Analysis, & Results
 
-
 #### Data Preparation
 
 For our preparation plan, we removed observations that met our exclusion criteria. We also pivoted our dataset to a long format to expedite data visualization.
 
 Data preparation following the analysis plan:
-
 
 ```{r}
 #### Import data
@@ -671,7 +659,6 @@ finss <- distinct_id_count[[1]]
 
 For our group’s data, after filtering out responses based on the previously specified exclusion criteria we were left with a final sample size of `r finss` particpant responses.
 
-
 ```{r}
 #### Prepare data for analysis - create columns etc.
 
@@ -710,8 +697,8 @@ tidydf %>%
   group_by(condition) %>%
   summarize(subject_count = n_distinct(ID), .groups = "drop")
 ```
-Even though our group's final sample size was quite small due to all of the exclusion criteria, it still ended up being a fairly balanced design.
 
+Even though our group's final sample size was quite small due to all of the exclusion criteria, it still ended up being a fairly balanced design.
 
 #### Confirmatory Analysis
 
@@ -839,12 +826,9 @@ Anova(intmod, type = "III")
 
 Despite having such a small sample size with just our groups data, the study still replicated!
 
-
 #### Model Diagnostics
 
-**Independence Assumption**
-Assessing *Independence of Observations* is a thought exercise. No participants responses should impact another participants responses, therefore there is no reason to suspect violations of this assumption.
-
+**Independence Assumption** Assessing *Independence of Observations* is a thought exercise. No participants responses should impact another participants responses, therefore there is no reason to suspect violations of this assumption.
 
 To assess *Linearity* and *Homogeneity of Variance*, the Residuals vs Fitted plot was investigated.
 
@@ -861,15 +845,12 @@ abline(h = 0, col = "black")  # Horizontal line at 0
 lines(lowess(fitted_vals, residuals), col = "red", lwd = 2)
 ```
 
-**Linearity Assumption**
-The red line did a great job of following the horizontal zero line, indicating little evidence of any missed curvature that our model failed to account for. Therefore, there was no evidence to suspect any violations of this assumption.
+**Linearity Assumption** The red line did a great job of following the horizontal zero line, indicating little evidence of any missed curvature that our model failed to account for. Therefore, there was no evidence to suspect any violations of this assumption.
 
-**Homoskedacity**
-To assess homogeneity of variance, we looked for drastic changes in vertical spread of point on the residual vs. fitted plot. AS fitted values increase, we see a slight decreasing fanning pattern. This suggested slight evidence against our equal variance assumption, but was not extreme enough to be problematic for our results.
+**Homoskedacity** To assess homogeneity of variance, we looked for drastic changes in vertical spread of point on the residual vs. fitted plot. AS fitted values increase, we see a slight decreasing fanning pattern. This suggested slight evidence against our equal variance assumption, but was not extreme enough to be problematic for our results.
 
+**Normality of Residuals** To assess *Normality of Residuals*, the Normal Q-Q Plot and a histogram of residuals was referenced.
 
-**Normality of Residuals**
-To assess *Normality of Residuals*, the Normal Q-Q Plot and a histogram of residuals was referenced.
 ```{r}
 # Normal Q-Q Plot
 qqplot <- ggplot(data.frame(resid = resid(intmod)), aes(sample = resid)) +
@@ -907,18 +888,17 @@ normresid_plot <- qqplot + normhist +
 # Display the combined plot
 print(normresid_plot)
 ```
+
 The Normal Q-Q plot and Histogram of Residuals both showed evidence of a light-tailed (short-tailed) pattern. This meant that low values are higher than we expected, and high values are lower than we would expect. This is actually really good, meaning our residuals were even less problematic than expected! Therefore, there were no violations of the normality assumption.
 
-
-**Multicollinearity**
-The potential for *Multicollinearity* was explored by investigating the variance inflation factors (vifs).
+**Multicollinearity** The potential for *Multicollinearity* was explored by investigating the variance inflation factors (vifs).
 
 ```{r}
 car::vif(intmod)
 ```
+
 ```{r}
 sqrt(2.882353)
 ```
-The square root of the interaction's variance inflation factor told us that the standard error for the interaction term is 1.7 times larger due to multicollinearity (the sharing of information) with other variables in the model than it would have been otherwise. 
 
-
+The square root of the interaction's variance inflation factor told us that the standard error for the interaction term is 1.7 times larger due to multicollinearity (the sharing of information) with other variables in the model than it would have been otherwise.
