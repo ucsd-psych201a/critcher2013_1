@@ -33,10 +33,10 @@ $~$
 
 Four categories of measurements were recorded on a 1-7 scale:
 
-    -   Moral character evaluation (3 questions per character, 6 total)
-    -   Quickness (1 question per character, 2 total)
-    -   Certainty (4 questions per character, 8 total)
-    -   Emotional impulsivity (2 questions per character, 4 total)
+  -   Moral character evaluation (3 questions per character, 6 total)
+  -   Quickness (1 question per character, 2 total)
+  -   Certainty (4 questions per character, 8 total)
+  -   Emotional impulsivity (2 questions per character, 4 total)
 
 (See Procedure section for more details on the types of questions in these categories)
 
@@ -53,7 +53,7 @@ The questions regarding moral character evaluations, perceived decision speed, c
 
 We decided not to alter the study design because modifying to only within-participant design, where participants experience both moral and immoral conditions, may elicit response bias. This is because a within-participant design may negatively influence participant judgments by making it harder to evaluate behaviors in each condition independently. It may also create demand characteristics, where participants guess the study's purpose and modify their responses as a result. For these reasons, we chose to move forward with the original mixed design. 
 
-#### Reducing Demand characteristics
+#### Reducing Demand Characteristics
 
 Preserving the mixed design and randomly assigning the morality condition minimizes demand characteristics. This approach prevents any influence of prior knowledge on participant’s evaluations or making direct comparisons between moral or immoral conditions. This allows us to synthesize the effect of decision speed on the measurements rather than morality. Random assignment also minimizes further biases and prevents participants from recognizing patterns that could reveal the study's intent.
 
@@ -142,7 +142,7 @@ $~$
 
 The following is our analysis and results from the three groups’ combined data. See the Appendix for more detailed analysis of only our group's data.
 
-### Data preparation
+### Data Preparation
 
 We began the data cleaning process by pivoting our dataset to a long format to expedite data visualization. Next, we created a standardized trial index column and added a participant ID to keep unique submissions identifiable. Then, to aid with analysis, we added a `FastorSlow` column where Justin questions were coded as fast and Nate questions were coded as slow. Furthermore, we created a  `measure` variable to categorize which question corresponded to which category of measure. Finally, six questions required reverse coding to ensure consistent scale for the certainty and impulsivity measures. The original author had recommended including appropriate reverse coding but the procedure was our own.
 
@@ -332,7 +332,7 @@ tidyDF %>%
 After all of the cleaning and exclusions, we ended up with a perfectly balanced design where 110 participants were randomly assigned to the immoral condition, and 110 were randomly assigned to the moral condition.
 
 ###### 
-### Confirmatory analysis
+### Confirmatory Analysis
 
 The combined data were used to create a bar graph and line plot to explore the potential for an interaction between decision speed and morality condition on moral character judgement. 
 
@@ -429,7 +429,7 @@ The results of the ANOVA were consistent with what we saw in our figure; the int
 $~$
 
 
-### Exploratory analyses
+### Exploratory Analyses
 
 We used diagnostics plots to assess model assumptions and determine how well the model fits and explains the data.
 
@@ -522,9 +522,9 @@ The square root of the interaction's variance inflation factor told us that the 
 
 As previously mentioned, the study replicated! Our model and statistical analysis also indicated that the interaction term was necessary in the model. 
 
-Next, to give more insight, we calculated a confidence interval for the interaction term.
+Next, to give more insight, we calculated a confidence interval for the model coefficient estimates.
 
- ```{r}
+```{r}
 summary(intmodc)
 confint(intmodc)
 ```
@@ -564,11 +564,12 @@ $~$
 ### Our Group's Findings, Analysis, & Results
 
 
-#### Data preparation
+#### Data Preparation
 
 For our preparation plan, we removed observations that met our exclusion criteria. We also pivoted our dataset to a long format to expedite data visualization.
 
 Data preparation following the analysis plan:
+
 
 ```{r}
 #### Import data
@@ -710,7 +711,7 @@ tidydf %>%
 Even though our group's final sample size was quite small due to all of the exclusion criteria, it still ended up being a fairly balanced design.
 
 
-#### Confirmatory analysis
+#### Confirmatory Analysis
 
 ```{r, include = F, echo = FALSE}
 # Creating the Bar Plot to Assess Evidence of an Interaction
