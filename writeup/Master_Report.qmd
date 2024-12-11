@@ -75,7 +75,9 @@ Our planned sample size is 289 participants.
 
 To replicate this experiment, we used JSPsych to create an online survey. Participants read scenarios involving Justin and Nate, and then rated them on quickness, moral character, decision certainty, and impulsivity on a scale of 1-7. We reached out to Dr. Clayton Critcher, an author of the original study, who kindly provided us with a detailed document outlining the script and protocol used for Experiment 1. Our study used identical language to the original study in the spirit of replication. 
 
-**Experimental paradigm link: <https://ucsd-psych201a.github.io/critcher2013_1/>**
+Link to experimental paradigm [here](https://ucsd-psych201a.github.io/critcher2013_1/).
+
+To access all materials used in this replication project please access our GitHub repository [here:] (https://github.com/ucsd-psych201a/critcher2013_1)
 
 ###### 
 ### Procedure
